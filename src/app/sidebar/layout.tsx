@@ -1,4 +1,3 @@
-// src/app/sidebar/sidebar.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -12,6 +11,7 @@ import {
   HardDrive,
   CreditCard,
   MessageSquare,
+  Mail,
   FileText,
   Calendar,
   Edit,
@@ -21,9 +21,33 @@ import {
   Zap,
   ChevronDown,
   Menu,
+  Book,
+  Phone,
+  Settings,
+  IdCard,
+  AlertTriangle,
+  FilePlus,
+  User,
+  Globe,
+  Trash2,
+  List,
+  DollarSign,
+  PlusCircle,
+  Search,
+  AlertCircle,
+  GraduationCap,
+  Tag,
+  Bell,
+  ArrowRight,
+  Percent,
+  SquareArrowOutUpRight,
+  Projector,
+  Accessibility,
+  HousePlus,
+  Banknote
+
 } from "lucide-react";
 
-// Define types for menu items
 interface MenuItem {
   title: string;
   icon: string;
@@ -31,23 +55,39 @@ interface MenuItem {
   subItems?: MenuItem[];
 }
 
-// Map icon strings to Lucide components
 const iconMap = {
+  link: Home,
   home: Home,
-  box: Box,
-  "shopping-bag": ShoppingBag,
-  inbox: Inbox,
-  "hard-drive": HardDrive,
-  "credit-card": CreditCard,
-  "message-square": MessageSquare,
-  "file-text": FileText,
-  calendar: Calendar,
-  edit: Edit,
   users: Users,
-  trello: Trello,
-  activity: Activity,
-  zap: Zap,
+  book: Book,
+  phone: Phone,
+  mail: Mail,
+  "message-square": MessageSquare,
+  settings: Settings,
+  user: User,
+  "file-plus": FilePlus,
+  globe: Globe,
+  trash2: Trash2,
+  list: List,
+  "alert-triangle": AlertTriangle,
+  "id-card": IdCard,
+  "dollar-sign": DollarSign,
+  "plus-circle": PlusCircle,
+  search: Search,
+  "alert-circle": AlertCircle,
+  "file-text": FileText,
+  "graduation-cap": GraduationCap,
+  "credit-card": CreditCard,
+  tag: Tag,
+  percent: Percent,
+  "arrow-right": ArrowRight,
+  bell: Bell,
   "chevron-down": ChevronDown,
+  SquareArrowOutUpRight:SquareArrowOutUpRight,
+  Projector:Projector,
+  Accessibility:Accessibility,
+  HousePlus:HousePlus,
+  Banknote:Banknote
 };
 
 const Sidebar: React.FC = () => {
@@ -65,87 +105,58 @@ const Sidebar: React.FC = () => {
 
   const menuItems: MenuItem[] = [
     {
-      title: "Dashboard",
-      icon: "home",
+      title: "Quick Links",
+      path: "/quick-links",
+      icon: "SquareArrowOutUpRight", // Using a generic icon for "Quick Links"
+    },
+    {
+      title: "Front Office",
+      path: "/front-office",
+      icon: "Projector", // Using "Home" icon as a placeholder for "Front Office"
       subItems: [
-        { title: "Overview 1", path: "/dashboard/overview-1", icon: "activity" },
-        { title: "Overview 2", path: "/dashboard/overview-2", icon: "activity" },
-        { title: "Overview 3", path: "/dashboard/overview-3", icon: "activity" },
-        { title: "Overview 4", path: "/", icon: "activity" },
+        { title: "Admission Enquiry", path: "/front-office/admission-enquiry", icon: "users" },
+        { title: "Visitor Book", path: "/front-office/visitor-book", icon: "book" },
+        { title: "Phone Call Log", path: "/front-office/phone-call-log", icon: "phone" },
+        { title: "Postal Dispatch", path: "/front-office/postal-dispatch", icon: "mail" },
+        { title: "Postal Receive", path: "/front-office/postal-receive", icon: "mail" },
+        { title: "Complain", path: "/front-office/complain", icon: "message-square" },
+        { title: "Setup Front Office", path: "/front-office/setup-front-office", icon: "settings" },
       ],
     },
     {
-      title: "Menu Layout",
-      icon: "box",
-      subItems: [
-        { title: "Side Menu", path: "/menu/side", icon: "activity" },
-        { title: "Simple Menu", path: "/menu/simple", icon: "activity" },
-        { title: "Top Menu", path: "/menu/top", icon: "activity" },
-      ],
-    },
-    {
-      title: "E-Commerce",
-      icon: "shopping-bag",
-      subItems: [
-        { title: "Categories", path: "/ecommerce/categories", icon: "activity" },
-        { title: "Add Product", path: "/ecommerce/add-product", icon: "activity" },
-        {
-          title: "Products",
-          icon: "activity",
-          subItems: [
-            { title: "Product List", path: "/ecommerce/product-list", icon: "zap" },
-            { title: "Product Grid", path: "/ecommerce/product-grid", icon: "zap" },
-          ],
-        },
-        {
-          title: "Transactions",
-          icon: "activity",
-          subItems: [
-            { title: "Transaction List", path: "/ecommerce/transaction-list", icon: "zap" },
-            { title: "Transaction Detail", path: "/ecommerce/transaction-detail", icon: "zap" },
-          ],
-        },
-        {
-          title: "Sellers",
-          icon: "activity",
-          subItems: [
-            { title: "Seller List", path: "/ecommerce/seller-list", icon: "zap" },
-            { title: "Seller Detail", path: "/ecommerce/seller-detail", icon: "zap" },
-          ],
-        },
-        { title: "Reviews", path: "/ecommerce/reviews", icon: "activity" },
-      ],
-    },
-    { title: "Inbox", path: "/inbox", icon: "inbox" },
-    { title: "File Manager", path: "/file-manager", icon: "hard-drive" },
-    { title: "Point of Sale", path: "/pos", icon: "credit-card" },
-    { title: "Chat", path: "/chat", icon: "message-square" },
-    { title: "Post", path: "/post", icon: "file-text" },
-    { title: "Calendar", path: "/calendar", icon: "calendar" },
-    {
-      title: "Crud",
-      icon: "edit",
-      subItems: [
-        { title: "Data List", path: "/crud/data-list", icon: "activity" },
-        { title: "Form", path: "/crud/form", icon: "activity" },
-      ],
-    },
-    {
-      title: "Users",
+      title: "Student Information",
+      path: "/student-information",
       icon: "users",
       subItems: [
-        { title: "Layout 1", path: "/users/layout-1", icon: "activity" },
-        { title: "Layout 2", path: "/users/layout-2", icon: "activity" },
-        { title: "Layout 3", path: "/users/layout-3", icon: "activity" },
+        { title: "Student Details", path: "/student-information/student-details", icon: "user" },
+        { title: "Student Admission", path: "/student-information/student-admission", icon: "file-plus" },
+        { title: "Online Admission", path: "/student-information/online-admission", icon: "globe" },
+        { title: "Disabled Students", path: "/student-information/disabled-students", icon: "Accessibility" },
+        { title: "Multi Class Student", path: "/student-information/multi-class-student", icon: "users" },
+        { title: "Bulk Delete", path: "/student-information/bulk-delete", icon: "trash2" },
+        { title: "Student Categories", path: "/student-information/student-categories", icon: "list" },
+        { title: "Student House", path: "/student-information/student-house", icon: "HousePlus" },
+        { title: "Disable Reason", path: "/student-information/disable-reason", icon: "alert-triangle" },
+        { title: "Student ID Cards", path: "/student-information/student-id-cards", icon: "id-card" },
       ],
     },
     {
-      title: "Profile",
-      icon: "trello",
+      title: "Fees Collection",
+      path: "/fees-collection",
+      icon: "Banknote",
       subItems: [
-        { title: "Overview 1", path: "/profile/overview-1", icon: "activity" },
-        { title: "Overview 2", path: "/profile/overview-2", icon: "activity" },
-        { title: "Overview 3", path: "/profile/overview-3", icon: "activity" },
+        { title: "Collect Fees", path: "/fees-collection/collect-fees", icon: "plus-circle" },
+        { title: "Search Fees Payment", path: "/fees-collection/search-fees-payment", icon: "search" },
+        { title: "Search Due Fees", path: "/fees-collection/search-due-fees", icon: "alert-circle" },
+        { title: "Fees Master", path: "/fees-collection/fees-master", icon: "file-text" },
+        { title: "Fees Master College", path: "/fees-collection/fees-master-college", icon: "graduation-cap" },
+        { title: "Fees Group", path: "/fees-collection/fees-group", icon: "users" },
+        { title: "Fees Type", path: "/fees-collection/fees-type", icon: "list" },
+        { title: "Bank Account", path: "/fees-collection/bank-account", icon: "credit-card" },
+        { title: "Fees Category", path: "/fees-collection/fees-category", icon: "tag" },
+        { title: "Fees Discount", path: "/fees-collection/fees-discount", icon: "percent" },
+        { title: "Fees Carry Forward", path: "/fees-collection/fees-carry-forward", icon: "arrow-right" },
+        { title: "Fees Reminder", path: "/fees-collection/fees-reminder", icon: "bell" },
       ],
     },
   ];
@@ -204,11 +215,12 @@ const Sidebar: React.FC = () => {
       </button>
       {/* Sidebar Navigation */}
       <nav
-        className={`fixed top-0 left-0 w-64 min-h-screen bg-slate-100 p-4 overflow-y-auto transition-transform duration-300 ${
+        className={`fixed left-0 w-64 bg-slate-100 p-4 overflow-y-auto transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:min-h-0 dark:bg-darkmode-800 dark:text-slate-300 z-50`}
+        style={{ top: "80px", height: "calc(100vh - 80px)" }} // Moved sidebar down further
       >
-        <ul className="space-y-2 mt-16 pb-4">{menuItems.map((item) => renderMenuItem(item))}</ul>
+        <ul className="space-y-2 pb-4 pt-4">{menuItems.map((item) => renderMenuItem(item))}</ul>
       </nav>
     </>
   );

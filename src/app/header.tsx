@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Bell, Search, User, Edit, Lock, HelpCircle, ToggleRight, CircleUserRound } from 'lucide-react';
 
 const Header: React.FC = () => {
   const pathname = usePathname();
@@ -67,7 +68,7 @@ const Header: React.FC = () => {
               className="search__input form-control border-transparent"
               placeholder="Search..."
             />
-            <i data-lucide="search" className="search__icon dark:text-slate-500"></i>
+            <Search className="search__icon dark:text-slate-500 w-5 h-5" />
           </div>
           <a
             className="notification notification--light sm:hidden"
@@ -104,7 +105,7 @@ const Header: React.FC = () => {
             aria-expanded={isNotificationsOpen}
             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
           >
-            <i data-lucide="bell" className="notification__icon dark:text-slate-500"></i>
+            <Bell className="notification__icon dark:text-slate-500 w-5 h-5" />
           </div>
           {isNotificationsOpen && (
             <div className="notification-content pt-2 dropdown-menu">
@@ -139,12 +140,13 @@ const Header: React.FC = () => {
         {/* BEGIN: Account Menu */}
         <div className="intro-x dropdown w-8 h-8">
           <div
-            className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
+            className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110 flex items-center justify-center bg-primary"
             role="button"
             aria-expanded={isAccountOpen}
             onClick={() => setIsAccountOpen(!isAccountOpen)}
           >
-            <img alt="Enigma - Admin Template" src="/profile-5.jpg" /> {/* Adjust path */}
+            <CircleUserRound className="w-8 h-8 text-white" />
+            {/* <img alt="Enigma - Admin Template" src="/profile-5.jpg" />  Adjust path */}
           </div>
           {isAccountOpen && (
             <div className="dropdown-menu w-56">
@@ -158,22 +160,22 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                   <Link href="/profile" className="dropdown-item hover:bg-white/5">
-                    <i data-lucide="user" className="w-4 h-4 mr-2"></i> Profile
+                    <User className="w-4 h-4 mr-2" /> Profile
                   </Link>
                 </li>
                 <li>
                   <Link href="/add-account" className="dropdown-item hover:bg-white/5">
-                    <i data-lucide="edit" className="w-4 h-4 mr-2"></i> Add Account
+                    <Edit className="w-4 h-4 mr-2" /> Add Account
                   </Link>
                 </li>
                 <li>
                   <Link href="/reset-password" className="dropdown-item hover:bg-white/5">
-                    <i data-lucide="lock" className="w-4 h-4 mr-2"></i> Reset Password
+                    <Lock className="w-4 h-4 mr-2" /> Reset Password
                   </Link>
                 </li>
                 <li>
                   <Link href="/help" className="dropdown-item hover:bg-white/5">
-                    <i data-lucide="help-circle" className="w-4 h-4 mr-2"></i> Help
+                    <HelpCircle className="w-4 h-4 mr-2" /> Help
                   </Link>
                 </li>
                 <li>
@@ -181,7 +183,7 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                   <Link href="/logout" className="dropdown-item hover:bg-white/5">
-                    <i data-lucide="toggle-right" className="w-4 h-4 mr-2"></i> Logout
+                    <ToggleRight className="w-4 h-4 mr-2" /> Logout
                   </Link>
                 </li>
               </ul>
