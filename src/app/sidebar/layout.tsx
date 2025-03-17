@@ -1,4 +1,4 @@
-// src/components/Sidebar.tsx
+// src/app/sidebar/sidebar.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -59,12 +59,57 @@ const Sidebar: React.FC = () => {
             { title: 'Product Grid', path: '/ecommerce/product-grid', icon: 'zap' },
           ],
         },
-        // Add more sub-items as needed
+        {
+          title: 'Transactions',
+          icon: 'activity',
+          subItems: [
+            { title: 'Transaction List', path: '/ecommerce/transaction-list', icon: 'zap' },
+            { title: 'Transaction Detail', path: '/ecommerce/transaction-detail', icon: 'zap' },
+          ],
+        },
+        {
+          title: 'Sellers',
+          icon: 'activity',
+          subItems: [
+            { title: 'Seller List', path: '/ecommerce/seller-list', icon: 'zap' },
+            { title: 'Seller Detail', path: '/ecommerce/seller-detail', icon: 'zap' },
+          ],
+        },
+        { title: 'Reviews', path: '/ecommerce/reviews', icon: 'activity' },
       ],
     },
     { title: 'Inbox', path: '/inbox', icon: 'inbox' },
     { title: 'File Manager', path: '/file-manager', icon: 'hard-drive' },
-    // Add more items as per your original menu
+    { title: 'Point of Sale', path: '/pos', icon: 'credit-card' },
+    { title: 'Chat', path: '/chat', icon: 'message-square' },
+    { title: 'Post', path: '/post', icon: 'file-text' },
+    { title: 'Calendar', path: '/calendar', icon: 'calendar' },
+    {
+      title: 'Crud',
+      icon: 'edit',
+      subItems: [
+        { title: 'Data List', path: '/crud/data-list', icon: 'activity' },
+        { title: 'Form', path: '/crud/form', icon: 'activity' },
+      ],
+    },
+    {
+      title: 'Users',
+      icon: 'users',
+      subItems: [
+        { title: 'Layout 1', path: '/users/layout-1', icon: 'activity' },
+        { title: 'Layout 2', path: '/users/layout-2', icon: 'activity' },
+        { title: 'Layout 3', path: '/users/layout-3', icon: 'activity' },
+      ],
+    },
+    {
+      title: 'Profile',
+      icon: 'trello',
+      subItems: [
+        { title: 'Overview 1', path: '/profile/overview-1', icon: 'activity' },
+        { title: 'Overview 2', path: '/profile/overview-2', icon: 'activity' },
+        { title: 'Overview 3', path: '/profile/overview-3', icon: 'activity' },
+      ],
+    },
   ];
 
   const renderMenuItem = (item: MenuItem, level: number = 0) => {

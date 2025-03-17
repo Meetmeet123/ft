@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
 import Sidebar from './sidebar/layout'; // Import from app/sidebar/
+import '../app/globals.css';
 
 export const metadata: Metadata = {
   title: 'Enigma - Admin Template',
