@@ -30,11 +30,11 @@ const Header: React.FC = () => {
       <div className="h-full flex items-center">
         {/* BEGIN: Logo */}
         <Link href="/" className="logo -intro-x hidden md:flex xl:w-[180px] block">
-          <img
+          {/* <img
             alt="Enigma - Admin Template"
             className="logo__image w-6"
             src="/logo.svg" // Adjust the path to your logo
-          />
+          /> */}
           <span className="logo__text text-white text-lg ml-3">Enigma</span>
         </Link>
         {/* END: Logo */}

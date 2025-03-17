@@ -1,7 +1,8 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
-import Sidebar from './sidebar/layout'; // Import from app/sidebar/
 import '../app/globals.css';
+import type { Metadata } from 'next';
+import Header from './header';
+import Sidebar from './sidebar/layout';
 
 export const metadata: Metadata = {
   title: 'Enigma - Admin Template',
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Header />
         <div style={{ display: 'flex', marginTop: '65px' }}>
           <Sidebar />
           <main style={{ marginLeft: '250px', padding: '20px', width: '100%' }}>
@@ -25,4 +27,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-};
+}
