@@ -1,9 +1,12 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
-import TomSelect from 'tom-select';
-import ReactQuill from 'react-quill';
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import Select from 'react-select';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import 'react-quill/dist/quill.snow.css'; // Optional, for styling consistency
 
-export default function AdmissionEnquiryForm() {
+const AdmissionEnquiryForm = () => {
   const [formData, setFormData] = useState({
     productName: '',
     categories: ['1', '3'],
@@ -16,19 +19,32 @@ export default function AdmissionEnquiryForm() {
     description: '<p>Content of the editor.</p>',
   });
 
-  const selectRef = useRef<HTMLSelectElement>(null); // Ref to the select element
-  const tomSelectInstance = useRef<TomSelect | null>(null); // Ref to store the TomSelect instance
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: formData.description,
+    onUpdate: ({ editor }) => setFormData((prev) => ({ ...prev, description: editor.getHTML() })),
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target as HTMLInputElement;
+  const categoryOptions = [
+    { value: '1', label: 'Sport & Outdoor' },
+    { value: '2', label: 'PC & Laptop' },
+    { value: '3', label: 'Smartphone & Tablet' },
+    { value: '4', label: 'Photography' },
+  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
-  const handleDescriptionChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, description: value }));
+  const handleCategoriesChange = (selectedOptions: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      categories: selectedOptions ? selectedOptions.map((option: any) => option.value) : [],
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,32 +52,8 @@ export default function AdmissionEnquiryForm() {
     console.log('Form Data:', formData);
   };
 
-  useEffect(() => {
-    if (selectRef.current && !tomSelectInstance.current) {
-      tomSelectInstance.current = new TomSelect(selectRef.current, {
-        create: false,
-        valueField: 'value',
-        labelField: 'text',
-        options: [
-          { value: '1', text: 'Sport & Outdoor' },
-          { value: '2', text: 'PC & Laptop' },
-          { value: '3', text: 'Smartphone & Tablet' },
-          { value: '4', text: 'Photography' },
-        ],
-      });
-    }
-
-    // Cleanup on unmount
-    return () => {
-      if (tomSelectInstance.current) {
-        tomSelectInstance.current.destroy();
-        tomSelectInstance.current = null;
-      }
-    };
-  }, []);
-
   return (
-    <div className="intro-y col-span-12 lg:col-span-6">
+    <div className="mt-16 intro-y col-span-12 lg:col-span-6">
       <div className="intro-y box p-5">
         <form onSubmit={handleSubmit}>
           <div>
@@ -83,18 +75,15 @@ export default function AdmissionEnquiryForm() {
             <label htmlFor="crud-form-2" className="form-label">
               Category
             </label>
-            <select
+            <Select
               id="crud-form-2"
-              ref={selectRef} // Attach the ref to the select element
-              className="tom-select w-full border p-2 rounded"
-              multiple
-              defaultValue={formData.categories}
-            >
-              <option value="1">Sport & Outdoor</option>
-              <option value="2">PC & Laptop</option>
-              <option value="3">Smartphone & Tablet</option>
-              <option value="4">Photography</option>
-            </select>
+              isMulti
+              options={categoryOptions}
+              value={categoryOptions.filter((option) => formData.categories.includes(option.value))}
+              onChange={handleCategoriesChange}
+              className="w-full"
+              classNamePrefix="select"
+            />
           </div>
 
           <div className="mt-3">
@@ -203,11 +192,7 @@ export default function AdmissionEnquiryForm() {
           <div className="mt-3">
             <label className="form-label">Description</label>
             <div className="mt-2">
-              <ReactQuill
-                value={formData.description}
-                onChange={handleDescriptionChange}
-                className="editor"
-              />
+              {editor && <EditorContent editor={editor} className="editor border p-2 rounded" />}
             </div>
           </div>
 
@@ -230,4 +215,7 @@ export default function AdmissionEnquiryForm() {
       </div>
     </div>
   );
-}
+};
+
+// Export the component wrapped in dynamic to ensure it only renders on the client
+export default dynamic(() => Promise.resolve(AdmissionEnquiryForm), { ssr: false });
