@@ -159,3 +159,103 @@ body {
   justify-content: center;
   margin-right: 12px;
 }
+
+/* app/globals.css */
+.content {
+  margin-left: 120px; /* Matches the sidebar width (w-64 = 16rem = 256px) */
+}
+
+.box {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.intro-y {
+  animation: intro-y 0.3s ease-in-out;
+}
+
+.zoom-in {
+  animation: zoom-in 0.3s ease-in-out;
+}
+
+@keyframes intro-y {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.form-control {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.table-report {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-report th,
+.table-report td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table-report th {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover::after {
+  content: attr(title);
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 10;
+}
