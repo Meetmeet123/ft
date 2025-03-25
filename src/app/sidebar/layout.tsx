@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -203,7 +203,38 @@ const iconMap = {
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const [openMenus, setOpenMenus] = useState<string[]>([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isQuickLinksOpen, setIsQuickLinksOpen] = useState<boolean>(false);
+  const quickLinksRef = useRef<HTMLLIElement>(null);
+
+  // Ensure the component only renders on the client side
+  useEffect(() => {
+    setIsMounted(true);
+    if (window.innerWidth >= 768) {
+      setIsSidebarOpen(true);
+    }
+  }, []);
+
+  // Handle click outside to close the Quick Links floating menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        quickLinksRef.current &&
+        !quickLinksRef.current.contains(event.target as Node)
+      ) {
+        setIsQuickLinksOpen(false);
+      }
+    };
+
+    if (isQuickLinksOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isQuickLinksOpen]);
 
   const toggleMenu = (title: string) => {
     setOpenMenus((prev) =>
@@ -211,6 +242,10 @@ const Sidebar: React.FC = () => {
         ? prev.filter((item) => item !== title)
         : [...prev, title]
     );
+  };
+
+  const toggleQuickLinks = () => {
+    setIsQuickLinksOpen((prev) => !prev);
   };
 
   const menuItems: MenuItem[] = [
@@ -594,6 +629,25 @@ const Sidebar: React.FC = () => {
       ],
     },
   ];
+  // Curated list of items for the Quick Links floating menu
+  const quickLinksItems: MenuItem[] = [
+    { title: "Student Details", path: "/student-information/student-details", icon: "user" },
+    { title: "Collect Fees", path: "/fees-collection/collect-fees", icon: "plus-circle" },
+    { title: "Add Income", path: "/income/add-income", icon: "dollar-sign" },
+    { title: "Add Expense", path: "/expenses/add-expense", icon: "credit-card" },
+    { title: "Student Attendance", path: "/attendance/student-attendance", icon: "calendar_check" },
+    { title: "Staff Attendance", path: "/human-resource/staff-attendance", icon: "calendar" },
+    { title: "Staff Directory", path: "/human-resource/staff-directory", icon: "user" },
+    { title: "Exam Group", path: "/examinations/exam-group", icon: "users" },
+    { title: "Exam Result", path: "/examinations/exam-result", icon: "file-text" },
+    { title: "Class Timetable", path: "/academics/class-timetable", icon: "calendar" },
+    { title: "Admission Enquiry", path: "/front-office/admission-enquiry", icon: "users" },
+    { title: "Complain", path: "/front-office/complain", icon: "message-square" },
+    { title: "Upload Content", path: "/download-center/upload-content", icon: "Upload" },
+    { title: "Add Item Stock", path: "/inventory/add-item-stock", icon: "plus-circle" },
+    { title: "Notice Board", path: "/communicate/notice-board", icon: "Presentation" },
+    { title: "Send Email / SMS", path: "/communicate/send-email", icon: "mail" },
+  ];
 
   const renderMenuItem = (item: MenuItem, level: number = 0) => {
     const isActive = item.path
@@ -603,13 +657,54 @@ const Sidebar: React.FC = () => {
     const isOpen = openMenus.includes(item.title);
     const IconComponent = iconMap[item.icon as keyof typeof iconMap] || Home;
 
+    // Special handling for Quick Links
+    if (item.title === "Quick Links") {
+      return (
+        <li key={item.title} className="relative" ref={quickLinksRef}>
+          <div
+            className={`side-menu ${isActive ? "side-menu--active" : ""} cursor-pointer`}
+            onClick={(e) => {
+              e.preventDefault();
+              toggleQuickLinks();
+            }}
+          >
+            <div className="side-menu__icon">
+              <IconComponent size={20} />
+            </div>
+            <div className="side-menu__title">{item.title}</div>
+          </div>
+          {isQuickLinksOpen && (
+            <ul className="quick-links-menu absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md z-50">
+              {quickLinksItems.map((quickItem) => {
+                const QuickIconComponent = iconMap[quickItem.icon as keyof typeof iconMap] || Home;
+                return (
+                  <li key={quickItem.title}>
+                    <Link
+                      href={quickItem.path || "javascript:;"}
+                      className={`flex items-center p-3 text-slate-700 hover:bg-slate-100 transition-colors duration-200 ${pathname === quickItem.path ? "bg-slate-100" : ""
+                        }`}
+                      onClick={() => setIsQuickLinksOpen(false)} // Close the menu on click
+                    >
+                      <div className="w-5 h-5 flex items-center justify-center mr-3">
+                        <QuickIconComponent size={20} />
+                      </div>
+                      <span>{quickItem.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </li>
+      );
+    }
+
+    // Default rendering for other menu items
     return (
       <li key={item.title}>
         <Link
-          href={item.path || "#"}
-          className={`flex items-center p-3 text-slate-700 hover:bg-slate-200/50 transition-colors duration-200 ${
-            isActive ? "bg-[#e0f7fa] text-[#1e40af] font-medium" : ""
-          } ${level > 0 ? "pl-8" : ""}`}
+          href={item.path || "javascript:;"}
+          className={`side-menu ${isActive ? "side-menu--active" : ""}`}
           onClick={(e) => {
             if (hasSubItems) {
               e.preventDefault();
@@ -617,16 +712,14 @@ const Sidebar: React.FC = () => {
             }
           }}
         >
-          <div className="w-6 h-6 flex items-center justify-center mr-3">
+          <div className="side-menu__icon">
             <IconComponent size={20} />
           </div>
-          <div className="flex-1 flex items-center justify-between font-medium">
+          <div className="side-menu__title">
             {item.title}
             {hasSubItems && (
               <div
-                className={`w-4 h-4 flex items-center justify-center transition-transform duration-200 ${
-                  isOpen ? "rotate-180" : "rotate-0"
-                }`}
+                className={`side-menu__sub-icon ${isOpen ? "transform rotate-180" : ""}`}
               >
                 <ChevronDown size={16} />
               </div>
@@ -634,32 +727,49 @@ const Sidebar: React.FC = () => {
           </div>
         </Link>
         {hasSubItems && isOpen && (
-          <ul className="space-y-1 mt-1">{item.subItems!.map((subItem) => renderMenuItem(subItem, level + 1))}</ul>
+          <ul className="side-menu__sub-open">
+            {item.subItems!.map((subItem) => {
+              const SubIconComponent = iconMap[subItem.icon as keyof typeof iconMap] || Home;
+              return (
+                <li key={subItem.title}>
+                  <Link
+                    href={subItem.path || "javascript:;"}
+                    className={`side-menu ${pathname === subItem.path ? "side-menu--active" : ""}`}
+                  >
+                    <div className="side-menu__icon">
+                      <SubIconComponent size={20} />
+                    </div>
+                    <div className="side-menu__title">{subItem.title}</div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         )}
       </li>
     );
   };
 
+  // Prevent rendering on the server until the component is mounted on the client
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <>
-      {/* Mobile Toggle Button */}
       <button
-        className="md:hidden p-4 fixed top-4 left-4 z-60 text-slate-700 bg-white/80 rounded shadow-md"
+        className="md:hidden p-4 fixed top-2.5 left-4 z-60 text-slate-700 bg-white/80 rounded shadow-md"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <Menu size={24} />
       </button>
-      {/* Sidebar Navigation */}
       <nav
-        className={`fixed left-0 w-64 bg-slate-100 p-4 overflow-y-auto transition-transform duration-300 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:static md:min-h-0 dark:bg-darkmode-800 dark:text-slate-300 z-50`}
-        style={{ top: "80px", height: "calc(100vh - 80px)" }}
+        className={`side-nav fixed left-0 w-64 overflow-y-auto transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:static md:min-h-0 z-50`}
       >
-        <ul className="space-y-2 pb-4 pt-4">{menuItems.map((item) => renderMenuItem(item))}</ul>
+        <ul>{menuItems.map((item) => renderMenuItem(item))}</ul>
       </nav>
     </>
   );
 };
-
 export default Sidebar;
