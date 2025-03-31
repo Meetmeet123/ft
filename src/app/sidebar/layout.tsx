@@ -474,6 +474,7 @@ const Sidebar: React.FC = () => {
       icon: "flask",
       subItems: [
         { title: "Add Homework", path: "/homework/add-homework", icon: "plus-circle" },
+        { title: "Daily Assignment", path: "/homework/daily-assignment", icon: "plus-circle" },
       ],
     },
     {
