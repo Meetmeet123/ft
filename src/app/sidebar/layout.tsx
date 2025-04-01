@@ -270,7 +270,7 @@ const Sidebar: React.FC = () => {
         { title: "Postal Dispatch", path: "/front-office/postal-dispatch", icon: "mail" },
         { title: "Postal Receive", path: "/front-office/postal-receive", icon: "mail" },
         { title: "Complain", path: "/front-office/complain", icon: "message-square" },
-        { title: "Setup Front Office", path: "/front-office/setup-front-office/Purpose", icon: "settings" },
+        { title: "Setup Front Office", path: "/front-office/setup-front-office", icon: "settings" },
       ],
     },
     {
@@ -474,7 +474,6 @@ const Sidebar: React.FC = () => {
       icon: "flask",
       subItems: [
         { title: "Add Homework", path: "/homework/add-homework", icon: "plus-circle" },
-        { title: "Daily Assignment", path: "/homework/daily-assignment", icon: "plus-circle" },
       ],
     },
     {
