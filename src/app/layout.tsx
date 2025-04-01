@@ -32,10 +32,10 @@ export default function RootLayout({
       </head>
       <body className="py-5 md:py-0">
         <Header />
-        <div className="flex overflow-hidden">
+        <div className="flex overflow-hidden min-h-screen">
           <Sidebar />
           <main
-            className="content w-full md:ml-64" // Add margin-left to offset the sidebar
+            className="content flex-1 ml-64" // Apply margin-left on all screen sizes
             style={{ minHeight: "calc(100vh - 65px)" }} // Adjust height to account for header
           >
             {children}
