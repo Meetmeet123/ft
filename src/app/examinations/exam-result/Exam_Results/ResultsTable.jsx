@@ -159,7 +159,7 @@ const ExamResultsTable = () => {
   ];
 
   return (
-    <div className="p-6  shadow-md rounded-lg ">
+    <div className="p-6 shadow-md rounded-lg">
       {/* Action Buttons */}
       <div className="flex gap-2 mb-4">
         <Button icon={<FileTextOutlined />} className="border-gray-400" />
@@ -169,13 +169,16 @@ const ExamResultsTable = () => {
       </div>
 
       {/* Ant Design Table with Pagination */}
-      <Table
-        dataSource={examResults}
-        columns={columns}
-        rowKey="admissionNo"
-        pagination={{ pageSize: 5 }} // Set pagination size to 5
-        bordered
-      />
+        <div style={{ overflowX: "auto" }}>
+          <Table
+            dataSource={examResults}
+            columns={columns}
+            rowKey="admissionNo"
+            pagination={{ pageSize: 5 }} // Set pagination size to 5
+            bordered
+            scroll={{ x: "max-content" }} // Enable horizontal scrolling
+          />
+        </div>
     </div>
   );
 };

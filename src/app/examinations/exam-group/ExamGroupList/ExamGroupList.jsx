@@ -111,7 +111,7 @@ const ExamGroupList = () => {
   const totalItems = filteredExamGroups.length;
 
   return (
-    <div className="p-6 w-9/15 shadow-lg border-solid border-2 border-[#164f63]/60 shadow-gray-300 rounded-2xl">
+    <div className="p-6 w-9/9 shadow-lg border-solid border-2 border-[#164f63]/60 shadow-gray-300 rounded-2xl">
       <h3 className="text-xl font-extrabold">Exam Group List</h3>
       <Input
         placeholder="Search by name"
