@@ -97,7 +97,7 @@ const MobileThemepage = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className='pt-3'>
                                     <label htmlFor="purchaseCode" className='text-sm'>
-                                        Envato Market Purchase Code For Smart School Android App ( How To Find It? )
+                                        Envato Market Purchase Code For Smart School Android App <span className='text-sky-500 cursor-pointer'>( How To Find It? )</span>
                                     </label>
                                     <input
                                         type="text"
@@ -133,7 +133,7 @@ const MobileThemepage = () => {
                                         className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none"
                                     >
                                         Save
-                                    </button>   
+                                    </button>
                                 </div>
                             </form>
                         </div>

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Miscellaneous from "./Miscellaneous/Miscellaneous";
 
 const GeneralSettings = () => {
     const pathname = usePathname();
@@ -16,6 +17,8 @@ const GeneralSettings = () => {
             setActiveLink("general-setting");
         } else if (path.includes("logo")) {
             setActiveLink("logo");
+        } else if (path.includes("signature")) {
+            setActiveLink("signature");
         } else if (path.includes("login-page-background")) {
             setActiveLink("login-page-background");
         } else if (path.includes("backend-theme")) {
@@ -44,6 +47,8 @@ const GeneralSettings = () => {
                 return <div>General Setting Content</div>;
             case "logo":
                 return <div></div>
+            case "signature":
+                return <div></div>
             case "login-page-background":
                 return <div>Login Page Background Content</div>;
             case "backend-theme":
@@ -60,10 +65,14 @@ const GeneralSettings = () => {
                 return <div>Attendance Type Content</div>;
             case "whatsapp-settings":
                 return <div>WhatsApp Settings Content</div>;
+            case "session-settings":
+                return <div>Session Settings Content</div>;
             case "maintenance":
                 return <div>Maintenance Content</div>;
             case "miscellaneous":
-                return <div>Miscellaneous Content</div>;
+                return <div>
+                    <Miscellaneous />
+                </div>;
             default:
                 return <div>Please select an option from the menu.</div>;
         }
@@ -72,7 +81,7 @@ const GeneralSettings = () => {
     return (
         <div className="mt-10 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white mr-2">
+            <div className="w-1/5 bg-white h-130 mr-2">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
@@ -80,18 +89,20 @@ const GeneralSettings = () => {
                             className="absolute left-0 w-[2.4px] h-6 bg-green-600 transition-all duration-300 ease-in-out"
                             style={{
                                 top: {
-                                    "general-setting": "3px",
+                                   "general-setting": "3px",
                                     "logo": "42px",
-                                    "login-page-background": "82px",
-                                    "backend-theme": "122px",
-                                    "mobile-app": "122px",
-                                    "student-gurdian-panel": "162px",
-                                    "fees": "202px",
-                                    "id-auto-generation": "242px",
-                                    "attendance-type": "282px",
-                                    "whatsapp-settings": "322px",
-                                    "maintenance": "362px",
-                                    "miscellaneous": "402px",
+                                    "signature": "80px",
+                                    "login-page-background": "110px",
+                                    "backend-theme": "144px",
+                                    "mobile-app": "183px",
+                                    "student-gurdian-panel": "218px",
+                                    "fees": "252px",
+                                    "id-auto-generation": "290px",
+                                    "attendance-type": "330px",
+                                    "whatsapp-settings": "360px", 
+                                    "session-settings": "400px",
+                                    "maintenance": "432px",
+                                    "miscellaneous": "470px",
                                 }[activeLink],
                             }}
                         />
@@ -109,6 +120,13 @@ const GeneralSettings = () => {
                                 onClick={() => setActiveLink("logo")}
                             >
                                 Logo
+                            </Link>
+                            <Link
+                                href="/system-settings/general-setting/signature"
+                                className={`text-blue-600 hover:underline ${activeLink === "signature" ? "font-bold text-blue-800" : ""}`}
+                                onClick={() => setActiveLink("signature")}
+                            >
+                                Signature
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/login-page-background"
@@ -165,6 +183,13 @@ const GeneralSettings = () => {
                                 onClick={() => setActiveLink("whatsapp-settings")}
                             >
                                 WhatsApp Settings
+                            </Link>
+                            <Link
+                                href="/system-settings/general-setting/session-settings"
+                                className={`text-blue-600 hover:underline ${activeLink === "session-settings" ? "font-bold text-blue-800" : ""}`}
+                                onClick={() => setActiveLink("session-settings")}
+                            >
+                                Session Settings
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/maintenance"

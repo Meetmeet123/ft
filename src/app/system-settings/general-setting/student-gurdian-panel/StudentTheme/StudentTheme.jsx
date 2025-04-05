@@ -13,8 +13,14 @@ const StudentTheme = () => {
   const toggleCheckbox2 = () => {
     setIsChecked2(!isChecked2);
   };
-  // State to manage if the radio button should be enabled or disabled
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [buttonStates, setButtonStates] = useState([true]); // Each item represents the enabled/disabled state for a group
+
+  // Handler to toggle the state of a particular group
+  const handleRadioChange = (index, value) => {
+    const newButtonStates = [...buttonStates];
+    newButtonStates[index] = value;
+    setButtonStates(newButtonStates);
+  };
 
   // Toggle the disabled state
   const toggleDisable = () => setIsDisabled(prevState => !prevState);
@@ -93,43 +99,42 @@ const StudentTheme = () => {
           </div>
           <div className="flex items-center pt-4">
             <label>Allow Student To Add Timeline</label>
-
-            <div className="mb-4 ml-43">
-              <label className="inline-flex ">
+            <div className="flex items-center  ">
+              <div className="flex items-center ml-42">
                 <input
+                  id="default-radio-1"
                   type="radio"
-                  name="theme"
-                  value="light"
-                  disabled={isDisabled}
-                  className={`form-radio h-4 w-4 text-blue-600 ${isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                    }`}
+                  checked={!buttonStates[0]} // If 'isEnabled' is false, 'Disabled' will be checked
+                  onChange={() => handleRadioChange(0, false)} // Set to false when 'Disabled' is selected
+                  name="default-radio-1"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
-                <span className="ml-2">Disabled</span>
-              </label>
-            </div>
+                <label
+                  htmlFor="default-radio-1"
+                  className="ms-2 text-gray-900 dark:text-gray-300"
+                >
+                  Disabled
+                </label>
+              </div>
 
-            <div className="mb-4 ml-7">
-              <label className="inline-flex">
+              <div className="flex items-center ml-2">
                 <input
+                  id="default-radio-2"
                   type="radio"
-                  name="theme"
-                  value="dark"
-                  disabled={isDisabled}
-                  className={`form-radio h-4 w-4 text-blue-600 ${isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
-                    }`}
+                  checked={buttonStates[0]} // If 'isEnabled' is true, 'Enabled' will be checked
+                  onChange={() => handleRadioChange(0, true)} // Set to true when 'Enabled' is selected
+                  name="default-radio-1"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
-                <span className="ml-2">Enabled</span>
-              </label>
+                <label
+                  htmlFor="default-radio-2"
+                  className="ms-2 text-gray-900 dark:text-gray-300"
+                >
+                  Enabled
+                </label>
+              </div>
             </div>
 
-            <div>
-              <button
-                onClick={toggleDisable}
-                className="mt-4 px-4 py-2 text-white rounded-md "
-              >
-                {isDisabled ? 'Enable Radio Buttons' : 'Disable Radio Buttons'}
-              </button>
-            </div>
           </div>
         </div>
       </form>

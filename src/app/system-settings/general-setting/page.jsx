@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Feespage from "./fees/Fees/Feespage";
 
+import { ToastContainer, toast } from 'react-toastify';
 const GeneralSettings = () => {
+    const notify = () => toast.success("Record Saved Successfully!");
     const pathname = usePathname();
     const [activeLink, setActiveLink] = useState("general-setting");
 
@@ -15,6 +17,8 @@ const GeneralSettings = () => {
             setActiveLink("general-setting");
         } else if (path.includes("logo")) {
             setActiveLink("logo");
+        } else if (path.includes("signature")) {
+            setActiveLink("signature");
         } else if (path.includes("login-page-background")) {
             setActiveLink("login-page-background");
         } else if (path.includes("backend-theme")) {
@@ -211,19 +215,23 @@ const GeneralSettings = () => {
 
 
                                 <div className="absolute right-4 bottom-4 size-16 justify-center">
-                                    <button type="submit" className="btn btn-primary mt-8 bg-blue-500 text-white p-1 px-2 rounded">
-                                        Search
+                                    <button onClick={notify} type="submit" className="btn btn-primary mt-8 bg-blue-500 text-white p-1 px-2 rounded">
+                                        Save
                                     </button>
+                                    <ToastContainer />
                                 </div>
                             </form>
-
                         </div>
                     </div>
+
                 </div>;
             case "logo":
                 return <div>Logo Content</div>;
             case "login-page-background":
                 return <div>Login Page Background Content</div>;
+            case "signature":
+                return <div>Signature</div>;
+
             case "backend-theme":
                 return <div>Backend Theme Content</div>;
             case "mobile-app":
@@ -250,29 +258,33 @@ const GeneralSettings = () => {
     return (
         <div className="mt-6 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white mr-2">
+            <div className="w-1/5 bg-white mr-2 h-125">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
+                     
                         <div
                             className="absolute left-0 w-[2.4px] h-6 bg-green-600 transition-all duration-300 ease-in-out"
                             style={{
                                 top: {
-                                    "general-setting": "3px",
+                                  "general-setting": "3px",
                                     "logo": "42px",
-                                    "login-page-background": "82px",
-                                    "backend-theme": "122px",
-                                    "mobile-app": "122px",
-                                    "student-gurdian-panel": "162px",
-                                    "fees": "202px",
-                                    "id-auto-generation": "242px",
-                                    "attendance-type": "282px",
-                                    "whatsapp-settings": "322px",
-                                    "maintenance": "362px",
-                                    "miscellaneous": "402px",
+                                    "signature": "80px",
+                                    "login-page-background": "110px",
+                                    "backend-theme": "144px",
+                                    "mobile-app": "183px",
+                                    "student-gurdian-panel": "218px",
+                                    "fees": "252px",
+                                    "id-auto-generation": "290px",
+                                    "attendance-type": "330px",
+                                    "whatsapp-settings": "360px", 
+                                    "session-settings": "400px",
+                                    "maintenance": "432px",
+                                    "miscellaneous": "470px",
                                 }[activeLink],
                             }}
                         />
+
                         <div className="flex flex-col gap-4">
                             <Link
                                 href="/system-settings/general-setting"
@@ -287,6 +299,13 @@ const GeneralSettings = () => {
                                 onClick={() => setActiveLink("logo")}
                             >
                                 Logo
+                            </Link>
+                            <Link
+                                href="/system-settings/general-setting/signature"
+                                className={`text-blue-600 hover:underline ${activeLink === "signature" ? "font-bold text-blue-800" : ""}`}
+                                onClick={() => setActiveLink("signature")}
+                            >
+                                Signature
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/login-page-background"
@@ -343,6 +362,13 @@ const GeneralSettings = () => {
                                 onClick={() => setActiveLink("whatsapp-settings")}
                             >
                                 WhatsApp Settings
+                            </Link>
+                            <Link
+                                href="/system-settings/general-setting/session-settings"
+                                className={`text-blue-600 hover:underline ${activeLink === "session-settings" ? "font-bold text-blue-800" : ""}`}
+                                onClick={() => setActiveLink("session-settings")}
+                            >
+                                Session Settings
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/maintenance"

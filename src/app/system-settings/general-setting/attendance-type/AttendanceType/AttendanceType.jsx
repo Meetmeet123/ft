@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+
 function TimeInput({ id, label }) {
   // State to store the time value for each individual input
   const [time, setTime] = useState('');
@@ -35,8 +36,701 @@ function TimeInput({ id, label }) {
     </div>
   );
 }
+const AttendanceTable = () => {
+  return (
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-sm text-gray-900 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            Attendance Type
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Entry From (hh:mm:ss)
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Entry Upto (hh:mm:ss)
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Total Hour
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Present (P)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Late (L)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Half Day (F)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Half Day Second Shift (SH)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+};
+const AttendanceTable2 = () => {
+  return (
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-sm text-gray-900 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            Attendance Type
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Entry From (hh:mm:ss)
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Entry Upto (hh:mm:ss)
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Total Hour
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Present (P)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Late (L)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr className="bg-white dark:bg-gray-800">
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            Half Day (F)
+          </th>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+          <td className="px-4 py-4">
+            <div className="flex">
+              <input
+                type="time"
+                id="time"
+                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="09:00"
+                max="18:00"
+                defaultValue="00:00"
+                required=""
+              />
+              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  );
+};
 const AttendanceType = () => {
-  const [buttonStates, setButtonStates] = useState([true, true]); // [Enabled, Disabled]
+  const [buttonStates, setButtonStates] = useState([false, true]); // [Enabled, Disabled]
 
   // Handle the radio button change to set the enabled/disabled state
   const handleRadioChange = (index, state) => {
@@ -47,7 +741,10 @@ const AttendanceType = () => {
     });
   };
   const notify = () => toast.success("Record Saved Seccessfully");
-
+  const [selectedStaff, setSelectedStaff] = useState('staff'); // Active tab (initially set to 'upcoming')
+  const handleClick = (type) => {
+    setSelectedStaff(type); // Updates the active tab to "upcoming" or "closed"
+  };
 
   return (
 
@@ -160,165 +857,625 @@ const AttendanceType = () => {
 
       </div>
 
-      <div className='mt-4 bg-white p-3'>
+      <div className='mt-4'>
         <form className=''>
           {buttonStates[1] ? (
-            <div className="flex flex-col">
-              <h1 className="text-xl border-b dark:border-gray-700 pb-2">Class Attendance Time For Auto Attendance Submission (Day Wise With Cron Setting)
-              </h1>
-              <div className='flex items-center border-b dark:border-gray-700 pb-2 pt-2'>
-                <input type="checkbox" className="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600 outline-none"
-                />
-                <h3 className='ml-2'>Copy First Detail For All</h3>
-              </div>
+            <div>
+              <div className="flex flex-col bg-white p-3">
+                <h1 className="text-xl border-b dark:border-gray-700 pb-2">Class Attendance Time For Auto Attendance Submission (Day Wise With Cron Setting)
+                </h1>
+                <div className='flex items-center border-b dark:border-gray-700 pb-2 pt-2'>
+                  <input type="checkbox" className="text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600 outline-none"
+                  />
+                  <h3 className='ml-2'>Copy First Detail For All</h3>
+                </div>
 
-              <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                  <div>
+                    <h4 className='text-lg'>Class 1</h4>
+                  </div>
+                  <div className='col-sm-8 col-lg-8 col-md-8'>
+
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
+                      <TimeInput />
+                    </div>
+
+                  </div>
+                </div>
+                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                  <div>
+                    <h4 className='text-lg'>Class 2</h4>
+                  </div>
+                  <div className='col-sm-8 col-lg-8 col-md-8'>
+
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                      <TimeInput />
+                    </div>
+
+                  </div>
+                </div>
+                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                  <div>
+                    <h4 className='text-lg'>Class 3</h4>
+                  </div>
+                  <div className='col-sm-8 col-lg-8 col-md-8'>
+
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                      <TimeInput />
+                    </div>
+
+                  </div>
+                </div>
+                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                  <div>
+                    <h4 className='text-lg'>Class 4</h4>
+                  </div>
+                  <div className='col-sm-8 col-lg-8 col-md-8'>
+
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
+                      <TimeInput />
+                    </div>
+
+                  </div>
+                </div>
+                <div className='flex col-sm-4 col-lg-4 col-md-4 '>
+                  <div>
+                    <h4 className='text-lg'>Class 5</h4>
+                  </div>
+                  <div className='col-sm-8 col-lg-8 col-md-8'>
+
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">B</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                      <TimeInput />
+                    </div>
+                    <div className="ml-40 flex pt-3 ">
+                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                      <TimeInput />
+                    </div>
+
+                  </div>
+                </div>
+                <div className="flex justify-end mt-5 border-t dark:border-gray-700">
+                  <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                    Save
+                  </button>
+                  <ToastContainer />
+                </div>
+
+              </div>
+              <div className="mt-4 bg-white p-4">
+                {/* Form content for "Disabled" */}
                 <div>
-                  <h4 className='text-lg'>Class 1</h4>
-                </div>
-                <div className='col-sm-8 col-lg-8 col-md-8'>
+                  <nav className="flex flex-row border-b border-slate-200/60 dark:border-darkmode-400 items-center m-2">
+                    <ul className="flex flex-row gap-1">
+                      <li
+                        style={{ borderRight: 'none', contain: 'none' }}
+                        onClick={() => handleClick("staff")}
+                        className={`cursor-pointer ${selectedStaff === "staff" ? "font-bold bg-gray-300 rounded p-2 border-none" : "p-2"}`}
+                      >
+                        <a href="#" className="hover:border-r-0 active:border-r-0">Staff</a>
+                      </li>
+                      <li
+                        style={{ borderRight: 'none', contain: 'none' }}
+                        onClick={() => handleClick("student")}
+                        className={`cursor-pointer ${selectedStaff === "student" ? "font-bold bg-gray-300 rounded p-2 border-b-amber-500" : "p-2"}`}
+                      >
+                        <a href="#"> Student</a>
+                      </li>
+                    </ul>
+                  </nav>
 
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
-                    <TimeInput />
-                  </div>
+                  {/* Conditionally render the content for Staff or Student */}
+                  {selectedStaff === "staff" && (
+                    <div className="mt-4">
+                      {/* Add Staff-specific content here */}
+                      <h2 className="text-xl border-b border-slate-200/60 dark:border-darkmode-400 pb-2 mb-2">Staff Attendance Setting</h2>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Admin</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Teacher</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Accountant</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Librarian</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Receptionist</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'>Role: Super Admin</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+                        </div>
+                        <AttendanceTable />
+                      </div>
 
+                    </div>
+                  )}
+
+                  {/* Conditionally render the checkbox and modify table header for Students */}
+                  {selectedStaff === "student" && (
+                    <div className="mt-4">
+                      <div className='flex justify-between items-center p-2'>
+                        <h1 className='text-black text-lg'>Student Attendance Setting</h1>
+                        <select className='w-50 py-1 h-6 text-xs'>
+                          <option value="select">All Classes</option>
+                          <option value=" Class 1"> Class 1</option>
+                          <option value=" Class 2">Class 2</option>
+                          <option value=" Class 3">Class 3</option>
+                          <option value=" Class 4">Class 4</option>
+                          <option value=" Class 5">Class 5</option>
+                        </select>
+
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'> Class: Class 1</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'> Class: Class 2</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'> Class: Class 3</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'> Class: Class 4</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                      </div>
+                      <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                        <div className='flex justify-between items-center p-2 bg-gray-100'>
+                          <h1 className='text-black font-bold'> Class: Class 5</h1>
+                          <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                            Update
+                          </button>
+
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                        <div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                          <AttendanceTable2 />
+                        </div>
+                      </div>
+
+
+                    </div>
+                  )}
                 </div>
+
               </div>
-              <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                <div>
-                  <h4 className='text-lg'>Class 2</h4>
-                </div>
-                <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
-                    <TimeInput />
-                  </div>
-
-                </div>
-              </div>
-              <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                <div>
-                  <h4 className='text-lg'>Class 3</h4>
-                </div>
-                <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
-                    <TimeInput />
-                  </div>
-
-                </div>
-              </div>
-              <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                <div>
-                  <h4 className='text-lg'>Class 4</h4>
-                </div>
-                <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
-                    <TimeInput />
-                  </div>
-
-                </div>
-              </div>
-              <div className='flex col-sm-4 col-lg-4 col-md-4 '>
-                <div>
-                  <h4 className='text-lg'>Class 5</h4>
-                </div>
-                <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">B</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
-                    <TimeInput />
-                  </div>
-                  <div className="ml-40 flex pt-3 ">
-                    <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
-                    <TimeInput />
-                  </div>
-
-                </div>
-              </div>
-
             </div>
+
+
           ) : (
-            <div className="mt-4">
+            <div className="mt-4 bg-white p-4">
               {/* Form content for "Disabled" */}
-              <h3>The form is currently disabled.</h3>
-              <p>When enabled, you will be able to modify and save attendance details.</p>
+              <div>
+                <nav className="flex flex-row border-b border-slate-200/60 dark:border-darkmode-400 items-center m-2">
+                  <ul className="flex flex-row gap-1">
+                    <li
+                      style={{ borderRight: 'none', contain: 'none' }}
+                      onClick={() => handleClick("staff")}
+                      className={`cursor-pointer ${selectedStaff === "staff" ? "font-bold bg-gray-300 rounded p-2 border-none" : "p-2"}`}
+                    >
+                      <a href="#" className="hover:border-r-0 active:border-r-0">Staff</a>
+                    </li>
+                    <li
+                      style={{ borderRight: 'none', contain: 'none' }}
+                      onClick={() => handleClick("student")}
+                      className={`cursor-pointer ${selectedStaff === "student" ? "font-bold bg-gray-300 rounded p-2 border-b-amber-500" : "p-2"}`}
+                    >
+                      <a href="#"> Student</a>
+                    </li>
+                  </ul>
+                </nav>
+
+                {/* Conditionally render the content for Staff or Student */}
+                {selectedStaff === "staff" && (
+                  <div className="mt-4">
+                    {/* Add Staff-specific content here */}
+                    <h2 className="text-xl border-b border-slate-200/60 dark:border-darkmode-400 pb-2 mb-2">Staff Attendance Setting</h2>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Admin</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Teacher</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Accountant</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Librarian</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Receptionist</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'>Role: Super Admin</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+                      </div>
+                      <AttendanceTable />
+                    </div>
+
+                  </div>
+                )}
+
+                {/* Conditionally render the checkbox and modify table header for Students */}
+                {selectedStaff === "student" && (
+                  <div className="mt-4">
+                    <div className='flex justify-between items-center p-2'>
+                      <h1 className='text-black text-lg'>Student Attendance Setting</h1>
+                      <select className='w-50 py-1 h-6 text-xs'>
+                        <option value="select">All Classes</option>
+                        <option value=" Class 1"> Class 1</option>
+                        <option value=" Class 2">Class 2</option>
+                        <option value=" Class 3">Class 3</option>
+                        <option value=" Class 4">Class 4</option>
+                        <option value=" Class 5">Class 5</option>
+                      </select>
+
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'> Class: Class 1</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'> Class: Class 2</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'> Class: Class 3</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'> Class: Class 4</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                    </div>
+                    <div className="relative overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-800 mt-4">
+                      <div className='flex justify-between items-center p-2 bg-gray-100'>
+                        <h1 className='text-black font-bold'> Class: Class 5</h1>
+                        <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
+                          Update
+                        </button>
+
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: B</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: C</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                      <div>
+                        <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: D</h1></div>
+                        <AttendanceTable2 />
+                      </div>
+                    </div>
+
+
+                  </div>
+                )}
+              </div>
+
             </div>
           )}
-          <div className="flex justify-end mt-5 border-t dark:border-gray-700">
-            <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none mt-2">
-              Save
-            </button>
-            <ToastContainer />
-          </div>
+
         </form>
 
       </div>
-
-
-
-
     </div>
 
 

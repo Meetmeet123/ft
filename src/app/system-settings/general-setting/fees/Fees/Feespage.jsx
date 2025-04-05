@@ -26,20 +26,20 @@ const Feespage = () => {
     <div className="bg-white p-3">
       <h1 className="text-xl border-b dark:border-gray-700 pb-2">Fees</h1>
 
-      <form className="border-b dark:border-gray-700 pb-6">
+      <form className="">
         <div className="flex flex-col">
 
           <div className=" flex pt-4">
             <label>Offline Bank Payment In Student Panel</label>
 
             {/* Group 1 */}
-            <div className="flex items-center">
+            <div className="flex items-center  ">
               <div className="flex items-center ml-21">
                 <input
                   id="default-radio-1"
                   type="radio"
                   checked={!buttonStates[0]} // If 'isEnabled' is false, 'Disabled' will be checked
-                  onChange={() => handleRadioChange(0, true)} // Set to false when 'Disabled' is selected
+                  onChange={() => handleRadioChange(0, false)} // Set to false when 'Disabled' is selected
                   name="default-radio-1"
                   className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
@@ -56,7 +56,7 @@ const Feespage = () => {
                   id="default-radio-2"
                   type="radio"
                   checked={buttonStates[0]} // If 'isEnabled' is true, 'Enabled' will be checked
-                  onChange={() => handleRadioChange(0, false)} // Set to true when 'Enabled' is selected
+                  onChange={() => handleRadioChange(0, true)} // Set to true when 'Enabled' is selected
                   name="default-radio-1"
                   className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
@@ -68,8 +68,6 @@ const Feespage = () => {
                 </label>
               </div>
             </div>
-
-
           </div>
 
 
@@ -392,45 +390,45 @@ const Feespage = () => {
           </div>
 
           {/* Group 2 */}
-          <div className="flex items-center mt-4">
-            <label htmlFor="">Single Page Fees Print</label>
-            <div className="flex items-center ml-43">
-              <input
-                id="default-radio-3"
-                type="radio"
-                checked={!buttonStates[1]} // If 'isEnabled' is false, 'Disabled' will be checked
-                onChange={() => handleRadioChange(1, true)} // Set to false when 'Disabled' is selected
-                name="default-radio-2"
-                className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
-              />
-              <label
-                htmlFor="default-radio-3"
-                className="ms-2 text-gray-900 dark:text-gray-300"
-              >
-                Disabled
-              </label>
-            </div>
+          <div className="pt-4  ">
 
-            <div className="flex items-center ml-2">
-              <input
-                id="default-radio-4"
-                type="radio"
-                checked={buttonStates[1]} // If 'isEnabled' is true, 'Enabled' will be checked
-                onChange={() => handleRadioChange(1, false)} // Set to true when 'Enabled' is selected
-                name="default-radio-2"
-                className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
-              />
-              <label
-                htmlFor="default-radio-4"
-                className="ms-2 text-gray-900 dark:text-gray-300"
-              >
-                Enabled
-              </label>
+            <div className="flex items-center mt-2">
+              <label htmlFor="">Single Page Fees Print</label>
+              <div className="flex items-center ml-43">
+                <input
+                  id="default-radio-3"
+                  type="radio"
+                  checked={!buttonStates[1]} // If 'isEnabled' is false, 'Disabled' will be checked
+                  onChange={() => handleRadioChange(1, false)} // Set to false when 'Disabled' is selected
+                  name="default-radio-2"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                />
+                <label
+                  htmlFor="default-radio-3"
+                  className="ms-2 text-gray-900 dark:text-gray-300"
+                >
+                  Disabled
+                </label>
+              </div>
+
+              <div className="flex items-center ml-2">
+                <input
+                  id="default-radio-4"
+                  type="radio"
+                  checked={buttonStates[1]} // If 'isEnabled' is true, 'Enabled' will be checked
+                  onChange={() => handleRadioChange(1, true)} // Set to true when 'Enabled' is selected
+                  name="default-radio-2"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                />
+                <label
+                  htmlFor="default-radio-4"
+                  className="ms-2 text-gray-900 dark:text-gray-300"
+                >
+                  Enabled
+                </label>
+              </div>
             </div>
           </div>
-
-
-
           {/* Group 3 */}
           <div className="flex items-center mt-4">
             <label htmlFor="">Collect Fees In Back Date</label>
@@ -468,7 +466,6 @@ const Feespage = () => {
               </label>
             </div>
           </div>
-
           {/* Group 4 (New group added for Enable/Disable) */}
           <div className="flex items-center mt-4">
             <label htmlFor="">Student / Guardian Panel Fees Discount</label>
@@ -508,16 +505,16 @@ const Feespage = () => {
           </div>
 
         </div>
+        {/* Save Button */}
+        <div className="flex justify-end mt-5 border-t dark:border-gray-700">
+          <button type=''
+            className="btn btn-primary bg-blue-500 text-white p-1 mt-2 px-2 rounded focus:ring-0 focus:outline-none"
+          >
+            Save
+          </button>
+        </div>
       </form>
 
-      {/* Save Button */}
-      <div className="flex justify-end mt-5">
-        <button type=''
-          className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none"
-        >
-          Save
-        </button>
-      </div>
     </div>
   );
 };

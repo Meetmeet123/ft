@@ -2,23 +2,22 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import IdAutoGeneration from "./IdAutoGeneration/IdAutoGeneration";
+import SessionSettings from "./SessionSettings/SessionSettings";
+
 
 const GeneralSettings = () => {
     const pathname = usePathname();
-    const [activeLink, setActiveLink] = useState("id-auto-generation");
+    const [activeLink, setActiveLink] = useState("session-settings");
 
     // Set the active link based on the current pathname
     useEffect(() => {
         const path = pathname.toLowerCase();
-        if (path.includes("id-auto-generation")) {
-            setActiveLink("id-auto-generation");
-        } else if (path.includes("general-setting")) {
-            setActiveLink("general-setting");
+        if (path.includes("session-settings")) {
+            setActiveLink("session-settings");
         } else if (path.includes("logo")) {
             setActiveLink("logo");
-        } else if (path.includes("signature")) {
-            setActiveLink("signature");
+        } else if (path.includes("general-setting")) {
+            setActiveLink("general-setting");
         } else if (path.includes("login-page-background")) {
             setActiveLink("login-page-background");
         } else if (path.includes("backend-theme")) {
@@ -29,10 +28,14 @@ const GeneralSettings = () => {
             setActiveLink("student-gurdian-panel");
         } else if (path.includes("fees")) {
             setActiveLink("fees");
+        } else if (path.includes("id-auto-generation")) {
+            setActiveLink("id-auto-generation");
         } else if (path.includes("attendance-type")) {
             setActiveLink("attendance-type");
         } else if (path.includes("whatsapp-settings")) {
             setActiveLink("whatsapp-settings");
+        } else if (path.includes("signature")) {
+            setActiveLink("signature");
         } else if (path.includes("maintenance")) {
             setActiveLink("maintenance");
         } else if (path.includes("miscellaneous")) {
@@ -44,31 +47,31 @@ const GeneralSettings = () => {
     const renderContent = () => {
         switch (activeLink) {
             case "general-setting":
-                return <div>General Setting Content</div>;
+                return <div className="flex flex-row gap-6">
+                </div>;
             case "logo":
-                return <div></div>
-            case "signature":
-                return <div></div>
+                return <div>Logo Content</div>;
             case "login-page-background":
                 return <div>Login Page Background Content</div>;
+            case "signature":
+                return <div>Signature</div>;
+
             case "backend-theme":
-                return <div>backend-theme Content</div>;
+                return <div>Backend Theme Content</div>;
             case "mobile-app":
                 return <div>Mobile App Content</div>;
             case "student-gurdian-panel":
-                return <div>
-
-                </div>;
+                return <div>Student Guardian Panel Content</div>;
             case "fees":
-                return <div>Fees Content</div>;
+                return <div></div>;
             case "id-auto-generation":
-                return <div> <IdAutoGeneration /></div>;
+                return <div>ID Auto Generation Content</div>;
             case "attendance-type":
                 return <div>Attendance Type Content</div>;
             case "whatsapp-settings":
                 return <div>WhatsApp Settings Content</div>;
             case "session-settings":
-                return <div>Session Settings Content</div>;
+                return <div><SessionSettings /></div>;
             case "maintenance":
                 return <div>Maintenance Content</div>;
             case "miscellaneous":
@@ -79,17 +82,18 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-10 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
+        <div className="mt-6 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white h-130 mr-2">
+            <div className="w-1/5 bg-white mr-2 h-125">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
+
                         <div
                             className="absolute left-0 w-[2.4px] h-6 bg-green-600 transition-all duration-300 ease-in-out"
                             style={{
                                 top: {
-                                 "general-setting": "3px",
+                                "general-setting": "3px",
                                     "logo": "42px",
                                     "signature": "80px",
                                     "login-page-background": "110px",
@@ -106,6 +110,7 @@ const GeneralSettings = () => {
                                 }[activeLink],
                             }}
                         />
+
                         <div className="flex flex-col gap-4">
                             <Link
                                 href="/system-settings/general-setting"
@@ -124,7 +129,7 @@ const GeneralSettings = () => {
                             <Link
                                 href="/system-settings/general-setting/signature"
                                 className={`text-blue-600 hover:underline ${activeLink === "signature" ? "font-bold text-blue-800" : ""}`}
-                                onClick={() => setActiveLink("signature")}
+                                onClick={() => setActiveLink("logo")}
                             >
                                 Signature
                             </Link>

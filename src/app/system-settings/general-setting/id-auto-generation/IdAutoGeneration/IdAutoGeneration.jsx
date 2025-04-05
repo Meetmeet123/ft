@@ -18,7 +18,7 @@ const IdAutoGeneration = () => {
             {/* Background content wrapper */}
             <div>
                 <h1 className="text-xl border-b dark:border-gray-700 pb-2">ID Auto Generation</h1>
-                <form className='border-b dark:border-gray-700 pb-6'>
+                <form className=''>
                     <div className="flex flex-col">
                         <div className="flex justify-between items-center pt-4">
                             <h2 className="text-base">Student Admission No. Auto Generation</h2>
@@ -120,8 +120,6 @@ const IdAutoGeneration = () => {
                             </div>
                         </div>
 
-
-
                         <div className="flex justify-between items-center pt-4">
                             <label htmlFor="">Staff ID Prefix <span className='text-red-500'>*</span></label>
                             <input type="text" className='py-1 w-140 h-6 text-xs' />
@@ -151,17 +149,19 @@ const IdAutoGeneration = () => {
                             <input type="text" className='py-1 w-140 h-6 text-xs' />
                         </div>
                     </div>
+                    {/* Save Button */}
+                    <div className="flex justify-end mt-5 border-t dark:border-gray-700">
+                        <button type=''
+                            className="btn btn-primary bg-blue-500 text-white p-1 mt-2 px-2 rounded focus:ring-0 focus:outline-none"
+                        >
+                            Save
+                        </button>
+                    </div>
                 </form>
 
-                {/* Save Button */}
-                <div className="flex justify-end mt-5">
-                    <button className="btn btn-primary bg-blue-500 text-white p-1 px-2 rounded focus:ring-0 focus:outline-none">
-                        Save
-                    </button>
-                </div>
-            </div>
 
-            {/* Modal structure */}
+
+            </div>
         </div>
     );
 };

@@ -7,7 +7,7 @@ import MobileThemepage from "./MobileTheme/MobileThemepage";
 const GeneralSettings = () => {
     const pathname = usePathname();
     const [activeLink, setActiveLink] = useState("mobile-app");
- 
+
     // Set the active link based on the current pathname
     useEffect(() => {
         const path = pathname.toLowerCase();
@@ -17,6 +17,8 @@ const GeneralSettings = () => {
             setActiveLink("general-setting");
         } else if (path.includes("logo")) {
             setActiveLink("logo");
+        } else if (path.includes("signature")) {
+            setActiveLink("signature");
         } else if (path.includes("login-page-background")) {
             setActiveLink("login-page-background");
         } else if (path.includes("backend-theme")) {
@@ -44,6 +46,8 @@ const GeneralSettings = () => {
             case "general-setting":
                 return <div>General Setting Content</div>;
             case "logo":
+                return <div></div>
+            case "signature":
                 return <div></div>
             case "login-page-background":
                 return <div>Login Page Background Content</div>;
@@ -83,21 +87,24 @@ const GeneralSettings = () => {
                             className="absolute left-0 w-[2.4px] h-6 bg-green-600 transition-all duration-300 ease-in-out"
                             style={{
                                 top: {
-                                    "general-setting": "3px",
+                                   "general-setting": "3px",
                                     "logo": "42px",
-                                    "login-page-background": "82px",
-                                    "backend-theme": "122px",
-                                    "mobile-app": "122px",
-                                    "student-gurdian-panel": "162px",
-                                    "fees": "202px",
-                                    "id-auto-generation": "242px",
-                                    "attendance-type": "282px",
-                                    "whatsapp-settings": "322px",
-                                    "maintenance": "362px",
-                                    "miscellaneous": "402px",
+                                    "signature": "80px",
+                                    "login-page-background": "110px",
+                                    "backend-theme": "144px",
+                                    "mobile-app": "183px",
+                                    "student-gurdian-panel": "218px",
+                                    "fees": "252px",
+                                    "id-auto-generation": "290px",
+                                    "attendance-type": "330px",
+                                    "whatsapp-settings": "360px", 
+                                    "session-settings": "400px",
+                                    "maintenance": "432px",
+                                    "miscellaneous": "470px",
                                 }[activeLink],
                             }}
                         />
+
                         <div className="flex flex-col gap-4">
                             <Link
                                 href="/system-settings/general-setting"
@@ -112,6 +119,13 @@ const GeneralSettings = () => {
                                 onClick={() => setActiveLink("logo")}
                             >
                                 Logo
+                            </Link>
+                            <Link
+                                href="/system-settings/general-setting/signature"
+                                className={`text-blue-600 hover:underline ${activeLink === "signature" ? "font-bold text-blue-800" : ""}`}
+                                onClick={() => setActiveLink("signature")}
+                            >
+                                Signature
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/login-page-background"
