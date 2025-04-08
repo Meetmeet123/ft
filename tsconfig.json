@@ -22,6 +22,17 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts",
+  "src/app/system-settings/general-setting/id-auto-generation/IdAutoGeneration/IdAutoGeneration.jsx", 
+  "src/app/system-settings/general-setting/attendance-type/AttendanceType/AttendanceType.jsx",
+  "src/app/system-settings/general-setting/page.jsx", "src/app/system-settings/general-setting/whatsapp-settings/page.tsx", 
+  "src/app/system-settings/general-setting/whatsapp-settings/WhatsappSetting/WhatsappSetting.jsx", 
+  "src/app/system-settings/general-setting/maintenance/Maintenance/Maintenance.jsx", 
+  "src/app/system-settings/general-setting/miscellaneous/Miscellaneous/Miscellaneous.jsx", 
+  "src/app/system-settings/general-setting/signature/Signature/Signature.jsx",
+  "src/app/system-settings/general-setting/session-settings/SessionSettings/SessionSettings.jsx"
+  
+
+],
   "exclude": ["node_modules"]
 }
