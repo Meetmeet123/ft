@@ -4,7 +4,7 @@ import LeaveManagementTable from "./aprrove-leave-table/Table";
 
 const ApproveLeavepage = () => {
   return (
-    <div className="ml-[130px]">
+    <div>
       <ApproveLeaveRequestAdd />
       <LeaveManagementTable />
     </div>

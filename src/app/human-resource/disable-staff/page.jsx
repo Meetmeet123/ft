@@ -4,7 +4,7 @@ import StaffList from "./Show-Disabled-Staff/List";
 
 const DisabledStaffpage = () => {
   return (
-    <div className="mt-5 ml-[130px]">
+    <div className="mt-5">
       <StaffSearchCriteria />
       <StaffList />
     </div>

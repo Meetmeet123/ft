@@ -4,7 +4,7 @@ import DepartmentList from "./Show-departments-list/List";
 
 const Departmentpage = () => {
   return (
-    <div className="flex mt-5 ml-[130px] gap-5">
+    <div className="flex mt-5 gap-5">
       <AddDepartment />
       <DepartmentList />
     </div>

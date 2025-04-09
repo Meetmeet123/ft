@@ -4,7 +4,7 @@ import LeaveRequestForm from "./Apply-Leave-Table/Table";
 
 const ApplyLeavepage = () => {
   return (
-    <div className="ml-[130px]">
+    <div>
       <LeaveHeader />
       <LeaveRequestForm />
     </div>

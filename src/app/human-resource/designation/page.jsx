@@ -4,7 +4,7 @@ import DesignationList from "./List-designation/List";
 
 const Designationpage = () => {
   return (
-    <div className="flex gap-5 ml-[130px] mt-5">
+    <div className="flex gap-5 mt-5">
       <AddDesignation />
       <DesignationList />
     </div>
