@@ -1,53 +1,56 @@
-import React, { useState } from "react";
-import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Pagination } from "antd";
+"use client";
+import { useState } from "react";
+import { Table, Pagination } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const AdmitCardList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5; // Number of items per page
+  const pageSize = 5;
+  const [editingCard, setEditingCard] = useState(null);
 
   const [admitCards, setAdmitCards] = useState([
     {
       id: 1,
-      name: "Sample Admit Card 1",
-      image:
-        "https://cdn.pixabay.com/photo/2022/08/23/11/58/stock-exchange-7405619_1280.jpg", // Random image
-      active: true,
+      template: "Template A",
+      heading: "Annual Exam",
+      title: "Admit Card",
+      exam_name: "Final Term 2024",
+      school_name: "Springfield High School",
+      exam_center: "Center 101",
+      content_footer: "Best of luck for your exams!",
+      is_name: true,
+      is_father_name: true,
+      is_mother_name: false,
+      is_dob: true,
+      is_admission_no: true,
+      is_roll_no: true,
+      is_address: false,
+      is_gender: false,
+      is_photo: true,
+      is_class: true,
+      is_section: true,
     },
     {
       id: 2,
-      name: "Sample Admit Card 2",
-      image:
-        "https://cdn.pixabay.com/photo/2022/08/23/11/58/stock-exchange-7405619_1280.jpg", // Random image
-      active: false,
-    },
-    {
-      id: 3,
-      name: "Sample Admit Card 3",
-      image:
-        "https://cdn.pixabay.com/photo/2022/08/23/11/58/stock-exchange-7405619_1280.jpg", // Random image
-      active: false,
-    },
-    {
-      id: 4,
-      name: "Sample Admit Card 4",
-      image:
-        "https://cdn.pixabay.com/photo/2022/08/23/11/58/stock-exchange-7405619_1280.jpg", // Random image
-      active: false,
-    },
-    {
-      id: 5,
-      name: "Sample Admit Card 5",
-      image:
-        "https://cdn.pixabay.com/photo/2022/08/23/11/58/stock-exchange-7405619_1280.jpg", // Random image
-      active: false,
-    },
-    {
-      id: 6,
-      name: "Sample Admit Card 6",
-      image: "https://source.unsplash.com/random/300x200?sig=6", // Random image
-      active: false,
+      template: "Template B",
+      heading: "Mid-Term Exam",
+      title: "Admit Card",
+      exam_name: "Mid Term 2024",
+      school_name: "Oakridge International",
+      exam_center: "Center 202",
+      content_footer: "Prepare well for your exams!",
+      is_name: true,
+      is_father_name: false,
+      is_mother_name: true,
+      is_dob: true,
+      is_admission_no: false,
+      is_roll_no: true,
+      is_address: true,
+      is_gender: false,
+      is_photo: true,
+      is_class: false,
+      is_section: true,
     },
   ]);
 
@@ -57,87 +60,197 @@ const AdmitCardList = () => {
     }
   };
 
-  // Filtered & Paginated Data
+  const handleEdit = (card) => {
+    setEditingCard(card);
+  };
+
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+    setAdmitCards(
+      admitCards.map((card) =>
+        card.id === editingCard.id ? editingCard : card
+      )
+    );
+    setEditingCard(null);
+  };
+
   const filteredCards = admitCards.filter((card) =>
-    card.name.toLowerCase().includes(search.toLowerCase())
+    card.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  const paginatedCards = filteredCards.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  const columns = [
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Exam Name",
+      dataIndex: "exam_name",
+      key: "exam_name",
+    },
+    {
+      title: "School Name",
+      dataIndex: "school_name",
+      key: "school_name",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <div className="flex gap-3">
+          {/* add view functionality if needed */}
+          <EditOutlined
+            className="text-green-500 cursor-pointer hover:scale-110"
+            onClick={() => handleEdit(record)}
+          />
+          <DeleteOutlined
+            className="text-red-500 cursor-pointer hover:scale-110"
+            onClick={() => handleDelete(record.id)}
+          />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
-      {/* Header and Search */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold text-gray-700">Admit Card List</h2>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="border rounded-md px-3 py-1 text-sm focus:ring focus:ring-blue-300"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      {editingCard ? (
+        <div className="max-w-lg mx-auto bg-gray-100 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold border-b pb-3">
+            Edit Admit Card
+          </h3>
+          <form onSubmit={handleSaveEdit} className="mt-4">
+            <div className="mb-4">
+              <label className="block font-medium">Heading</label>
+              <input
+                type="text"
+                value={editingCard.heading}
+                onChange={(e) =>
+                  setEditingCard({ ...editingCard, heading: e.target.value })
+                }
+                className="w-full border p-2 rounded-md"
+                required
+              />
+            </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-100 text-gray-600 text-sm">
-              <th className="py-3 px-4 text-left">Certificate Name</th>
-              <th className="py-3 px-4 text-left">Background Image</th>
-              <th className="py-3 px-4 text-center">Active</th>
-              <th className="py-3 px-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedCards.map((card) => (
-              <tr
-                key={card.id}
-                className="border-b hover:bg-gray-50 text-sm h-[72px]" // Fixed row height
+            <div className="mb-4">
+              <label className="block font-medium">Title</label>
+              <input
+                type="text"
+                value={editingCard.title}
+                onChange={(e) =>
+                  setEditingCard({ ...editingCard, title: e.target.value })
+                }
+                className="w-full border p-2 rounded-md"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block font-medium">Exam Name</label>
+              <input
+                type="text"
+                value={editingCard.exam_name}
+                onChange={(e) =>
+                  setEditingCard({ ...editingCard, exam_name: e.target.value })
+                }
+                className="w-full border p-2 rounded-md"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block font-medium">Exam Center</label>
+              <input
+                type="text"
+                value={editingCard.exam_center}
+                onChange={(e) =>
+                  setEditingCard({
+                    ...editingCard,
+                    exam_center: e.target.value,
+                  })
+                }
+                className="w-full border p-2 rounded-md"
+              />
+            </div>
+
+            {/* Checkbox Options */}
+            <div className="mb-4">
+              <label className="block font-medium">Include Fields</label>
+              <div className="grid grid-cols-2 gap-3 mt-2">
+                {[
+                  "is_name",
+                  "is_father_name",
+                  "is_mother_name",
+                  "is_dob",
+                  "is_admission_no",
+                  "is_roll_no",
+                  "is_address",
+                  "is_gender",
+                  "is_photo",
+                  "is_class",
+                  "is_section",
+                ].map((field) => (
+                  <label key={field} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={editingCard[field]}
+                      onChange={() =>
+                        setEditingCard({
+                          ...editingCard,
+                          [field]: !editingCard[field],
+                        })
+                      }
+                    />
+                    {field.replace("is_", "").replace("_", " ")}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={() => setEditingCard(null)}
+                className="text-blue-500 hover:text-blue-700"
               >
-                <td className="py-3 px-4 align-middle">{card.name}</td>
-                <td className="py-3 px-4 align-middle">
-                  <img
-                    src={card.image}
-                    alt="Admit"
-                    className="w-14 h-14 object-cover rounded-md shadow"
-                  />
-                </td>
-                <td className="py-3 px-4 text-center align-middle">
-                  <input
-                    type="radio"
-                    name="active_admit_card"
-                    checked={card.active}
-                    readOnly
-                  />
-                </td>
-                <td className="py-3 px-4 text-right flex justify-end gap-3 h-20  items-center">
-                  <EyeOutlined className="text-blue-500 cursor-pointer hover:scale-110" />
-                  <EditOutlined className="text-green-500 cursor-pointer hover:scale-110" />
-                  <DeleteOutlined
-                    className="text-red-500 cursor-pointer hover:scale-110"
-                    onClick={() => handleDelete(card.id)}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                ← Back to List
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <>
+          <div className="flex justify-between items-center mb-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border rounded-md px-3 py-1 text-sm focus:ring focus:ring-blue-300"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
-      {/* Pagination */}
-      <div className="flex justify-end mt-4">
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={filteredCards.length}
-          onChange={(page) => setCurrentPage(page)}
-          showSizeChanger={false}
-        />
-      </div>
+          <Table
+            columns={columns}
+            dataSource={filteredCards}
+            rowKey="id"
+            pagination={{
+              pageSize: pageSize,
+              current: currentPage,
+              total: filteredCards.length,
+              onChange: (page) => setCurrentPage(page),
+              showSizeChanger: false,
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };
