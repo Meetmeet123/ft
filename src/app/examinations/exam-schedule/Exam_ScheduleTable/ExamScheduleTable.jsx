@@ -1,23 +1,20 @@
-import React, { useRef, useState } from "react";
-import { Table } from "antd";
+import React, { useState } from "react";
 import {
   CopyOutlined,
   FileExcelOutlined,
   FilePdfOutlined,
   FileTextOutlined,
   PrinterOutlined,
+  SplitCellsOutlined,
 } from "@ant-design/icons";
-import * as XLSX from "xlsx";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { Button } from "antd";
 import "antd/dist/reset.css";
 
 const ExamScheduleTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const tableRef = useRef(null);
+
   const tableData = [
     {
-      key: "1",
       subject: "English (210)",
       date: "03/05/2025",
       time: "12:30:30",
@@ -27,7 +24,6 @@ const ExamScheduleTable = () => {
       minMarks: 35,
     },
     {
-      key: "2",
       subject: "Hindi (230)",
       date: "03/08/2025",
       time: "12:30:30",
@@ -37,7 +33,6 @@ const ExamScheduleTable = () => {
       minMarks: 35,
     },
     {
-      key: "3",
       subject: "Mathematics (110)",
       date: "03/10/2025",
       time: "12:30:30",
@@ -47,7 +42,6 @@ const ExamScheduleTable = () => {
       minMarks: 35,
     },
     {
-      key: "4",
       subject: "Science (111)",
       date: "03/12/2025",
       time: "12:30:30",
@@ -58,97 +52,6 @@ const ExamScheduleTable = () => {
     },
   ];
 
-  const columns = [
-    { title: "Subject", dataIndex: "subject", key: "subject" },
-    { title: "Date", dataIndex: "date", key: "date" },
-    { title: "Start Time", dataIndex: "time", key: "time" },
-    { title: "Duration", dataIndex: "duration", key: "duration" },
-    { title: "Room No.", dataIndex: "room", key: "room" },
-    { title: "Max Marks", dataIndex: "maxMarks", key: "maxMarks" },
-    { title: "Min Marks", dataIndex: "minMarks", key: "minMarks" },
-  ];
-
-  const handleCopy = () => {
-    const text = filteredData
-      .map((row) => Object.values(row).join("\t"))
-      .join("\n");
-    navigator.clipboard.writeText(text);
-    alert("Copied to clipboard!");
-  };
-
-  const handleExportCSV = () => {
-    const csvContent = [
-      [
-        "Subject",
-        "Date",
-        "Time",
-        "Duration",
-        "Room No.",
-        "Max Marks",
-        "Min Marks",
-      ],
-      ...filteredData.map((row) => Object.values(row)),
-    ]
-      .map((row) => row.join(","))
-      .join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "exam_schedule.csv";
-    link.click();
-  };
-
-  const handleExportExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(filteredData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Exam Schedule");
-    XLSX.writeFile(workbook, "exam_schedule.xlsx");
-  };
-
-  const handleExportPDF = () => {
-    const doc = new jsPDF();
-    autoTable(doc, {
-      head: [
-        [
-          "Subject",
-          "Date",
-          "Time",
-          "Duration",
-          "Room No.",
-          "Max Marks",
-          "Min Marks",
-        ],
-      ],
-      body: filteredData.map((row) => Object.values(row)),
-    });
-    doc.save("exam_schedule.pdf");
-  };
-
-  const handlePrint = () => {
-    const printWindow = window.open("", "_blank");
-    printWindow.document.write(
-      "<html><head><title>Exam Schedule</title></head><body style='background-color:#f4f4f4;'>"
-    );
-    printWindow.document.write(
-      `<table border="1" style="width: 100%; border-collapse: collapse;">`
-    );
-    printWindow.document.write(
-      `<tr>${columns.map((col) => `<th>${col.title}</th>`).join("")}</tr>`
-    );
-    tableData.forEach((row) => {
-      printWindow.document.write(
-        `<tr>${columns
-          .map((col) => `<td>${row[col.dataIndex]}</td>`)
-          .join("")}</tr>`
-      );
-    });
-    printWindow.document.write("</table>");
-    printWindow.document.write("</body></html>");
-    printWindow.document.close();
-    printWindow.print();
-  };
-
   const filteredData = tableData.filter((row) =>
     row.subject.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -157,59 +60,94 @@ const ExamScheduleTable = () => {
     <div className="w-full p-4 bg-white shadow-lg rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="p-2 border border-gray-300 rounded focus:ring focus:ring-blue-400"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="Copy"
+            icon={<CopyOutlined />}
+          />
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="Excel"
+            icon={<FileExcelOutlined />}
+          />
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="CSV"
+            icon={<FileTextOutlined />}
+          />
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="PDF"
+            icon={<FilePdfOutlined />}
+          />
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="Print"
+            icon={<PrinterOutlined />}
+          />
+          <Button
+            className="bg-gray-200 p-2 rounded hover:bg-gray-300"
+            title="Columns"
+            icon={<SplitCellsOutlined />}
           />
         </div>
-      </div>
-      <div className="flex gap-2 mb-4 mt-4">
-        <button
-          style={{ fontSize: "24px" }}
-          className="text-gray-600 hover:text-gray-800"
-          onClick={handleCopy}
-        >
-          <CopyOutlined />
-        </button>
-        <button
-          style={{ fontSize: "24px" }}
-          className="text-green-600 hover:text-green-800"
-          onClick={handleExportExcel}
-        >
-          <FileExcelOutlined />
-        </button>
-        <button
-          style={{ fontSize: "24px" }}
-          className="text-gray-600 hover:text-gray-800"
-          onClick={handleExportCSV}
-        >
-          <FileTextOutlined />
-        </button>
-        <button
-          style={{ fontSize: "24px" }}
-          className="text-red-600 hover:text-red-800"
-          onClick={handleExportPDF}
-        >
-          <FilePdfOutlined />
-        </button>
-        <button
-          style={{ fontSize: "24px" }}
-          className="text-gray-600 hover:text-gray-800"
-          onClick={handlePrint}
-        >
-          <PrinterOutlined />
-        </button>
-      </div>
-      <div ref={tableRef}>
-        <Table
-          columns={columns}
-          dataSource={filteredData}
-          pagination={{ pageSize: 5 }}
+
+        <input
+          type="text"
+          placeholder="Search..."
+          className="p-2 border border-gray-300 rounded focus:ring focus:ring-blue-400"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+
+      {filteredData.length === 0 ? (
+        <div className="text-center p-6">
+          <p className="text-gray-600">No data available in table</p>
+          <img
+            src="https://smart-school.in/ssappresource/images/addnewitem.svg"
+            width="150"
+            alt="No data"
+            className="mx-auto my-4"
+          />
+          <p className="text-success font-bold">
+            <i className="fa fa-arrow-left"></i> Add new record or search with
+            different criteria.
+          </p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 p-2">Subject</th>
+                <th className="border border-gray-300 p-2">Date From</th>
+                <th className="border border-gray-300 p-2">Start Time</th>
+                <th className="border border-gray-300 p-2">Duration</th>
+                <th className="border border-gray-300 p-2">Room No.</th>
+                <th className="border border-gray-300 p-2">Marks (Max.)</th>
+                <th className="border border-gray-300 p-2">Marks (Min.)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((row, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
+                >
+                  <td className="border border-gray-300 p-2">{row.subject}</td>
+                  <td className="border border-gray-300 p-2">{row.date}</td>
+                  <td className="border border-gray-300 p-2">{row.time}</td>
+                  <td className="border border-gray-300 p-2">{row.duration}</td>
+                  <td className="border border-gray-300 p-2">{row.room}</td>
+                  <td className="border border-gray-300 p-2">{row.maxMarks}</td>
+                  <td className="border border-gray-300 p-2">{row.minMarks}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

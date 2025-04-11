@@ -52,11 +52,11 @@ const ExamScheduleForm = () => {
           </div>
         </div>
 
-        {/* Search button */}
+        {/* Search Button */}
         <div className="w-full px-2">
           <button
             type="submit"
-            style={{ backgroundColor: "#164f63" }}
+            style={{ backgroundColor: "var(--color-teal-500)" }}
             className=" hover:bg-teal-700 text-white font-bold  px-2 py-2 rounded mr-2 transition float-right"
           >
             <SearchOutlined /> Search

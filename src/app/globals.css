@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @theme inline {
@@ -25,4 +29,237 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* On desktop, make the sidebar take the full height of its content */
+@media (min-width: 768px) {
+  .side-nav {
+    top: 0 !important; /* Since it's static on desktop, align with the top */
+    height: auto !important; /* Let it take the height of its content */
+    min-height: calc(100vh - 65px) !important; /* Ensure it at least fills the viewport */
+  }
+}
 
+/* Override Enigma template's content class */
+.content {
+  width: 100%;
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .content {
+    margin-left: 256px;
+  }
+}
+
+/* Ensure the sidebar aligns with the header and scrolls */
+.side-nav {
+  top: 65px !important; /* Match the header height */
+  height: calc(100vh - 65px) !important; /* Take remaining viewport height */
+  overflow-y: auto !important; /* Ensure scrolling */
+  margin-top: 86px !important; /* Remove any margin */
+  padding-top: 0 !important; /* Remove any padding that might interfere */
+  background-color: #e8ecf4 !important; /* Sidebar background color */
+  scrollbar-width: none !important; /* Hide scrollbar in Firefox */
+  -ms-overflow-style: none !important; /* Hide scrollbar in IE/Edge */
+}
+
+/* Hide scrollbar in Chrome, Safari, and Edge */
+.side-nav::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* On desktop, make the sidebar take the full height of its content */
+@media (min-width: 768px) {
+  .side-nav {
+    top: 0 !important; /* Since it's static on desktop, align with the top */
+    height: 100% !important; /* Take the full height of the parent */
+    min-height: calc(100vh - 65px) !important; /* Ensure it at least fills the viewport */
+    background-color: #e8ecf4 !important; /* Ensure background color applies on desktop */
+    scrollbar-width: none !important; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none !important; /* Hide scrollbar in IE/Edge */
+  }
+
+  .side-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
+/* Style the parent menu item */
+.side-menu {
+  padding: 8px 8px !important; /* Adjust padding for a tighter look */
+  color: #1e293b !important; /* Slate-800 for darker text */
+  font-weight: 400 !important; /* Normal font weight */
+  background-color: transparent !important; /* No background for parent items */
+}
+
+/* Style the sub-menu */
+.side-menu__sub-open {
+  display: block !important; /* Ensure the sub-menu is visible when open */
+  margin-top: 4px !important; /* Small gap between parent and sub-menu */
+  background-color: #f0f4f4 !important; /* Set sub-menu background color */
+}
+
+/* Style sub-menu items */
+.side-menu__sub-open > li > a {
+  padding: 6px 16px 6px 40px !important; /* Indent sub-menu items more */
+  color: #64748b !important; /* Slate-500 for lighter text */
+  font-weight: 400 !important; /* Normal font weight */
+  font-size: 13px !important; /* Slightly smaller font */
+  background-color: transparent !important; /* No background for individual sub-menu items */
+}
+
+/* Ensure the active state doesn't interfere */
+.side-menu--active {
+  background-color: #e0f2fe !important; /* Light blue for active item */
+  color: #1e293b !important; /* Keep text dark */
+}
+
+/* Adjust the icon and title alignment */
+.side-menu__icon {
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.side-menu__title {
+  flex: 1 !important;
+}
+
+/* Style the sub-menu arrow */
+.side-menu__sub-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Style the Quick Links floating menu */
+.quick-links-menu {
+  min-width: 200px;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 8px 0; /* Vertical padding */
+}
+
+/* Style the items in the Quick Links menu */
+.quick-links-menu li a {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: #1e293b; /* Slate-800 for text */
+  font-weight: 400; /* Normal font weight */
+  font-size: 14px; /* Slightly smaller font */
+  transition: background-color 0.2s ease;
+}
+
+.quick-links-menu li a:hover {
+  background-color: #f1f5f9; /* Slate-100 on hover */
+}
+
+/* Ensure icons in the Quick Links menu are aligned */
+.quick-links-menu li a .w-5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+/* app/globals.css */
+.content {
+  margin-left: 120px; /* Matches the sidebar width (w-64 = 16rem = 256px) */
+}
+
+.box {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.intro-y {
+  animation: intro-y 0.3s ease-in-out;
+}
+
+.zoom-in {
+  animation: zoom-in 0.3s ease-in-out;
+}
+
+@keyframes intro-y {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.form-control {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.table-report {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-report th,
+.table-report td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table-report th {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip:hover::after {
+  content: attr(title);
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 10;
+}

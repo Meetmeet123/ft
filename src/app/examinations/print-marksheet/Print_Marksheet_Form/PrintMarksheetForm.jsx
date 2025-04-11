@@ -159,11 +159,11 @@ const PrintForm = () => {
         </div>
       </div>
 
-      {/* Search button */}
+      {/* Search Button */}
       <div className="w-full flex justify-end mt-4">
         <button
           type="submit"
-          className="bg-[#164f63] hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
+          className="bg-teal-500 hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
         >
           <SearchOutlined className="mr-2" /> Search
         </button>

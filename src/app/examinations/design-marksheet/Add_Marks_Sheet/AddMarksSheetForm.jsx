@@ -162,12 +162,11 @@ export default function AddMarksheet() {
         ))}
       </div>
 
-      {/* Submit button */}
+      {/* Submit Button */}
       <div className="flex justify-end">
         <button
           type="submit"
-          style={{ backgroundColor: "#164f63" }}
-          className=" hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
+          className="bg-teal-500 hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
         >
           Save
         </button>

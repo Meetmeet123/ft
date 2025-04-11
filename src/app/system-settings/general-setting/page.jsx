@@ -256,9 +256,9 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-6 h-fit flex flex-row px-0 intro-y">
+        <div className="mt-6 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white mr-2  h-130">
+            <div className="w-1/5 bg-white mr-2 h-125">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
