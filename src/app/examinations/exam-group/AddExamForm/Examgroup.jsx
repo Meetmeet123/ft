@@ -81,8 +81,7 @@ export default function ExamGroupForm() {
 
         <button
           type="submit"
-          style={{ backgroundColor: "#164f63" }}
-          className=" hover:bg-teal-700 text-white font-bold  px-2 py-1 rounded mr-2"
+          className="bg-teal-500 hover:bg-teal-700 text-white font-bold  px-2 py-1 rounded mr-2"
         >
           Save
         </button>

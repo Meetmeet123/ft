@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Table, button, Tooltip } from "antd";
+import { Table, Button, Tooltip } from "antd";
 import { PrinterOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css";
 
@@ -93,17 +93,19 @@ const StudentMarksList = ({ students = [] }) => {
 
   return (
     <div className="p-6">
-      {/* Print button */}
+      {/* Print Button */}
       <div className="flex justify-end mb-3.5">
-        <button
+        <Button
+          icon={<PrinterOutlined />}
+          type="primary"
           style={{
-            backgroundColor: "#164f63",
+            backgroundColor: "#0d9488",
+            borderColor: "#0d9488",
             color: "white",
           }}
-          className="p-2 rounded-lg"
         >
-          <PrinterOutlined /> Print
-        </button>
+          Print
+        </Button>
       </div>
 
       {/* Ant Design Table with custom checkbox selection */}

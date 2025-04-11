@@ -47,52 +47,21 @@ export default function RegisterPage() {
                 Sign Up
               </h2>
               <div className="intro-x mt-2 text-slate-400 dark:text-slate-400 xl:hidden text-center">
-                A few more clicks to sign in to your account. Manage all your
-                e-commerce accounts in one place
+                A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place
               </div>
               <div className="intro-x mt-8">
-                <input
-                  type="text"
-                  className="intro-x login__input form-control py-3 px-4 block"
-                  placeholder="First Name"
-                />
-                <input
-                  type="text"
-                  className="intro-x login__input form-control py-3 px-4 block mt-4"
-                  placeholder="Last Name"
-                />
-                <input
-                  type="email"
-                  className="intro-x login__input form-control py-3 px-4 block mt-4"
-                  placeholder="Email"
-                />
-                <input
-                  type="password"
-                  className="intro-x login__input form-control py-3 px-4 block mt-4"
-                  placeholder="Password"
-                />
-                <input
-                  type="password"
-                  className="intro-x login__input form-control py-3 px-4 block mt-4"
-                  placeholder="Password Confirmation"
-                />
+                <input type="text" className="intro-x login__input form-control py-3 px-4 block" placeholder="First Name" />
+                <input type="text" className="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Last Name" />
+                <input type="email" className="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Email" />
+                <input type="password" className="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password" />
+                <input type="password" className="intro-x login__input form-control py-3 px-4 block mt-4" placeholder="Password Confirmation" />
               </div>
               <div className="intro-x flex items-center text-slate-600 dark:text-slate-500 mt-4 text-xs sm:text-sm">
-                <input
-                  id="remember-me"
-                  type="checkbox"
-                  className="form-check-input border mr-2"
-                />
-                <label
-                  className="cursor-pointer select-none"
-                  htmlFor="remember-me"
-                >
+                <input id="remember-me" type="checkbox" className="form-check-input border mr-2" />
+                <label className="cursor-pointer select-none" htmlFor="remember-me">
                   I agree to the Envato
                 </label>
-                <Link
-                  href="/privacy-policy"
-                  className="text-primary dark:text-slate-200 ml-1"
-                >
+                <Link href="/privacy-policy" className="text-primary dark:text-slate-200 ml-1">
                   Privacy Policy
                 </Link>
               </div>
@@ -100,12 +69,7 @@ export default function RegisterPage() {
                 <button className="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3">
                   Register
                 </button>
-                <button
-                  onClick={handleLogin}
-                  className="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0"
-                >
-                  Sign in
-                </button>
+                  <button onClick={handleLogin} className="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0">Sign in</button>
               </div>
             </div>
           </div>

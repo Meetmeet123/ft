@@ -38,7 +38,6 @@ export default function AddAdmitCard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted", formData);
-    //Add the submit endpoint here
   };
 
   return (
@@ -131,8 +130,7 @@ export default function AddAdmitCard() {
       <div className="mt-6 flex justify-end">
         <button
           type="submit"
-          style={{ backgroundColor: "#164f63" }}
-          className=" hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
+          className="bg-teal-500 hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
         >
           Save
         </button>
