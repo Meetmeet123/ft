@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Card, Tooltip } from "antd";
+import { Table, button, Card, Tooltip } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const GradeDivList = ({ grades, onEdit, onDelete }) => {
@@ -25,14 +25,14 @@ const GradeDivList = ({ grades, onEdit, onDelete }) => {
       render: (_, record) => (
         <div className="flex gap-2">
           <Tooltip title="Edit">
-            <Button
+            <button
               icon={<EditOutlined />}
               onClick={() => onEdit(record)}
               className="text-green-600 border-none hover:text-green-700 hover:bg-green-100 transition-all"
             />
           </Tooltip>
           <Tooltip title="Delete">
-            <Button
+            <button
               icon={<DeleteOutlined />}
               onClick={() => onDelete(record.key)}
               className="text-red-600 border-none hover:text-red-700 hover:bg-red-100 transition-all"

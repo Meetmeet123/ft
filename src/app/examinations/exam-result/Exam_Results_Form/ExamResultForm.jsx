@@ -109,11 +109,11 @@ const ResultForm = () => {
         </div>
       </div>
 
-      {/* Search Button - Aligned Properly */}
+      {/* Search button - Aligned Properly */}
       <div className="w-full flex justify-end px-2 mt-4">
         <button
           type="submit"
-          style={{ backgroundColor: "var(--color-teal-500)" }}
+          style={{ backgroundColor: "#164f63" }}
           className=" hover:bg-teal-700 text-white font-bold px-4 py-2 rounded transition flex items-center"
         >
           <SearchOutlined className="mr-2" /> Search

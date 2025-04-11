@@ -77,7 +77,7 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-10 h-fit flex flex-row ml-4 intro-y " style={{ marginLeft: "120px" }}>
+        <div className="mt-6 h-fit flex flex-row px-0 intro-y ">
             {/* Side Submenu (20%) */}
             <div className="w-1/5 bg-white mr-2">
                 <div className="relative min-h-[200px]">
