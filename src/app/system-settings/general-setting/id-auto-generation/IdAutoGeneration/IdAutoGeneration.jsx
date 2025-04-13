@@ -1,0 +1,170 @@
+
+
+import React, { useState } from 'react';
+
+const IdAutoGeneration = () => {
+    // Initialize the buttonStates array to [false, false] to make both radio buttons disabled by default
+    const [buttonStates, setButtonStates] = useState([false, false]);
+
+    // Function to handle radio button changes
+    const handleRadioChange = (index, value) => {
+        const updatedButtonStates = [...buttonStates];
+        updatedButtonStates[index] = value;
+        setButtonStates(updatedButtonStates);
+    };
+
+    return (
+        <div className="w-full h-full bg-white p-3 relative">
+            {/* Background content wrapper */}
+            <div>
+                <h1 className="text-xl border-b dark:border-gray-700 pb-2">ID Auto Generation</h1>
+                <form className=''>
+                    <div className="flex flex-col">
+                        <div className="flex justify-between items-center pt-4">
+                            <h2 className="text-base">Student Admission No. Auto Generation</h2>
+                        </div>
+                        {/* Group 1 */}
+                        <div className="flex pt-4">
+                            <label htmlFor="">Auto Admission No.</label>
+                            <div className="flex items-center ml-25">
+                                <input
+                                    id="default-radio-1"
+                                    type="radio"
+                                    checked={!buttonStates[0]} // If 'buttonStates[0]' is false, 'Disabled' will be checked
+                                    onChange={() => handleRadioChange(0, false)} // Set to false when 'Disabled' is selected
+                                    name="default-radio-1"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                                />
+                                <label htmlFor="default-radio-1" className="ms-2 text-gray-900 dark:text-gray-300">
+                                    Disabled
+                                </label>
+                            </div>
+                            <div className="flex items-center ml-2">
+                                <input
+                                    id="default-radio-2"
+                                    type="radio"
+                                    checked={buttonStates[0]} // If 'buttonStates[0]' is true, 'Enabled' will be checked
+                                    onChange={() => handleRadioChange(0, true)} // Set to true when 'Enabled' is selected
+                                    name="default-radio-1"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                                />
+                                <label htmlFor="default-radio-2" className="ms-2 text-gray-900 dark:text-gray-300">
+                                    Enabled
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div className="flex justify-between items-center pt-4">
+                            <label htmlFor="">Admission No. Prefix <span className='text-red-500'>*</span></label>
+                            <input type="text" className='py-1 w-140 h-6 text-xs' />
+                        </div>
+
+                        <div className="flex justify-between items-center pt-3">
+                            <label htmlFor="">Admission No. Digit <span className='text-red-500'>*</span></label>
+                            <select className='w-140 py-1 h-6 text-xs'>
+                                <option value="select">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+
+                            </select>
+                        </div>
+                        <div className="flex justify-between items-center pt-4">
+                            <label htmlFor="">Admission Start From  <span className='text-red-500'>*</span></label>
+                            <input type="text" className='py-1 w-140 h-6 text-xs' />
+                        </div>
+                    </div>
+                    <div className="flex flex-col ">
+                        <div className="flex justify-between items-center border-t dark:border-gray-700 my-4">
+                            <h2 className="text-base pt-2">Staff ID Auto Generation</h2>
+                        </div>
+
+                        {/* Group 2 */}
+                        <div className="flex items-center">
+                            <label htmlFor="">Auto Staff ID</label>
+                            <div className="flex items-center ml-36">
+                                <input
+                                    id="default-radio-3"
+                                    type="radio"
+                                    checked={!buttonStates[1]} // Disabled selected when false
+                                    onChange={() => handleRadioChange(1, false)} // Set to false when 'Disabled' is selected
+                                    name="default-radio-2"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                                />
+                                <label htmlFor="default-radio-3" className="ms-2 text-gray-900 dark:text-gray-300">
+                                    Disabled
+                                </label>
+                            </div>
+                            <div className="flex items-center ml-2">
+                                <input
+                                    id="default-radio-4"
+                                    type="radio"
+                                    checked={buttonStates[1]} // Enabled selected when true
+                                    onChange={() => handleRadioChange(1, true)} // Set to true when 'Enabled' is selected
+                                    name="default-radio-2"
+                                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                                />
+                                <label htmlFor="default-radio-4" className="ms-2 text-gray-900 dark:text-gray-300">
+                                    Enabled
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-center pt-4">
+                            <label htmlFor="">Staff ID Prefix <span className='text-red-500'>*</span></label>
+                            <input type="text" className='py-1 w-140 h-6 text-xs' />
+                        </div>
+
+                        <div className="flex justify-between items-center pt-3">
+                            <label htmlFor="">Staff No. Digit <span className='text-red-500'>*</span></label>
+                            <select className='w-140 py-1 h-6 text-xs'>
+                                <option value="select">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+
+                            </select>
+                        </div>
+                        <div className="flex justify-between items-center pt-4">
+                            <label htmlFor="">Staff ID Start From <span className='text-red-500'>*</span></label>
+                            <input type="text" className='py-1 w-140 h-6 text-xs' />
+                        </div>
+                    </div>
+                    {/* Save Button */}
+                    <div className="flex justify-end mt-5 border-t dark:border-gray-700">
+                        <button type=''
+                            className="btn btn-primary bg-blue-500 text-white p-1 mt-2 px-2 rounded focus:ring-0 focus:outline-none"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    );
+};
+
+export default IdAutoGeneration;
+
