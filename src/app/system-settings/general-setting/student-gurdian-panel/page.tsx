@@ -79,9 +79,9 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-10 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
+        <div className="mt-10 h-fit flex flex-row intro-y ">
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white  mr-2">
+            <div className="lg:w-1/5 md:w-1/3 bg-white  mr-2">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}

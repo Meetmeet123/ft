@@ -43,7 +43,7 @@ const MobileThemepage = () => {
 
                 <form className=' border-b dark:border-gray-700 pb-6 '>
                     <div className="flex flex-col">
-                        <div className="flex justify-between items-center pt-4">
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <h2 className="text-base">User Mobile App</h2>
                             <div>
                                 {/* Add button triggers the modal */}
@@ -56,15 +56,15 @@ const MobileThemepage = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex justify-between items-center pt-2">
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App API URL</label>
                             <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={"https://demo.smart-school.in/api/"} />
                         </div>
-                        <div className="flex justify-between items-center pt-3">
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App Primary Color Code</label>
                             <input type="text" className='py-1 w-120 h-6 text-xs' defaultValue={"#424242"} />
                         </div>
-                        <div className="flex justify-between items-center pt-3">
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App Secondary Color Code</label>
                             <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={"#E7F1EE"} />
                         </div>

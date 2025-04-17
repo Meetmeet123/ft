@@ -31,12 +31,12 @@ const StudentTheme = () => {
       <form className="border-b dark:border-gray-700 pb-6">
         <div className="flex flex-col">
           {/* User Login Option */}
-          <div className="flex items-center pt-2">
-            <label className="mr-2">User Login Option</label>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 items-center pt-2 mb-5">
+            <label className="mr-2 mb-3">User Login Option</label>
 
             {/* Flexbox for the checkbox and label in the same row */}
-            <div className="flex items-center space-x-4 ml-60">
-              <div className="flex items-center">
+            <div className="flex items-center gap-5">
+              <div className="flex items-center mb-2">
                 <input
                   id="inline-2-checkbox"
                   type="checkbox"
@@ -46,13 +46,13 @@ const StudentTheme = () => {
                 />
                 <label
                   htmlFor="inline-2-checkbox"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-700 dark:text-gray-300"
                 >
                   Student Login
                 </label>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center mb-2">
                 <input
                   id="inline-checked-checkbox"
                   type="checkbox"
@@ -62,7 +62,7 @@ const StudentTheme = () => {
                 />
                 <label
                   htmlFor="inline-checked-checkbox"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Parent Login
                 </label>
@@ -71,36 +71,40 @@ const StudentTheme = () => {
           </div>
 
           {/* Color Code Inputs */}
-          <div className="flex items-center pt-4">
-            <label>Additional Username Option For Student Login</label>
-            <div className="flex items-center me-4 ml-18">
-              <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="inline-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">Admission No</label>
-            </div>
-            <div className="flex items-center me-4">
-              <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="inline-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">Mobile Number </label>
-            </div>
-            <div className="flex items-center me-4">
-              <input id="inline-checkbox" type="checkbox" value="email" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="inline-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">Email</label>
-            </div>
-          </div>
-          <div className="flex items-center pt-4">
-            <label>Additional Username Option For Parent Login</label>
-            <div className="flex items-center me-4 ml-20">
-              <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="inline-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">Mobile Number</label>
-            </div>
-            <div className="flex items-center me-4">
-              <input id="inline-checkbox" type="checkbox" value="email" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
-              <label htmlFor="inline-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">Email </label>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 items-center pt-4 mb-5 gap-5">
+            <label className='w-full' >Additional Username Option For Student Login</label>
+            <div className='w-full lg:flex items-center sm:block' >
+              <div className="flex items-center w-full me-4 mb-3 ">
+                <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="inline-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">Admission No</label>
+              </div>
+              <div className="flex items-center me-4 w-full mb-3">
+                <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="inline-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">Mobile Number </label>
+              </div>
+              <div className="flex items-center me-4 w-full mb-3">
+                <input id="inline-checkbox" type="checkbox" value="email" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="inline-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">Email</label>
+              </div>
             </div>
           </div>
-          <div className="flex items-center pt-4">
+          <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center pt-4 w-full mb-5">
+            <label className='mb-2' >Additional Username Option For Parent Login</label>
+            <div className='lg:flex items-center sm:block' >
+              <div className="flex items-center me-4 mb-3 ">
+                <input id="inline-checkbox" type="checkbox" value="number" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="inline-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">Mobile Number</label>
+              </div>
+              <div className="flex items-center me-4 mb-3">
+                <input id="inline-checkbox" type="checkbox" value="email" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="inline-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">Email </label>
+              </div>
+            </div>
+          </div>
+          <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center pt-4 w-full mb-5">
             <label>Allow Student To Add Timeline</label>
-            <div className="flex items-center  ">
-              <div className="flex items-center ml-42">
+            <div className="lg:flex items-center sm:block">
+              <div className="flex items-center">
                 <input
                   id="default-radio-1"
                   type="radio"
@@ -111,7 +115,7 @@ const StudentTheme = () => {
                 />
                 <label
                   htmlFor="default-radio-1"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Disabled
                 </label>
@@ -128,7 +132,7 @@ const StudentTheme = () => {
                 />
                 <label
                   htmlFor="default-radio-2"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Enabled
                 </label>

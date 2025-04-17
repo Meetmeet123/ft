@@ -30,7 +30,7 @@ const Maintenance = () => {
                                     name="default-radio-1"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                                 />
-                                <label htmlFor="default-radio-1" className="ms-2 text-gray-900 dark:text-gray-300">
+                                <label htmlFor="default-radio-1" className="ms-2 text-gray-600 dark:text-gray-300">
                                     Disabled
                                 </label>
                             </div>
@@ -43,7 +43,7 @@ const Maintenance = () => {
                                     name="default-radio-1"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                                 />
-                                <label htmlFor="default-radio-2" className="ms-2 text-gray-900 dark:text-gray-300">
+                                <label htmlFor="default-radio-2" className="ms-2 text-gray-600 dark:text-gray-300">
                                     Enabled
                                 </label>
                             </div>
