@@ -99,6 +99,7 @@ import {
   WalletCards,
   Wifi,
   Zap,
+  CreditCardIcon,
 } from "lucide-react";
 
 interface MenuItem {
@@ -332,6 +333,11 @@ const Sidebar: React.FC = () => {
           title: "Collect Fees",
           path: "/fees-collection/collect-fees",
           icon: "plus-circle",
+        },
+        {
+          title: "Offline Bank Payment",
+          path: "/fees-collection/offline-bank-payment",
+          icon: "credit-card",
         },
         {
           title: "Search Fees Payment",
