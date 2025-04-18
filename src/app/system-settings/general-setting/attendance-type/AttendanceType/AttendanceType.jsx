@@ -38,695 +38,122 @@ function TimeInput({ id, label }) {
 }
 const AttendanceTable = () => {
   return (
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-sm text-gray-900 dark:text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            Attendance Type
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Entry From (hh:mm:ss)
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Entry Upto (hh:mm:ss)
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Total Hour
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="bg-white dark:bg-gray-800">
+    <div className="w-full overflow-x-auto">
+  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead className="text-sm text-gray-900 dark:text-gray-300 bg-gray-100 dark:bg-gray-700">
+      <tr>
+        <th className="px-6 py-3">Attendance Type</th>
+        <th className="px-6 py-3">Entry From (hh:mm:ss)</th>
+        <th className="px-6 py-3">Entry Upto (hh:mm:ss)</th>
+        <th className="px-6 py-3">Total Hour</th>
+      </tr>
+    </thead>
+    <tbody>
+      {[
+        "Present (P)",
+        "Late (L)",
+        "Half Day (F)",
+        "Half Day Second Shift (SH)"
+      ].map((label, idx) => (
+        <tr key={idx} className="bg-white dark:bg-gray-800 border-b">
           <th
             scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            className="px-6 py-4 font-medium text-gray-600 whitespace-nowrap dark:text-white"
           >
-            Present (P)
+            {label}
           </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
+          {[1, 2, 3].map((_, index) => (
+            <td key={index} className="px-4 py-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="time"
+                  className="rounded-md py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  min="09:00"
+                  max="18:00"
+                  defaultValue="00:00"
+                  required
+                />
+                <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  <svg
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </td>
+          ))}
         </tr>
-        <tr className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            Late (L)
-          </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            Half Day (F)
-          </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            Half Day Second Shift (SH)
-          </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      ))}
+    </tbody>
+  </table>
+</div>
+
   );
 };
 const AttendanceTable2 = () => {
   return (
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-sm text-gray-900 dark:text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            Attendance Type
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Entry From (hh:mm:ss)
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Entry Upto (hh:mm:ss)
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Total Hour
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="bg-white dark:bg-gray-800">
+    <div className="w-full overflow-x-auto">
+  <table className="w-full min-w-[800px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead className="text-sm text-gray-600 dark:text-gray-400 bg-gray-100">
+      <tr>
+        <th className="px-6 py-3">Attendance Type</th>
+        <th className="px-6 py-3">Entry From (hh:mm:ss)</th>
+        <th className="px-6 py-3">Entry Upto (hh:mm:ss)</th>
+        <th className="px-6 py-3">Total Hour</th>
+      </tr>
+    </thead>
+    <tbody>
+      {["Present (P)", "Late (L)", "Half Day (F)"].map((type, i) => (
+        <tr key={i} className="bg-white dark:bg-gray-800 border-b">
           <th
             scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            className="px-6 py-4 font-medium text-gray-600 whitespace-nowrap dark:text-white"
           >
-            Present (P)
+            {type}
           </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
+          {[1, 2, 3].map((_, index) => (
+            <td className="px-4 py-4" key={index}>
+              <div className="flex items-center gap-2">
+                <input
+                  type="time"
+                  className="rounded-md py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  min="09:00"
+                  max="18:00"
+                  defaultValue="00:00"
+                  required
+                />
+                <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  <svg
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </td>
+          ))}
         </tr>
-        <tr className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            Late (L)
-          </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
-            Half Day (F)
-          </th>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-          <td className="px-4 py-4">
-            <div className="flex">
-              <input
-                type="time"
-                id="time"
-                className="rounded-none py-1 bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block flex-1 w-full text-xs border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                min="09:00"
-                max="18:00"
-                defaultValue="00:00"
-                required=""
-              />
-              <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </td>
-        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
-      </tbody>
-    </table>
   );
 };
 const AttendanceType = () => {
@@ -753,12 +180,12 @@ const AttendanceType = () => {
       <div className=' bg-white p-3'>
         <h1 className="text-xl border-b dark:border-gray-700 pb-2">Attendance Type</h1>
         <form className=''>
-          <div className="flex flex-col">
+          <div className="lg:flex md:block sm:block flex-col">
             {/* Group 1 */}
             <div className="flex flex-wrap pt-4">
-              <div className="flex mr-10">
-                <label htmlFor="">Attendance</label>
-                <div className="flex ml-15">
+              <div className="lg:flex md: mr-10">
+                <label htmlFor="" className='w-full mt-4' >Attendance</label>
+                <div className="flex w-full mt-4">
                   <input
                     id="default-radio-1"
                     type="radio"
@@ -767,11 +194,11 @@ const AttendanceType = () => {
                     name="default-radio-1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                   />
-                  <label htmlFor="default-radio-1" className="ms-2 text-gray-900 dark:text-gray-300">
+                  <label htmlFor="default-radio-1" className="ms-2 text-gray-600 dark:text-gray-300">
                     Day Wise
                   </label>
                 </div>
-                <div className="flex ml-2">
+                <div className="flex lg:ml-4 w-full mt-4">
                   <input
                     id="default-radio-2"
                     type="radio"
@@ -780,38 +207,38 @@ const AttendanceType = () => {
                     name="default-radio-1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                   />
-                  <label htmlFor="default-radio-2" className="ms-2 text-gray-900 dark:text-gray-300">
+                  <label htmlFor="default-radio-2" className="ms-2 text-gray-600 dark:text-gray-300 w-full">
                     Period Wise
                   </label>
                 </div>
               </div>
 
               {/* Second group (QR Code / Barcode / Biometric Attendance) */}
-              <div className="flex ml-20">
-                <div className="flex flex-col mr-4">
-                  <label htmlFor="" className="text-gray-900 dark:text-gray-300">
+              <div className="lg:flex md:block ">
+                <div className="flex flex-col mr-4 mt-4">
+                  <label htmlFor="" className="text-gray-600 dark:text-gray-300">
                     QR Code / Barcode
                   </label>
-                  <label htmlFor="" className="text-gray-900 dark:text-gray-300 mt-1">
+                  <label htmlFor="" className="text-gray-600 dark:text-gray-300 mt-1">
                     Biometric Attendance
                   </label>
                 </div>
 
                 {/* Enable/Disable Radio buttons */}
-                <div className="flex ml-6">
+                <div className="flex lg:ml-6 mt-4">
                   <input
                     id="default-radio-3"
                     type="radio"
                     checked={!buttonStates[1]} // Disabled selected when false
                     onChange={() => handleRadioChange(1, false)} // Set to false when 'Disabled' is selected
                     name="default-radio-2"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                    className="w-4 h-4 text-blue-600 bg-gray-600 focus:ring-0"
                   />
-                  <label htmlFor="default-radio-3" className="ms-2 text-gray-900 dark:text-gray-300">
+                  <label htmlFor="default-radio-3" className="ms-2 text-gray-600 dark:text-gray-300">
                     Disabled
                   </label>
                 </div>
-                <div className="flex ml-2">
+                <div className="flex ml-2 mt-4">
                   <input
                     id="default-radio-4"
                     type="radio"
@@ -820,26 +247,26 @@ const AttendanceType = () => {
                     name="default-radio-2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                   />
-                  <label htmlFor="default-radio-4" className="ms-2 text-gray-900 dark:text-gray-300">
+                  <label htmlFor="default-radio-4" className="ms-2 text-gray-600 dark:text-gray-300">
                     Enabled
                   </label>
                 </div>
               </div>
 
             </div>
-            <div className="flex justify-between items-center pt-4">
-              <label htmlFor="">Devices (Separate By Comma)</label>
-              <input type="text" className='py-1 w-140 h-6 text-xs focus:outline-none focus:border-gray-300' />
+            <div className="lg:flex md:block justify-between items-center pt-4">
+              <label htmlFor="" className='w-1/3' >Devices (Separate By Comma)</label>
+              <input type="text" className='py-1 w-full h-6 text-xs focus:outline-none focus:border-gray-300' />
             </div>
-            <div className="flex items-center pt-4">
-              <label htmlFor="" className="flex items-center">
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className="flex w-1/3 items-center">
                 Low Attendance Limit
                 <span className="bg-blue-500 rounded-full w-4 h-4 text-white flex items-center justify-center cursor-pointer ml-2">
                   ?
                 </span>
               </label>
-              <div className="ml-21 inline-flex items-center">
-                <input type="text" className="py-1 w-80 h-6 text-xs pr-2 pl-2" defaultValue={"75.00"} />
+              <div className="flex items-center w-full">
+                <input type="text" className="py-1 w-full h-6 text-xs pr-2 pl-2" defaultValue={"75.00"} />
                 <span className="text-sm h-6 flex items-center justify-center border px-2 pl-2 border-l-0">%</span>
               </div>
 
@@ -870,129 +297,120 @@ const AttendanceType = () => {
                   <h3 className='ml-2'>Copy First Detail For All</h3>
                 </div>
 
-                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
+                <div className='lg:flex justify-evenly border-b md:block dark:border-gray-700 pb-4 pt-2'>
                   <div>
                     <h4 className='text-lg'>Class 1</h4>
                   </div>
                   <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                    <div className="ml-40 flex pt-3 ">
+                    <div className="flex pt-3 ">
                       <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
+                    <div className="flex pt-3 ">
                       <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
+                    <div className="flex pt-3 ">
                       <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
+                    <div className="flex pt-3 ">
                       <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
                       <TimeInput />
                     </div>
 
                   </div>
                 </div>
-                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                  <div>
-                    <h4 className='text-lg'>Class 2</h4>
+                <div className="lg:flex justify-evenly border-b md:block dark:border-gray-700 pb-4 pt-2">
+                  <div className="mb-4 lg:mb-0">
+                    <h4 className="text-lg">Class 2</h4>
                   </div>
-                  <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                  <div className="col-sm-8 col-lg-8 col-md-8">
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">A</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">B</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">C</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">D</label>
                       <TimeInput />
                     </div>
-
                   </div>
                 </div>
-                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                  <div>
-                    <h4 className='text-lg'>Class 3</h4>
+                <div className="lg:flex justify-evenly border-b md:block dark:border-gray-700 pb-4 pt-2">
+                  <div className="mb-4 lg:mb-0">
+                    <h4 className="text-lg">Class 3</h4>
                   </div>
-                  <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                  <div className="col-sm-8 col-lg-8 col-md-8">
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">A</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">B</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">C</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">C</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">D</label>
                       <TimeInput />
                     </div>
-
                   </div>
                 </div>
-                <div className='flex col-sm-4 col-lg-4 col-md-4 border-b dark:border-gray-700 pb-4 pt-2'>
-                  <div>
-                    <h4 className='text-lg'>Class 4</h4>
+                <div className="lg:flex justify-evenly border-b md:block dark:border-gray-700 pb-4 pt-2">
+                  <div className="mb-4 lg:mb-0">
+                    <h4 className="text-lg">Class 4</h4>
                   </div>
-                  <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">A</label>
+                  <div className="col-sm-8 col-lg-8 col-md-8">
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">A</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">B</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">B</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">C</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">D</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">D</label>
                       <TimeInput />
                     </div>
-
                   </div>
                 </div>
-                <div className='flex col-sm-4 col-lg-4 col-md-4 '>
-                  <div>
-                    <h4 className='text-lg'>Class 5</h4>
+                <div className="lg:flex justify-evenly md:block dark:border-gray-700 pb-4 pt-2">
+                  <div className="mb-4 lg:mb-0">
+                    <h4 className="text-lg">Class 5</h4>
                   </div>
-                  <div className='col-sm-8 col-lg-8 col-md-8'>
-
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">A</label>
+                  <div className="col-sm-8 col-lg-8 col-md-8">
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">A</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">B</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">B</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black mx-6">C</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">C</label>
                       <TimeInput />
                     </div>
-                    <div className="ml-40 flex pt-3 ">
-                      <label htmlFor="time" className="block text-sm text-black  mx-6">D</label>
+                    <div className="flex items-center pt-3">
+                      <label htmlFor="time" className="block text-sm text-black mx-6 w-4">D</label>
                       <TimeInput />
                     </div>
-
                   </div>
                 </div>
                 <div className="flex justify-end mt-5 border-t dark:border-gray-700">
@@ -1112,7 +530,7 @@ const AttendanceType = () => {
 
                         </div>
                         <div>
-                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg'>Section: A</h1></div>
+                          <div className='flex items-center justify-center pt-4'><h1 className='text-lg text-white'>Section: A</h1></div>
                           <AttendanceTable2 />
                         </div>
                         <div>

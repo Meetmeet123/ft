@@ -46,43 +46,42 @@ const GeneralSettings = () => {
     const renderContent = () => {
         switch (activeLink) {
             case "general-setting":
-                return <div className="flex flex-row gap-6">
-                    <div className="col-span-12 lg:col-span-6 flex-1 ">
-                        <div className="intro-y box p-1 pb-10 mb-4 w-[850]">
+                return <div className="flex w-full flex-row gap-6">
+                    <div className="w-full flex-1">
+                        <div className="intro-y box p-1 pb-10 mb-4 ">
                             <div className="flex flex-col sm:flex-row items-center p-1 pb-4 border-b border-slate-200/60 dark:border-darkmode-400">
                                 <h2 className="font-normal text-base mr-auto">General Setting</h2>
-
                             </div>
-                            <div className='p-3 m-3' style={{ backgroundColor: '#dae8f2', color: "#3498db", borderColor: "a3c8e3" }}>
+                            <div className='p-3 m-3 text-blue-600 bg-blue-50 text-center w-full'>
                                 <h4>Note: After saving General Setting please once logout then relogin so changes will be come in effect.</h4>
                             </div>
                             <form className="pb-6">
                                 <div className='pb-6 border-b border-slate-200/60 dark:border-darkmode-400 '>
-                                    <div className="flex space-x-4 pt-2">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-30">School Name <span className='text-red-400'>*</span></label>
-                                            <input type="text" className="text-xs w-70 border border-gray-300 px-2 py-1" defaultValue={"Mount Carmel School"} />
+                                    <div className="grid lg:grid-cols-2 md:grid-cols-2 gap-5 sm:grid-cols-1 space-x-4 pt-2">
+                                        <div className="grid w-full lg:grid-cols-2 md:grid-cols-1 justify-start items-center gap-0">
+                                            <label htmlFor="" className="mr-2 col-span-1">School Name <span className='text-red-400'>*</span></label>
+                                            <input type="text" className="text-xs w-full border border-gray-300 px-2 py-1" defaultValue={"Mount Carmel School"} />
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-24">School Code</label>
-                                            <input type="text" className="text-xs w-72 border border-gray-300 py-1" defaultValue={"ACT-487438"} />
+                                        <div className="grid w-full lg:grid-cols-2 md:grid-cols-1 justify-start items-center gap-0">
+                                            <label htmlFor="" className="">School Code</label>
+                                            <input type="text" className="text-xs w-full border border-gray-300 py-1" defaultValue={"ACT-487438"} />
                                         </div>
 
                                     </div>
                                     <div className="flex space-x-4 pt-2">
-                                        <div className="flex items-center col-start-1">
-                                            <label htmlFor="" className=" mr-2 w-30">Address <span className='text-red-400'>*</span></label>
-                                            <input type="text" className="text-xs w-170 border border-gray-300 py-1" defaultValue={"25 Kings Street, CA"} />
+                                        <div className="lg:flex gap-5 md:block sm:block items-center w-full">
+                                            <label htmlFor="" className="w-1/3">Address <span className='text-red-400'>*</span></label>
+                                            <input type="text" className="text-xs w-full border border-gray-300 py-1" defaultValue={"25 Kings Street, CA"} />
                                         </div>
                                     </div>
-                                    <div className="flex space-x-4 pt-2">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-30">Phone <span className='text-red-400'>*</span></label>
-                                            <input type="text" className="text-xs w-70 border border-gray-300 px-2 py-1" defaultValue={"89562423934"} />
+                                    <div className="lg:flex md:block sm:block space-x-4 pt-2">
+                                        <div className="flex items-center gap-5 lg:w-1/2 md:w-full sm:w-full mb-5">
+                                            <label htmlFor="" className="w-1/3 ">Phone <span className='text-red-400'>*</span></label>
+                                            <input type="text" className="text-xs w-full border border-gray-300 px-2 py-1" defaultValue={"89562423934"} />
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-24"> Email <span className='text-red-400'> *</span></label>
-                                            <input type="text" className="text-xs w-72 border border-gray-300 py-1" defaultValue={"mountcarmelmailtest@gmail.com"} />
+                                        <div className="flex items-center gap-5 lg:w-1/2 md:w-full sm-w-full mb-5">
+                                            <label htmlFor="" className="w-1/3"> Email <span className='text-red-400'> *</span></label>
+                                            <input type="text" className="text-xs w-full border border-gray-300 py-1" defaultValue={"mountcarmelmailtest@gmail.com"} />
                                         </div>
 
                                     </div>
@@ -92,12 +91,12 @@ const GeneralSettings = () => {
                                         <h2 className="font-normal text-base mr-auto">Academic Session</h2>
                                     </div>
 
-                                    <div className="flex space-x-4 pt-2 pb-4 border-b border-slate-200/60 dark:border-darkmode-400">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-30">Session <span className='text-red-400'>*</span></label>
+                                    <div className="lg:flex md:block sm:block space-x-4 pt-2 border-b border-slate-200/60 dark:border-darkmode-400">
+                                        <div className="flex items-center w-full">
+                                            <label htmlFor="" className="w-1/3">Session <span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className="py-1 text-xs block w-70 text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="py-1 text-xs block w-full "
                                                 defaultValue="2024-25"
                                             >
                                                 <option value="2024-25">2024-25</option>
@@ -107,11 +106,11 @@ const GeneralSettings = () => {
                                                 <option value="2023-24">2023-24</option>
                                             </select>
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-35">Session Start Month <span className='text-red-400'>*</span></label>
+                                        <div className="flex items-center w-full">
+                                            <label htmlFor="" className="w-1/3">Session Start Month <span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className="py-1 text-xs block w-65 text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="py-1 text-xs block w-full text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 defaultValue="January"
                                             >
                                                 <option value="January">January</option>
@@ -134,12 +133,12 @@ const GeneralSettings = () => {
                                     <div className="flex flex-col sm:flex-row items-center p-1 pt-2">
                                         <h2 className="font-normal text-base mr-auto">Date Time</h2>
                                     </div>
-                                    <div className="flex space-x-4 pt-2 pb-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-21">Date Format<span className='text-red-400'>*</span></label>
+                                    <div className="lg:flex md:block sm:block space-x-4 pt-2 pb-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                                        <div className="flex items-center w-full mb-5">
+                                            <label htmlFor="" className="w-full ">Date Format<span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className="py-1 block w-45 text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 defaultValue="mm.dd.yyyy"
                                             >
                                                 <option value="mm.dd.yyyy">mm.dd.yyyy</option>
@@ -147,11 +146,11 @@ const GeneralSettings = () => {
                                                 <option value="mm.d.yy">mm.d.yy</option>
                                             </select>
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-19">Timezone <span className='text-red-400'>*</span></label>
+                                        <div className="flex items-center w-full mb-5">
+                                            <label htmlFor="" className="w-full">Timezone <span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className=" py-1 block w-43 text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className=" py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 defaultValue="(GMT+05:30)Asia,Kolkata"
                                             >
                                                 <option value="(GMT+05:30)Asia,Kolkata">(GMT+05:30)Asia,Kolkata</option>
@@ -159,11 +158,11 @@ const GeneralSettings = () => {
                                                 <option value="GMT+(05:00)Asia,Dubai">GMT+(05:00)Asia,Dubai</option>
                                             </select>
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-30">Start Day Of Week<span className='text-red-400'>*</span></label>
+                                        <div className="flex items-center w-full mb-5">
+                                            <label htmlFor="" className="w-full">Start Day Of Week<span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className="py-1 block w-40 text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 defaultValue="Monday"
                                             >
                                                 <option value="Monday">Monday</option>
@@ -182,11 +181,11 @@ const GeneralSettings = () => {
                                         <h2 className="font-normal text-base mr-auto">Currency</h2>
                                     </div>
                                     <div className="flex space-x-4 pt-2">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-30">Currency Format <span className='text-red-400'>*</span></label>
+                                        <div className="flex items-center w-full">
+                                            <label htmlFor="" className="mr-2 w-1/3">Currency Format <span className='text-red-400'>*</span></label>
                                             <select
                                                 id="small"
-                                                className=" py-1 block w-70 text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className=" py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 defaultValue="30,3330"
                                             >
                                                 <option value="30,3330">30,3330</option>
@@ -201,14 +200,14 @@ const GeneralSettings = () => {
                                     <div className="flex flex-col sm:flex-row items-center p-1 pt-2">
                                         <h2 className="font-normal text-base mr-auto">File Upload Path</h2>
                                     </div>
-                                    <div className="flex space-x-4 pt-2">
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="mr-2 w-30">Base Url  <span className='text-red-400'>*</span></label>
-                                            <input type="text" className=" text-xs w-70 border border-gray-300 px-2 py-1" defaultValue={"https://demo.smart-school.in/"} />
+                                    <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4 space-x-4 pt-2">
+                                        <div className="flex items-center w-full">
+                                            <label htmlFor="" className="w-full">Base Url  <span className='text-red-400'>*</span></label>
+                                            <input type="text" className=" text-xs w-full border border-gray-300 px-2 py-1" defaultValue={"https://demo.smart-school.in/"} />
                                         </div>
-                                        <div className="flex items-center">
-                                            <label htmlFor="" className="w-30">File Upload Path <span className='text-red-400'>*</span></label>
-                                            <input type="text" className=" text-xs w-70 border border-gray-300 py-1" defaultValue={"/var/www/demo.smart-school.in2b53Vh4Dy7G/public_html/"} />
+                                        <div className="flex items-center w-full">
+                                            <label htmlFor="" className="w-full">File Upload Path <span className='text-red-400'>*</span></label>
+                                            <input type="text" className=" text-xs w-full border border-gray-300 py-1" defaultValue={"/var/www/demo.smart-school.in2b53Vh4Dy7G/public_html/"} />
                                         </div>
                                     </div>
                                 </div>
@@ -256,33 +255,15 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-6 h-fit flex flex-row px-5 intro-y " style={{ marginLeft: "120px" }}>
+        <div className="mt-6 h-fit lg:flex sm:flex-row px-5 md:block intro-y ">
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white mr-2 h-125">
+            <div className="lg:w-1/5 md:w-1/3 bg-white mr-2 ">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
                      
                         <div
                             className="absolute left-0 w-[2.4px] h-6 bg-green-600 transition-all duration-300 ease-in-out"
-                            style={{
-                                top: {
-                                  "general-setting": "3px",
-                                    "logo": "42px",
-                                    "signature": "80px",
-                                    "login-page-background": "110px",
-                                    "backend-theme": "144px",
-                                    "mobile-app": "183px",
-                                    "student-gurdian-panel": "218px",
-                                    "fees": "252px",
-                                    "id-auto-generation": "290px",
-                                    "attendance-type": "330px",
-                                    "whatsapp-settings": "360px", 
-                                    "session-settings": "400px",
-                                    "maintenance": "432px",
-                                    "miscellaneous": "470px",
-                                }[activeLink],
-                            }}
                         />
 
                         <div className="flex flex-col gap-4">
@@ -389,7 +370,7 @@ const GeneralSettings = () => {
                 </div>
             </div>
             {/* Content Section (80%) */}
-            <div className="w-4/5">{renderContent()}</div>
+            <div className="w-full">{renderContent()}</div>
         </div>
     );
 };

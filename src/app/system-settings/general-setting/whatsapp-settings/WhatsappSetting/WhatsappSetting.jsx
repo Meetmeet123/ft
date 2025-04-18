@@ -1,8 +1,8 @@
 
 
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';  // Importing ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Importing default styles for the toast
+// import { ToastContainer, toast } from 'react-toastify';  // Importing ToastContainer and toast
+// import 'react-toastify/dist/ReactToastify.css'; // Importing default styles for the toast
 const WhatsappSetting = () => {
   // Initialize the buttonStates array to [false, false] to make both radio buttons disabled by default
   const [buttonStates, setButtonStates] = useState([true, true, true]);
@@ -35,22 +35,22 @@ const WhatsappSetting = () => {
               <h2 className="text-base">Front Site</h2>
             </div>
             {/* Group 1 */}
-            <div className="flex pt-4">
-              <label htmlFor="">Whatsapp Link</label>
-              <div className="flex items-center ml-30">
+            <div className="lg:flex md:block pt-4">
+              <label htmlFor="" className='w-1/3 '>Whatsapp Link</label>
+              <div className="flex items-center mb-4">
                 <input
                   id="default-radio-1"
                   type="radio"
                   checked={!buttonStates[0]} // If 'buttonStates[0]' is false, 'Disabled' will be checked
                   onChange={() => handleRadioChange(0, false)} // Set to false when 'Disabled' is selected
                   name="default-radio-1"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
+                  className=" h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
-                <label htmlFor="default-radio-1" className="ms-2 text-gray-900 dark:text-gray-300">
+                <label htmlFor="default-radio-1" className="ms-2 text-gray-600 dark:text-gray-300">
                   Disabled
                 </label>
               </div>
-              <div className="flex items-center ml-2">
+              <div className="flex items-center lg:ml-2 mb-4">
                 <input
                   id="default-radio-2"
                   type="radio"
@@ -59,21 +59,21 @@ const WhatsappSetting = () => {
                   name="default-radio-1"
                   className="w-4 h-4 text-blue-600 bg-gray-100 focus:ring-0"
                 />
-                <label htmlFor="default-radio-2" className="ms-2 text-gray-900 dark:text-gray-300">
+                <label htmlFor="default-radio-2" className="ms-2 text-gray-600 dark:text-gray-300">
                   Enabled
                 </label>
               </div>
             </div>
 
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Mobile No.</label>
-              <div className='ml-36'>
-                <input type="text" className='py-1 w-80 h-6 text-xs' defaultValue={"9800000001"} />
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3' >Mobile No.</label>
+              <div className='w-full'>
+                <input type="text" className='py-1 w-full h-6 text-xs' defaultValue={"9800000001"} />
               </div>
             </div>
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Time</label>
-              <div className="flex ml-45">
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3' >Time</label>
+              <div className="flex">
                 <input
                   type="time"
                   id="time"
@@ -99,9 +99,9 @@ const WhatsappSetting = () => {
             <div className="flex justify-between items-center pt-4">
             </div>
             {/* Group 2 */}
-            <div className="flex items-center">
-              <label htmlFor="">Whatsapp Link</label>
-              <div className="flex items-center ml-30">
+            <div className="lg:flex md:block items-center">
+              <label htmlFor="" className='w-1/3 mt-4 ' >Whatsapp Link</label>
+              <div className="flex items-center mt-4">
                 <input
                   id="default-radio-3"
                   type="radio"
@@ -114,7 +114,7 @@ const WhatsappSetting = () => {
                   Disabled
                 </label>
               </div>
-              <div className="flex items-center ml-2">
+              <div className="flex items-center lg:ml-2 mt-4">
                 <input
                   id="default-radio-4"
                   type="radio"
@@ -130,15 +130,15 @@ const WhatsappSetting = () => {
             </div>
 
 
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Mobile No.</label>
-              <div className='ml-36'>
-                <input type="text" className='py-1 w-80 h-6 text-xs' defaultValue={"9800000001"} />
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3 mt-4' >Mobile No.</label>
+              <div className='w-full'>
+                <input type="text" className='py-1 w-full h-6 text-xs mt-4' defaultValue={"9800000001"} />
               </div>
             </div>
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Time</label>
-              <div className="flex ml-45">
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3 mt-4' >Time</label>
+              <div className="flex mt-4">
                 <input
                   type="time"
                   id="time"
@@ -166,9 +166,9 @@ const WhatsappSetting = () => {
             </div>
             {/* Group 3 */}
 
-            <div className="flex items-center mt-4">
-              <label htmlFor="">Whatsapp Link</label>
-              <div className="flex items-center ml-30">
+            <div className="lg:flex md:block items-center mt-4">
+              <label htmlFor="" className='w-1/3 mb-4' >Whatsapp Link</label>
+              <div className="flex items-center w-1/4 mb-4 mt-4">
                 <input
                   id="default-radio-5"
                   type="radio"
@@ -185,7 +185,7 @@ const WhatsappSetting = () => {
                 </label>
               </div>
 
-              <div className="flex items-center ml-2">
+              <div className="flex items-center lg:ml-2 mb-4">
                 <input
                   id="default-radio-6"
                   type="radio"
@@ -202,15 +202,15 @@ const WhatsappSetting = () => {
                 </label>
               </div>
             </div>
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Mobile No.</label>
-              <div className='ml-36'>
-                <input type="text" className='py-1 w-80 h-6 text-xs' defaultValue={"9800000001"} />
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3 mt-4' >Mobile No.</label>
+              <div className='w-full mt-4'>
+                <input type="text" className='py-1 w-full h-6 text-xs' defaultValue={"9800000001"} />
               </div>
             </div>
-            <div className="flex items-center pt-4">
-              <label htmlFor="">Time</label>
-              <div className="flex ml-45">
+            <div className="lg:flex md:block items-center pt-4">
+              <label htmlFor="" className='w-1/3 mt-4' >Time</label>
+              <div className="flex ml-full mt-4">
                 <input
                   type="time"
                   id="time"
@@ -237,7 +237,7 @@ const WhatsappSetting = () => {
             <button onClick={notify} className="btn btn-primary bg-blue-500 text-white p-1 mt-2 px-2 rounded focus:ring-0 focus:outline-none">
               Save
             </button>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </div>
         </form>
 

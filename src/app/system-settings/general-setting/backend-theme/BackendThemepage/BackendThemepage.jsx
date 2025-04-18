@@ -15,7 +15,7 @@ const BackendThemepage = () => {
 
         <div className='w-full h-full bg-white p-3'>
             <h1 className='text-xl border-b dark:border-gray-700 pb-2'>Backend Theme</h1>
-            <div className="grid grid-cols-5 gap-2 border-b dark:border-gray-700">
+            <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-4 sm:grid-cols-1 gap-4 border-b dark:border-gray-700">
                 {/* White Theme */}
                 <div className="max-w-sm bg-white pt-4 pb-6">
                     <div className="flex flex-col items-center justify-center">

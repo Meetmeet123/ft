@@ -1,55 +1,58 @@
-'use client';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import Select from 'react-select';
-import { EditorContent, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import 'react-quill/dist/quill.snow.css'; // Optional, for styling consistency
+"use client";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import Select from "react-select";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import "react-quill/dist/quill.snow.css"; // Optional, for styling consistency
 
 const AdmissionEnquiryForm = () => {
   const [formData, setFormData] = useState({
-    productName: '',
-    categories: ['1', '3'],
-    quantity: '',
-    weight: '',
-    unitPrice: '',
-    wholesalePrice: '',
-    bulkPrice: '',
+    productName: "",
+    categories: ["1", "3"],
+    quantity: "",
+    weight: "",
+    unitPrice: "",
+    wholesalePrice: "",
+    bulkPrice: "",
     isActive: false,
-    description: '<p>Content of the editor.</p>',
+    description: "<p>Content of the editor.</p>",
   });
 
   const editor = useEditor({
     extensions: [StarterKit],
     content: formData.description,
-    onUpdate: ({ editor }) => setFormData((prev) => ({ ...prev, description: editor.getHTML() })),
+    onUpdate: ({ editor }) =>
+      setFormData((prev) => ({ ...prev, description: editor.getHTML() })),
   });
 
   const categoryOptions = [
-    { value: '1', label: 'Sport & Outdoor' },
-    { value: '2', label: 'PC & Laptop' },
-    { value: '3', label: 'Smartphone & Tablet' },
-    { value: '4', label: 'Photography' },
+    { value: "1", label: "Sport & Outdoor" },
+    { value: "2", label: "PC & Laptop" },
+    { value: "3", label: "Smartphone & Tablet" },
+    { value: "4", label: "Photography" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleCategoriesChange = (selectedOptions: any) => {
     setFormData((prev) => ({
       ...prev,
-      categories: selectedOptions ? selectedOptions.map((option: any) => option.value) : [],
+      categories: selectedOptions
+        ? selectedOptions.map((option: any) => option.value)
+        : [],
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
+    console.log("Form Data:", formData);
   };
 
   return (
@@ -79,7 +82,9 @@ const AdmissionEnquiryForm = () => {
               id="crud-form-2"
               isMulti
               options={categoryOptions}
-              value={categoryOptions.filter((option) => formData.categories.includes(option.value))}
+              value={categoryOptions.filter((option) =>
+                formData.categories.includes(option.value)
+              )}
               onChange={handleCategoriesChange}
               className="w-full"
               classNamePrefix="select"
@@ -101,7 +106,10 @@ const AdmissionEnquiryForm = () => {
                 placeholder="Quantity"
                 aria-describedby="input-group-1"
               />
-              <div id="input-group-1" className="input-group-text bg-gray-100 p-2">
+              <div
+                id="input-group-1"
+                className="input-group-text bg-gray-100 p-2"
+              >
                 pcs
               </div>
             </div>
@@ -122,7 +130,10 @@ const AdmissionEnquiryForm = () => {
                 placeholder="Weight"
                 aria-describedby="input-group-2"
               />
-              <div id="input-group-2" className="input-group-text bg-gray-100 p-2">
+              <div
+                id="input-group-2"
+                className="input-group-text bg-gray-100 p-2"
+              >
                 grams
               </div>
             </div>
@@ -132,7 +143,10 @@ const AdmissionEnquiryForm = () => {
             <label className="form-label">Price</label>
             <div className="sm:grid grid-cols-3 gap-2">
               <div className="input-group flex items-center">
-                <div id="input-group-3" className="input-group-text bg-gray-100 p-2">
+                <div
+                  id="input-group-3"
+                  className="input-group-text bg-gray-100 p-2"
+                >
                   Unit
                 </div>
                 <input
@@ -146,7 +160,10 @@ const AdmissionEnquiryForm = () => {
                 />
               </div>
               <div className="input-group flex items-center mt-2 sm:mt-0">
-                <div id="input-group-4" className="input-group-text bg-gray-100 p-2">
+                <div
+                  id="input-group-4"
+                  className="input-group-text bg-gray-100 p-2"
+                >
                   Wholesale
                 </div>
                 <input
@@ -160,7 +177,10 @@ const AdmissionEnquiryForm = () => {
                 />
               </div>
               <div className="input-group flex items-center mt-2 sm:mt-0">
-                <div id="input-group-5" className="input-group-text bg-gray-100 p-2">
+                <div
+                  id="input-group-5"
+                  className="input-group-text bg-gray-100 p-2"
+                >
                   Bulk
                 </div>
                 <input
@@ -192,7 +212,12 @@ const AdmissionEnquiryForm = () => {
           <div className="mt-3">
             <label className="form-label">Description</label>
             <div className="mt-2">
-              {editor && <EditorContent editor={editor} className="editor border p-2 rounded" />}
+              {editor && (
+                <EditorContent
+                  editor={editor}
+                  className="editor border p-2 rounded"
+                />
+              )}
             </div>
           </div>
 
@@ -200,7 +225,7 @@ const AdmissionEnquiryForm = () => {
             <button
               type="button"
               className="btn btn-outline-secondary w-24 mr-1 bg-gray-200 text-gray-700 border p-2 rounded"
-              onClick={() => console.log('Cancel clicked')}
+              onClick={() => console.log("Cancel clicked")}
             >
               Cancel
             </button>
@@ -218,4 +243,6 @@ const AdmissionEnquiryForm = () => {
 };
 
 // Export the component wrapped in dynamic to ensure it only renders on the client
-export default dynamic(() => Promise.resolve(AdmissionEnquiryForm), { ssr: false });
+export default dynamic(() => Promise.resolve(AdmissionEnquiryForm), {
+  ssr: false,
+});

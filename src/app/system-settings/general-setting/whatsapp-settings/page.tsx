@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import WhatsappSetting from "./WhatsappSetting/WhatsappSetting";
-import { FaWhatsapp } from "react-icons/fa";
+// import { FaWhatsapp } from "react-icons/fa";
 
 const GeneralSettings = () => {
     const pathname = usePathname();
@@ -82,9 +82,9 @@ const GeneralSettings = () => {
     };
 
     return (
-        <div className="mt-10 h-fit flex flex-row px-5 intro-y" style={{ marginLeft: "120px" }}>
+        <div className="mt-10 h-fit flex flex-row intro-y">
             {/* Side Submenu (20%) */}
-            <div className="w-1/5 bg-white h-130 mr-2">
+            <div className="lg:w-1/5 md:w-1/3 bg-white h-130 mr-2">
                 <div className="relative min-h-[200px]">
                     <div className="border-solid border-l-2 border-[#164f63]/60 p-2">
                         {/* Green active indicator */}
@@ -185,7 +185,7 @@ const GeneralSettings = () => {
                                 className={`text-blue-600 hover:underline ${activeLink === "whatsapp-settings" ? "font-bold text-blue-800" : ""}`}
                                 onClick={() => setActiveLink("whatsapp-settings")}
                             >
-                                <div className="flex"> <FaWhatsapp className="mr-2 font-bold" />  WhatsApp Settings</div>
+                                <div className="flex">WhatsApp Settings</div>
                             </Link>
                             <Link
                                 href="/system-settings/general-setting/session-settings"

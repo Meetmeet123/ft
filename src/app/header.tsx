@@ -1,9 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Bell, Search, User, Edit, Lock, HelpCircle, ToggleRight, CircleUserRound } from 'lucide-react';
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Bell,
+  Search,
+  User,
+  Edit,
+  Lock,
+  HelpCircle,
+  ToggleRight,
+  CircleUserRound,
+} from "lucide-react";
 
 const Header: React.FC = () => {
   const pathname = usePathname();
@@ -13,12 +22,12 @@ const Header: React.FC = () => {
 
   // Dynamic breadcrumbs based on pathname
   const generateBreadcrumbs = () => {
-    const pathSegments = pathname.split('/').filter((segment) => segment);
+    const pathSegments = pathname.split("/").filter((segment) => segment);
     const breadcrumbs = [
-      { title: 'Application', path: '/' },
+      { title: "Application", path: "/" },
       ...pathSegments.map((segment, index) => ({
         title: segment.charAt(0).toUpperCase() + segment.slice(1),
-        path: `/${pathSegments.slice(0, index + 1).join('/')}`,
+        path: `/${pathSegments.slice(0, index + 1).join("/")}`,
       })),
     ];
     return breadcrumbs;
@@ -46,8 +55,12 @@ const Header: React.FC = () => {
             {breadcrumbs.map((item, index) => (
               <li
                 key={item.path}
-                className={`breadcrumb-item ${index === breadcrumbs.length - 1 ? 'active' : ''}`}
-                aria-current={index === breadcrumbs.length - 1 ? 'page' : undefined}
+                className={`breadcrumb-item ${
+                  index === breadcrumbs.length - 1 ? "active" : ""
+                }`}
+                aria-current={
+                  index === breadcrumbs.length - 1 ? "page" : undefined
+                }
               >
                 {index === breadcrumbs.length - 1 ? (
                   item.title
@@ -75,7 +88,10 @@ const Header: React.FC = () => {
             href="#"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
           >
-            <i data-lucide="search" className="notification__icon dark:text-slate-500"></i>
+            <i
+              data-lucide="search"
+              className="notification__icon dark:text-slate-500"
+            ></i>
           </a>
           {isSearchOpen && (
             <div className="search-result">
@@ -122,11 +138,16 @@ const Header: React.FC = () => {
                   </div>
                   <div className="ml-2 overflow-hidden">
                     <div className="flex items-center">
-                      <a href="#" className="font-medium truncate mr-5">Christian Bale</a>
-                      <div className="text-xs text-slate-400 ml-auto whitespace-nowrap">06:05 AM</div>
+                      <a href="#" className="font-medium truncate mr-5">
+                        Christian Bale
+                      </a>
+                      <div className="text-xs text-slate-400 ml-auto whitespace-nowrap">
+                        06:05 AM
+                      </div>
                     </div>
                     <div className="w-full truncate text-slate-500 mt-0.5">
-                      It is a long established fact that a reader will be distracted...
+                      It is a long established fact that a reader will be
+                      distracted...
                     </div>
                   </div>
                 </div>
@@ -153,23 +174,34 @@ const Header: React.FC = () => {
               <ul className="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
                 <li className="p-2">
                   <div className="font-medium">Christian Bale</div>
-                  <div className="text-xs text-white/60 mt-0.5 dark:text-slate-500">Backend Engineer</div>
+                  <div className="text-xs text-white/60 mt-0.5 dark:text-slate-500">
+                    Backend Engineer
+                  </div>
                 </li>
                 <li>
                   <hr className="dropdown-divider border-white/[0.08]" />
                 </li>
                 <li>
-                  <Link href="/profile" className="dropdown-item hover:bg-white/5">
+                  <Link
+                    href="/profile"
+                    className="dropdown-item hover:bg-white/5"
+                  >
                     <User className="w-4 h-4 mr-2" /> Profile
                   </Link>
                 </li>
                 <li>
-                  <Link href="/add-account" className="dropdown-item hover:bg-white/5">
+                  <Link
+                    href="/add-account"
+                    className="dropdown-item hover:bg-white/5"
+                  >
                     <Edit className="w-4 h-4 mr-2" /> Add Account
                   </Link>
                 </li>
                 <li>
-                  <Link href="/reset-password" className="dropdown-item hover:bg-white/5">
+                  <Link
+                    href="/reset-password"
+                    className="dropdown-item hover:bg-white/5"
+                  >
                     <Lock className="w-4 h-4 mr-2" /> Reset Password
                   </Link>
                 </li>
@@ -182,7 +214,10 @@ const Header: React.FC = () => {
                   <hr className="dropdown-divider border-white/[0.08]" />
                 </li>
                 <li>
-                  <Link href="/logout" className="dropdown-item hover:bg-white/5">
+                  <Link
+                    href="/logout"
+                    className="dropdown-item hover:bg-white/5"
+                  >
                     <ToggleRight className="w-4 h-4 mr-2" /> Logout
                   </Link>
                 </li>

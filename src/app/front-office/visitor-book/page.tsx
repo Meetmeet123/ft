@@ -1,25 +1,25 @@
-'use client';
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+"use client";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
 // Dynamically import the component to ensure it only renders on the client
 const VisitorBookForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    age: '',
-    url: '',
-    comment: '',
+    name: "",
+    email: "",
+    password: "",
+    age: "",
+    url: "",
+    comment: "",
   });
 
   const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    password: '',
-    age: '',
-    url: '',
-    comment: '',
+    name: "",
+    email: "",
+    password: "",
+    age: "",
+    url: "",
+    comment: "",
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
@@ -28,52 +28,53 @@ const VisitorBookForm = () => {
   const validateForm = () => {
     let isValid = true;
     const newErrors = {
-      name: '',
-      email: '',
-      password: '',
-      age: '',
-      url: '',
-      comment: '',
+      name: "",
+      email: "",
+      password: "",
+      age: "",
+      url: "",
+      comment: "",
     };
 
     // Name validation: at least 2 characters
     if (formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters long';
+      newErrors.name = "Name must be at least 2 characters long";
       isValid = false;
     }
 
     // Email validation: must be a valid email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
       isValid = false;
     }
 
     // Password validation: at least 6 characters
     if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters long';
+      newErrors.password = "Password must be at least 6 characters long";
       isValid = false;
     }
 
     // Age validation: must be a number and max 3 digits
     const ageNum = parseInt(formData.age);
     if (!formData.age || isNaN(ageNum) || formData.age.length > 3) {
-      newErrors.age = 'Age must be a number with a maximum of 3 digits';
+      newErrors.age = "Age must be a number with a maximum of 3 digits";
       isValid = false;
     }
 
     // URL validation: optional, but must be a valid URL if provided
     if (formData.url) {
-      const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?\S*)?(#.*)?$/;
+      const urlRegex =
+        /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?\S*)?(#.*)?$/;
       if (!urlRegex.test(formData.url)) {
-        newErrors.url = 'Please enter a valid URL';
+        newErrors.url = "Please enter a valid URL";
         isValid = false;
       }
     }
 
     // Comment validation: at least 10 characters
     if (formData.comment.length < 10) {
-      newErrors.comment = 'Comment must be at least 10 characters long';
+      newErrors.comment = "Comment must be at least 10 characters long";
       isValid = false;
     }
 
@@ -81,7 +82,9 @@ const VisitorBookForm = () => {
     return isValid;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -94,15 +97,15 @@ const VisitorBookForm = () => {
     if (validateForm()) {
       setShowSuccess(true);
       setShowError(false);
-      console.log('Form Data:', formData);
+      console.log("Form Data:", formData);
       // Reset form after successful submission
       setFormData({
-        name: '',
-        email: '',
-        password: '',
-        age: '',
-        url: '',
-        comment: '',
+        name: "",
+        email: "",
+        password: "",
+        age: "",
+        url: "",
+        comment: "",
       });
     } else {
       setShowSuccess(false);
@@ -135,7 +138,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-1"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Name{' '}
+                Name{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Required, at least 2 characters
                 </span>
@@ -146,10 +149,14 @@ const VisitorBookForm = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.name ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.name ? "border-red-500" : ""
+                }`}
                 placeholder="John Legend"
               />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+              {errors.name && (
+                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              )}
             </div>
 
             <div className="input-form mt-3">
@@ -157,7 +164,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-2"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Email{' '}
+                Email{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Required, email address format
                 </span>
@@ -168,10 +175,14 @@ const VisitorBookForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.email ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.email ? "border-red-500" : ""
+                }`}
                 placeholder="example@gmail.com"
               />
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+              )}
             </div>
 
             <div className="input-form mt-3">
@@ -179,7 +190,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-3"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Password{' '}
+                Password{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Required, at least 6 characters
                 </span>
@@ -190,10 +201,14 @@ const VisitorBookForm = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.password ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.password ? "border-red-500" : ""
+                }`}
                 placeholder="secret"
               />
-              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+              )}
             </div>
 
             <div className="input-form mt-3">
@@ -201,7 +216,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-4"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Age{' '}
+                Age{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Required, integer only & maximum 3 characters
                 </span>
@@ -212,10 +227,14 @@ const VisitorBookForm = () => {
                 name="age"
                 value={formData.age}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.age ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.age ? "border-red-500" : ""
+                }`}
                 placeholder="21"
               />
-              {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
+              {errors.age && (
+                <p className="text-red-500 text-xs mt-1">{errors.age}</p>
+              )}
             </div>
 
             <div className="input-form mt-3">
@@ -223,7 +242,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-5"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Profile URL{' '}
+                Profile URL{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Optional, URL format
                 </span>
@@ -234,10 +253,14 @@ const VisitorBookForm = () => {
                 name="url"
                 value={formData.url}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.url ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.url ? "border-red-500" : ""
+                }`}
                 placeholder="https://google.com"
               />
-              {errors.url && <p className="text-red-500 text-xs mt-1">{errors.url}</p>}
+              {errors.url && (
+                <p className="text-red-500 text-xs mt-1">{errors.url}</p>
+              )}
             </div>
 
             <div className="input-form mt-3">
@@ -245,7 +268,7 @@ const VisitorBookForm = () => {
                 htmlFor="validation-form-6"
                 className="form-label w-full flex flex-col sm:flex-row"
               >
-                Comment{' '}
+                Comment{" "}
                 <span className="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">
                   Required, at least 10 characters
                 </span>
@@ -255,13 +278,20 @@ const VisitorBookForm = () => {
                 name="comment"
                 value={formData.comment}
                 onChange={handleChange}
-                className={`form-control border p-2 rounded ${errors.comment ? 'border-red-500' : ''}`}
+                className={`form-control border p-2 rounded ${
+                  errors.comment ? "border-red-500" : ""
+                }`}
                 placeholder="Type your comments"
               />
-              {errors.comment && <p className="text-red-500 text-xs mt-1">{errors.comment}</p>}
+              {errors.comment && (
+                <p className="text-red-500 text-xs mt-1">{errors.comment}</p>
+              )}
             </div>
 
-            <button type="submit" className="btn btn-primary mt-5 bg-blue-500 text-white p-2 rounded">
+            <button
+              type="submit"
+              className="btn btn-primary mt-5 bg-blue-500 text-white p-2 rounded"
+            >
               Register
             </button>
           </form>
@@ -285,7 +315,9 @@ const VisitorBookForm = () => {
               </svg>
               <div className="ml-4 mr-4">
                 <div className="font-medium">Registration success!</div>
-                <div className="text-slate-500 mt-1">Please check your e-mail for further info!</div>
+                <div className="text-slate-500 mt-1">
+                  Please check your e-mail for further info!
+                </div>
               </div>
             </div>
           )}
@@ -309,7 +341,9 @@ const VisitorBookForm = () => {
               </svg>
               <div className="ml-4 mr-4">
                 <div className="font-medium">Registration failed!</div>
-                <div className="text-slate-500 mt-1">Please check the field form.</div>
+                <div className="text-slate-500 mt-1">
+                  Please check the field form.
+                </div>
               </div>
             </div>
           )}

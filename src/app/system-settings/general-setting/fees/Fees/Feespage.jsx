@@ -23,18 +23,18 @@ const Feespage = () => {
   };
 
   return (
-    <div className="bg-white p-3">
-      <h1 className="text-xl border-b dark:border-gray-700 pb-2">Fees</h1>
+    <div className="bg-white p-3 mb-3">
+      <h1 className="text-xl border-b dark:border-gray-700">Fees</h1>
 
       <form className="">
         <div className="flex flex-col">
 
-          <div className=" flex pt-4">
+          <div className=" lg:flex items-center gap-20 md:block pt-4 mb-3">
             <label>Offline Bank Payment In Student Panel</label>
 
             {/* Group 1 */}
-            <div className="flex items-center  ">
-              <div className="flex items-center ml-21">
+            <div className="flex items-center mt-3 ">
+              <div className="flex items-center">
                 <input
                   id="default-radio-1"
                   type="radio"
@@ -45,7 +45,7 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-1"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Disabled
                 </label>
@@ -62,7 +62,7 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-2"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Enabled
                 </label>
@@ -71,10 +71,10 @@ const Feespage = () => {
           </div>
 
 
-          <div className="flex pt-2">
-            <label htmlFor="">Offline Bank Payment Instruction</label>
+          <div className="lg:flex md:block pt-2 ">
+            <label htmlFor="" className='mt-5 w-1/3'>Offline Bank Payment Instruction</label>
 
-            <div className=" ml-30 w-120">
+            <div className="w-full mt-5">
               <div className="flex   items-center justify-between px-3 py-2 border-b border-gray-200 dark:border-gray-600 border-gray-200 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x sm:rtl:divide-x-reverse dark:divide-gray-600">
                   <div className="flex items-center space-x-1 rtl:space-x-reverse sm:pe-4">
@@ -282,10 +282,10 @@ const Feespage = () => {
 
           <div className="pt-4">
 
-            <div className="flex items-center">
-              <label>Lock Student Panel If Fees Remaining</label>
+            <div className="lg:flex items-center gap-20 md:block mt-4">
+              <label className='mt-4' >Lock Student Panel If Fees Remaining</label>
               {/* Disabled Option */}
-              <div className="flex items-center ml-21">
+              <div className="flex items-center mt-4">
                 <input
                   id="default-radio-1"
                   type="radio"
@@ -296,14 +296,14 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-1"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Disabled
                 </label>
               </div>
 
               {/* Enabled Option */}
-              <div className="flex items-center ml-2">
+              <div className="flex items-center mt-4">
                 <input
                   id="default-radio-2"
                   type="radio"
@@ -314,7 +314,7 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-2"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Enabled
                 </label>
@@ -324,11 +324,11 @@ const Feespage = () => {
             {/* Grace Period Input - Only visible when "Enabled" is selected */}
             {isEnabled && (
               <>
-                <div className="flex items-center mt-4">
-                  <label htmlFor="" className="text-sm text-gray-900 dark:text-gray-300">
+                <div className="lg:flex items-center md:block mb-4 mt-4">
+                  <label htmlFor="" className="text-sm w-1/2 text-gray-900 dark:text-gray-800">
                     Fees Payment Grace Period Days <span className='text-red-500'>*</span>
                   </label>
-                  <div className='ml-26'>
+                  <div className='w-full mb-4 mt-4'>
                     <input type="number" id="number-input" aria-describedby="helper-text-explanation" className="  py-1 bg-gray-50 text-xs w-120 p-2.5dark:focus:ring-0" placeholder="1" required />
                   </div>
                 </div>
@@ -337,12 +337,12 @@ const Feespage = () => {
           </div>
 
           {/* User Login Option */}
-          <div className="flex items-center pt-4">
-            <label className="mr-2">Print Fees Receipt For</label>
+          <div className="lg:flex md:block items-center pt-4">
+            <label className="mr-2 w-1/3">Print Fees Receipt For</label>
 
             {/* Flexbox for the checkbox and label in the same row */}
-            <div className="flex items-center space-x-4 ml-44">
-              <div className="flex items-center">
+            <div className="lg:flex sm:block items-center space-x-4 ">
+              <div className="flex items-center m-4">
                 <input
                   id="inline-2-checkbox"
                   type="checkbox"
@@ -350,12 +350,12 @@ const Feespage = () => {
                   onChange={toggleCheckbox1} // Toggle on click
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600 outline-none"
                 />
-                <label htmlFor="inline-2-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">
+                <label htmlFor="inline-2-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">
                   Office Copy
                 </label>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center m-4">
                 <input
                   id="inline-checked-checkbox"
                   type="checkbox"
@@ -363,12 +363,12 @@ const Feespage = () => {
                   onChange={toggleCheckbox2} // Toggle on click
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600 outline-none"
                 />
-                <label htmlFor="inline-checked-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">
+                <label htmlFor="inline-checked-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">
                   Student Copy
                 </label>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center m-4">
                 <input
                   id="inline-3-checkbox"
                   type="checkbox"
@@ -376,25 +376,26 @@ const Feespage = () => {
                   onChange={toggleCheckbox3} // Toggle on click
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-0 dark:bg-gray-700 dark:border-gray-600 outline-none"
                 />
-                <label htmlFor="inline-3-checkbox" className="ms-2 text-gray-900 dark:text-gray-300">
+                <label htmlFor="inline-3-checkbox" className="ms-2 text-gray-600 dark:text-gray-300">
                   Bank Copy
                 </label>
               </div>
             </div>
 
           </div>
-          <div className="flex  pt-4">
-            <label htmlFor="">Carry Forward Fees Due Days <span className='text-red-500'>*</span></label>
-            <div className='ml-32'>            <input type="number" id="number-input" aria-describedby="helper-text-explanation" className=' w-120 h-6  text-xs' defaultValue={"60"} />
+          <div className="lg:flex md:block pt-4">
+            <label htmlFor="" className='w-1/3 mt-4' >Carry Forward Fees Due Days <span className='text-red-500'>*</span></label>
+            <div className='md:mt-4'>
+              <input type="number" id="number-input" aria-describedby="helper-text-explanation" className=' w-120 h-6  text-xs' defaultValue={"60"} />
             </div>
           </div>
 
           {/* Group 2 */}
-          <div className="pt-4  ">
+          <div className="pt-4 ">
 
-            <div className="flex items-center mt-2">
-              <label htmlFor="">Single Page Fees Print</label>
-              <div className="flex items-center ml-43">
+            <div className="lg:flex md:block items-center mt-2">
+              <label htmlFor="" className='w-1/3 mt-4' >Single Page Fees Print</label>
+              <div className="flex items-center mt-4">
                 <input
                   id="default-radio-3"
                   type="radio"
@@ -405,13 +406,13 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-3"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Disabled
                 </label>
               </div>
 
-              <div className="flex items-center ml-2">
+              <div className="flex items-center lg:ml-2 mt-4">
                 <input
                   id="default-radio-4"
                   type="radio"
@@ -422,7 +423,7 @@ const Feespage = () => {
                 />
                 <label
                   htmlFor="default-radio-4"
-                  className="ms-2 text-gray-900 dark:text-gray-300"
+                  className="ms-2 text-gray-600 dark:text-gray-300"
                 >
                   Enabled
                 </label>
@@ -430,9 +431,9 @@ const Feespage = () => {
             </div>
           </div>
           {/* Group 3 */}
-          <div className="flex items-center mt-4">
-            <label htmlFor="">Collect Fees In Back Date</label>
-            <div className="flex items-center ml-39">
+          <div className="lg:flex md:block items-center mt-4">
+            <label htmlFor="" className='w-1/3 mt-4' >Collect Fees In Back Date</label>
+            <div className="flex items-center mt-4">
               <input
                 id="default-radio-5"
                 type="radio"
@@ -443,13 +444,13 @@ const Feespage = () => {
               />
               <label
                 htmlFor="default-radio-5"
-                className="ms-2 text-gray-900 dark:text-gray-300"
+                className="ms-2 text-gray-600 dark:text-gray-300"
               >
                 Disabled
               </label>
             </div>
 
-            <div className="flex items-center ml-2">
+            <div className="flex items-center lg:ml-2 mt-4">
               <input
                 id="default-radio-6"
                 type="radio"
@@ -460,16 +461,16 @@ const Feespage = () => {
               />
               <label
                 htmlFor="default-radio-6"
-                className="ms-2 text-gray-900 dark:text-gray-300"
+                className="ms-2 text-gray-600 dark:text-gray-300"
               >
                 Enabled
               </label>
             </div>
           </div>
           {/* Group 4 (New group added for Enable/Disable) */}
-          <div className="flex items-center mt-4">
-            <label htmlFor="">Student / Guardian Panel Fees Discount</label>
-            <div className="flex items-center ml-17">
+          <div className="lg:flex md:block items-center mt-4">
+            <label htmlFor="" className='w-1/3 mt-4'>Student / Guardian Panel Fees Discount</label>
+            <div className="flex items-center mt-4">
               <input
                 id="default-radio-7"
                 type="radio"
@@ -480,13 +481,13 @@ const Feespage = () => {
               />
               <label
                 htmlFor="default-radio-7"
-                className="ms-2 text-gray-900 dark:text-gray-300"
+                className="ms-2 text-gray-600 dark:text-gray-300"
               >
                 Disabled
               </label>
             </div>
 
-            <div className="flex items-center ml-2">
+            <div className="flex items-center lg:ml-2 mt-4">
               <input
                 id="default-radio-8"
                 type="radio"
@@ -497,7 +498,7 @@ const Feespage = () => {
               />
               <label
                 htmlFor="default-radio-8"
-                className="ms-2 text-gray-900 dark:text-gray-300"
+                className="ms-2 text-gray-600 dark:text-gray-300"
               >
                 Enabled
               </label>
