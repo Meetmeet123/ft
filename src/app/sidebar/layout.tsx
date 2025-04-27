@@ -100,6 +100,8 @@ import {
   Wifi,
   Zap,
   CreditCardIcon,
+  QrCode,
+  QrCodeIcon,
 } from "lucide-react";
 
 interface MenuItem {
@@ -199,6 +201,8 @@ const iconMap = {
   utensils: Utensils,
   WalletCards: WalletCards,
   wifi: Wifi,
+  QrCode,
+  QrCodeIcon
 };
 
 const Sidebar: React.FC = () => {
@@ -471,6 +475,23 @@ const Sidebar: React.FC = () => {
           icon: "Check",
         },
       ],
+    },
+    {
+      title:"QR Attendance",
+      path:"/qr-attendance",
+      icon:"QrCode",
+      subItems:[
+        {
+          title:"Attendance",
+          path:"/qr-attendance/attendance",
+          icon:"QrCodeIcon"
+        },
+        {
+          title:"Setting",
+          path:"/qr-attendance/setting",
+          icon:"settings"
+        }
+      ]
     },
     {
       title: "Examinations",
