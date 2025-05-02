@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
-export default function attendance() {
+export default function Attendance() {
   const pathname = usePathname();
 
   // Attendance menu items with exact names from screenshot
@@ -19,7 +19,7 @@ export default function attendance() {
     },
     { 
       title: "Biometric Attendance Log",
-      path: "/attendance/biometric-log" 
+      path: "attendance/biometric-attendance" 
     },
     { 
       title: "Student Attendance Type Report",
@@ -27,15 +27,15 @@ export default function attendance() {
     },
     { 
       title: "Staff Day Wise Attendance Report",
-      path: "/attendance/staff-day-wise" 
+      path: "attendance/staff-day-wise-attendance-report" 
     },
     { 
       title: "Daily Attendance Report",
-      path: "/attendance/daily" 
+      path: "attendance/daily-attendance-report" 
     },
     { 
       title: "Staff Attendance Report",
-      path: "/attendance/staff" 
+      path: "attendance/staff-attendance-report" 
     }
   ];
 
@@ -48,7 +48,7 @@ export default function attendance() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+    
       backgroundColor: '#f9fafb',
       padding: '24px',
       fontFamily: 'Arial, sans-serif'
