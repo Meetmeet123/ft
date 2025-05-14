@@ -1127,6 +1127,33 @@ const Sidebar: React.FC = () => {
       ],
     },
     {
+      title: "Student-CV",
+      path: "/student-cv",
+      icon: "file-text",  
+      subItems: [
+        {
+          title: "Build CV",
+          path: "/student-cv/build-cv",
+          icon: "file-text",
+        },
+        {
+          title: "CV-Setting",
+          path: "/student-cv/cv-setting",
+          icon: "settings",
+        },
+        {
+          title: "Details",
+          path: "/student-cv/details",
+          icon: "info",
+        },
+        {
+          title: "Download-CV",
+          path: "/student-cv/download-cv",
+          icon: "download",
+        },
+      ],
+    },
+    {
       title: "Transport",
       path: "/transport",
       icon: "Forklift",
