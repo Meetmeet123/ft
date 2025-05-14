@@ -220,6 +220,11 @@ const Sidebar: React.FC = () => {
 
   const menuItems: MenuItem[] = [
     {
+      title: "Admin",
+      path: "/admin/dashboard",
+      icon: "home",
+    },
+    {
       title: "Current Sessions",
       path: "/current-sessions",
       icon: "UserPen",
@@ -443,6 +448,73 @@ const Sidebar: React.FC = () => {
           icon: "file-text",
         },
       ],
+    },
+     {
+      title: "CBSE Examination",
+      path: "/cbse-examination",
+      icon: "book-open",
+      subItems: [
+        {
+          title: "Exam",
+          path: "/cbse-examination/exam",
+          icon: "file-text",
+        },
+        {
+          title: "Exam Schedule",
+          path: "/cbse-examination/exam-schedule",
+          icon: "calendar",
+        },
+        {
+          title: "Print Marksheet",
+          path: "/cbse-examination/print-marksheet",
+          icon: "Printer",
+        },
+        {
+          title: "Exam Grade",
+          path: "/cbse-examination/exam-grade",
+          icon: "award",
+        },
+        {
+          title: "Assign Observation",
+          path: "/cbse-examination/assign-observation",
+          icon: "users",
+        },
+        {
+          title: "Observation",
+          path:"/cbse-examination/observation",
+          icon:"SlidersHorizontal"
+        },
+        {
+          title: "Observation Parameter",
+          path: "/cbse-examination/observation-parameter",
+          icon: "list",
+        },
+        {
+          title: "Assessment",
+          path: "/cbse-examination/assesment",
+          icon: "check-circle",
+        },
+        {
+          title: "Term",
+          path: "/cbse-examination/term",
+          icon: "clock",
+        },
+        {
+          title: "Template",
+          path: "/cbse-examination/template",
+          icon: "layout",
+        },
+        {
+          title: "Report",
+          path: "/cbse-examination/report",
+          icon: "clipboard-list",
+        },
+        {
+          title: "Setting",
+          path: "/cbse-examination/setting",
+          icon: "settings",
+        }
+      ]
     },
     {
       title: "Attendance",
