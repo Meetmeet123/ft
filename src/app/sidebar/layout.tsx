@@ -397,6 +397,135 @@ const Sidebar: React.FC = () => {
       ],
     },
     {
+      title: "Online Course",
+      path: "/online-course",
+      icon: "calendar_check",
+      subItems: [
+        {
+          title: "Online Course",
+          path: "/online-course/online-course",
+          icon: "users",
+        },
+        {
+          title: "Offline Payment",
+          path: "/online-course/offline-payment",
+          icon: "users", 
+        },
+        {
+          title: "Course Category",
+          path: "/online-course/course-category",
+          icon: "barcode",
+        },
+        {
+          title: "Question Bank",
+          path: "/online-course/question-bank",
+          icon: "clock",
+        },
+        {
+          title: "Online Couese Report",
+          path: "/online-course/online-course-report",
+          icon: "calendar",
+        },
+        {
+          title: "Setting",
+          path: "/online-course/Setting",
+          icon: "Check",
+        },
+      ],
+    },
+    
+    
+
+    {
+      title: "Zoom Live Classes",
+      path: "/zoom-live-classes",
+      icon: "calendar_check",
+      subItems: [
+        {
+          title: "Live Classes",
+          path: "/zoom-live-classes/live-classes",
+          icon: "users",
+        },
+        {
+          title: "Live Meeting",
+          path: "/zoom-live-classes/live-meeting",
+          icon: "users", 
+        },
+        {
+          title: "Live Class Report",
+          path: "/zoom-live-classes/live-class-report",
+          icon: "barcode",
+        },
+        {
+          title: "Live Meeting Report",
+          path: "/zoom-live-classes/live-meeting-report",
+          icon: "clock",
+        },
+        {
+          title: "Setting",
+          path: "/zoom-live-classes/setting",
+          icon: "calendar",
+        },],},
+
+     {
+      title: "Behavior Records",
+      path: "/behavior-record",
+      icon: "calendar_check",
+      subItems: [
+        {
+          title: "Assign Incident",
+          path: "/behavior-record/assign-incident",
+          icon: "users",
+        },
+        {
+          title: "Incident",
+          path: "/behavior-record/incident",
+          icon: "users", 
+        },
+        {
+          title: "Reports",
+          path: "/behavior-record/reports",
+          icon: "barcode",
+        },
+        
+        {
+          title: "Setting",
+          path: "/behavior-record/setting",
+          icon: "calendar",
+        },],},
+
+        {
+          title: "Gmeet Live Classes",
+          path: "/gmeet-live-classes",
+          icon: "calendar_check",
+          subItems: [
+            {
+              title: "Live Classes",
+              path: "/gmeet-live-classes/live-classes",
+              icon: "users",
+            },
+            {
+              title: "Live Meeting",
+              path: "/gmeet-live-classes/live-meeting",
+              icon: "users", 
+            },
+            {
+              title: "Live Class Report",
+              path: "/gmeet-live-classes/live-class-report",
+              icon: "barcode",
+            },
+            {
+              title: "Live Meeting Report",
+              path: "/gmeet-live-classes/live-meeting-report",
+              icon: "clock",
+            },
+            {
+              title: "Setting",
+              path: "/gmeet-live-classes/setting",
+              icon: "calendar",
+            },],},
+    
+    {
       title: "Income",
       path: "/income",
       icon: "dollar-sign",
@@ -416,6 +545,17 @@ const Sidebar: React.FC = () => {
           path: "/income/income-head",
           icon: "file-text",
         },
+      ],
+    },
+
+    {
+      title: "Multi Branch",
+      path: "/multi-branch",
+      icon: "users",
+      subItems: [
+        { title: "Overview", path: "/multi-branch/overview", icon: "user" },
+        { title: "Report ", path: "/multi-branch/report ", icon: "calendar" },
+        { title: "Setting ", path: "/multi-branch/setting ", icon: "settings" },
       ],
     },
     {
