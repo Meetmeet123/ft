@@ -1,4 +1,14 @@
 "use client";
+import { FaBook } from 'react-icons/fa';
+import { VscFiles } from 'react-icons/vsc';
+import { FaRegFileExcel } from 'react-icons/fa6';
+import { ImFileText2 } from 'react-icons/im';
+import { AiOutlineFilePdf } from 'react-icons/ai';
+import { PiPrinterFill } from 'react-icons/pi';
+import { LuColumns2 } from 'react-icons/lu';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { IoSearch } from "react-icons/io5";
+
 import { useState } from 'react';
 import { FaSearch, FaPlus, FaEye, FaTrash } from 'react-icons/fa';
 
@@ -185,7 +195,7 @@ export default function IncidentManagement() {
             <div className="flex items-center mb-4">
               <div className="relative flex-1">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaSearch className="text-gray-400" />
+                <IoSearch /> 
                 </div>
                 <input
                   type="text"
@@ -194,8 +204,15 @@ export default function IncidentManagement() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
+                 <div className="flex items-center border-b">
+                        {[VscFiles, FaRegFileExcel, ImFileText2, AiOutlineFilePdf, PiPrinterFill, LuColumns2].map((Icon, i) => (
+                            <div key={i} className="hover:bg-gray-200 p-1 cursor-pointer">
+                                <Icon />
+                            </div>
+                        ))}
+                    </div>
               </div>
-            </div>
+            </div> 
 
             {students.length > 0 ? (
               <>

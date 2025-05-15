@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaBook } from 'react-icons/fa';
+
 
 
 export default function Attendance() {
@@ -100,11 +102,12 @@ export default function Attendance() {
                         }
                       }}
                     >
-                      <h3 style={{
+                      <span style={{
                         fontWeight: '500',
                         fontSize: '16px',
                         margin: '0'
-                      }}>{item.title}</h3>
+                      }}>                            
+                      {item.title}</span>
                     </button>
                   </Link>
                 );
