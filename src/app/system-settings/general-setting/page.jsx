@@ -13,6 +13,9 @@ const GeneralSettings = () => {
     const [activeLink, setActiveLink] = useState("general-setting");
     const [settingDetails, setSettingDetails] = useState();
     const [updatedData, setUpdatedData] = useState();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Set the active link based on the current pathname
     useEffect(() => {
@@ -49,11 +52,14 @@ const GeneralSettings = () => {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
+                setIsLoading(true);
                 const data = await getGeneralSettingDetails();
                 setSettingDetails(data);
-                console.log(data)
-            } catch (err) {
-                setError(err);
+            } catch (error) {
+                console.error('Error fetching settings:', error);
+                toast.error('Failed to load settings');
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchSettings();
@@ -65,75 +71,89 @@ const GeneralSettings = () => {
     }
 
     const handleSubmit = async() => {
-        const temp = {
-            "id": 1,
-            "sch_session_id": settingDetails?.session_id || 18,
-            "fee_due_days": 30,
-            "sch_name": settingDetails?.name || "Up School Name",
-            "sch_phone": settingDetails?.phone || "9876543210",
-            "sch_start_month": settingDetails?.start_month || "April",
-            "sch_start_week": settingDetails?.start_week || "Monday",
-            "sch_address": settingDetails?.address || "dhumi School Lane, City",
-            "sch_email": settingDetails?.email || "school@example.com",
-            "sch_lang_id": settingDetails?.lang_id || 1,
-            "sch_currency_symbol": settingDetails?.currency_place || "$",
-            "sch_timezone": settingDetails?.timezone || "UTC",
-            "sch_currency": settingDetails?.currency || "USD",
-            "currency_place": settingDetails?.currency_place || "before",
-            "sch_date_format": settingDetails?.date_format || "Y-m-d",
-            "sch_is_rtl": settingDetails?.is_rtl || "disabled",
-            "theme": settingDetails?.theme || "default",
-            "attendence_type": settingDetails?.attendance_type || 1,
-            "is_duplicate_fees_invoice": settingDetails?.is_duplicate_fees_invoice || 0,
-            "adm_auto_insert": settingDetails?.adm_auto_insert || 1,
-            "adm_prefix": settingDetails?.adm_prefix || "ADM",
-            "adm_start_from": settingDetails?.adm_start_from || 1000,
-            "adm_no_digit": settingDetails?.adm_no_digit || 4,
-            "staffid_auto_insert": settingDetails?.staffid_auto_insert || 1,
-            "staffid_prefix": settingDetails?.staffid_prefix || "STF",
-            "staffid_start_from": settingDetails?.staffid_start_from || 500,
-            "staffid_no_digit": settingDetails?.staffid_no_digit || 3,
-            "pan_number": settingDetails?.pan_number || "ABCDE1234F",
-            "gst_no": settingDetails?.gst_no || "22ABCDE1234F1Z5",
-            "service_tax_no": settingDetails?.service_tax_no || "ABCDE1234F123",
-            "vat_no": settingDetails?.vat_no || "12345678901",
-            "cin_no": settingDetails?.cin_no || "U12345MH2020PLC123456",
-            "sch_dise_code": settingDetails?.sch_dise_code || "123456789",
-            "app_primary_color_code": settingDetails?.app_primary_color_code || "#FF0000",
-            "app_secondary_color_code": settingDetails?.app_secondary_color_code || "#00FF00",
-            "mobile_api_url": settingDetails?.mobile_api_url || "https://api.example.com",
-            "mytradinglink": settingDetails?.mytradinglink || "https://example.com",
-            "my_question": settingDetails?.my_question || "Sample question",
-            "sch_soc_name": settingDetails?.sch_soc_name || "School Society",
-            "sch_name_primary": settingDetails?.sch_name_primary || "Primary School Name",
-            "sch_name_secondary": settingDetails?.sch_name_secondary || "Secondary School Name",
-            "sch_recog_primary": settingDetails?.sch_recog_primary || "Recognized",
-            "sch_recog_secondary": settingDetails?.sch_recog_secondary || "Recognized",
-            "sch_udise_primary": settingDetails?.sch_udise_primary || "12345678901",
-            "sch_udise_secondary": settingDetails?.sch_udise_secondary || "12345678902",
-            "sch_city": settingDetails?.sch_city || "City",
-            "sch_state": settingDetails?.sch_state || "State",
-            "sch_medium": ["English", "Hindi"],
-            "sch_board": ["CBSE"],
-            "principal_sign": settingDetails?.principal_sign || "principal_sign.jpg",
-            "clerk_sign": settingDetails?.clerk_sign || "clerk_sign.jpg",
-            "examiner_sign": settingDetails?.examiner_sign || "examiner_sign.jpg",
-            "sch_establish": settingDetails?.sch_establish || "2000",
-            "alt_phone": settingDetails?.alt_phone || "9876543211",
-            "alt_email": settingDetails?.alt_email || "alt@example.com",
-            "sch_name_high_secondary": settingDetails?.sch_name_high_secondary || "High Secondary School",
-            "sch_recog_high_secondary": settingDetails?.sch_recog_high_secondary || "Recognized",
-            "sch_udise_high_secondary": settingDetails?.sch_udise_high_secondary || "12345678903",
-            "certificate_print_lang": settingDetails?.certificate_print_lang || 4,
-            "biometric": settingDetails?.biometric || 0,
-            "biometric_device": settingDetails?.biometric_device || null,
-            "class_teacher": settingDetails?.class_teacher || "John Doe"
-        };
+        try {
+            setLoading(true);
+            setError(null);
 
-        const finalPayload = { ...temp };
+            const temp = {
+                "id": 1,
+                "sch_session_id": settingDetails?.session_id || 18,
+                "fee_due_days": 30,
+                "sch_name": settingDetails?.name || "Up School Name",
+                "sch_phone": settingDetails?.phone || "9876543210",
+                "sch_start_month": settingDetails?.start_month || "April",
+                "sch_start_week": settingDetails?.start_week || "Monday",
+                "sch_address": settingDetails?.address || "dhumi School Lane, City",
+                "sch_email": settingDetails?.email || "school@example.com",
+                "sch_lang_id": settingDetails?.lang_id || 1,
+                "sch_currency_symbol": settingDetails?.currency_place || "$",
+                "sch_timezone": settingDetails?.timezone || "UTC",
+                "sch_currency": settingDetails?.currency || "USD",
+                "currency_place": settingDetails?.currency_place || "before",
+                "sch_date_format": settingDetails?.date_format || "Y-m-d",
+                "sch_is_rtl": settingDetails?.is_rtl || "disabled",
+                "theme": settingDetails?.theme || "default",
+                "attendence_type": settingDetails?.attendance_type || 1,
+                "is_duplicate_fees_invoice": settingDetails?.is_duplicate_fees_invoice || 0,
+                "adm_auto_insert": settingDetails?.adm_auto_insert || 1,
+                "adm_prefix": settingDetails?.adm_prefix || "ADM",
+                "adm_start_from": settingDetails?.adm_start_from || 1000,
+                "adm_no_digit": settingDetails?.adm_no_digit || 4,
+                "staffid_auto_insert": settingDetails?.staffid_auto_insert || 1,
+                "staffid_prefix": settingDetails?.staffid_prefix || "STF",
+                "staffid_start_from": settingDetails?.staffid_start_from || 500,
+                "staffid_no_digit": settingDetails?.staffid_no_digit || 3,
+                "pan_number": settingDetails?.pan_number || "ABCDE1234F",
+                "gst_no": settingDetails?.gst_no || "22ABCDE1234F1Z5",
+                "service_tax_no": settingDetails?.service_tax_no || "ABCDE1234F123",
+                "vat_no": settingDetails?.vat_no || "12345678901",
+                "cin_no": settingDetails?.cin_no || "U12345MH2020PLC123456",
+                "sch_dise_code": settingDetails?.sch_dise_code || "123456789",
+                "app_primary_color_code": settingDetails?.app_primary_color_code || "#FF0000",
+                "app_secondary_color_code": settingDetails?.app_secondary_color_code || "#00FF00",
+                "mobile_api_url": settingDetails?.mobile_api_url || "https://api.example.com",
+                "mytradinglink": settingDetails?.mytradinglink || "https://example.com",
+                "my_question": settingDetails?.my_question || "Sample question",
+                "sch_soc_name": settingDetails?.sch_soc_name || "School Society",
+                "sch_name_primary": settingDetails?.sch_name_primary || "Primary School Name",
+                "sch_name_secondary": settingDetails?.sch_name_secondary || "Secondary School Name",
+                "sch_recog_primary": settingDetails?.sch_recog_primary || "Recognized",
+                "sch_recog_secondary": settingDetails?.sch_recog_secondary || "Recognized",
+                "sch_udise_primary": settingDetails?.sch_udise_primary || "12345678901",
+                "sch_udise_secondary": settingDetails?.sch_udise_secondary || "12345678902",
+                "sch_city": settingDetails?.sch_city || "City",
+                "sch_state": settingDetails?.sch_state || "State",
+                "sch_medium": ["English", "Hindi"],
+                "sch_board": ["CBSE"],
+                "principal_sign": settingDetails?.principal_sign || "principal_sign.jpg",
+                "clerk_sign": settingDetails?.clerk_sign || "clerk_sign.jpg",
+                "examiner_sign": settingDetails?.examiner_sign || "examiner_sign.jpg",
+                "sch_establish": settingDetails?.sch_establish || "2000",
+                "alt_phone": settingDetails?.alt_phone || "9876543211",
+                "alt_email": settingDetails?.alt_email || "alt@example.com",
+                "sch_name_high_secondary": settingDetails?.sch_name_high_secondary || "High Secondary School",
+                "sch_recog_high_secondary": settingDetails?.sch_recog_high_secondary || "Recognized",
+                "sch_udise_high_secondary": settingDetails?.sch_udise_high_secondary || "12345678903",
+                "certificate_print_lang": settingDetails?.certificate_print_lang || 4,
+                "biometric": settingDetails?.biometric || 0,
+                "biometric_device": settingDetails?.biometric_device || null,
+                "class_teacher": settingDetails?.class_teacher || "John Doe"
+            };
 
-        const res = await updateSettingURL(finalPayload);
-        if(res.status === 'success') notify();
+            const finalPayload = { ...temp };
+            const res = await updateSettingURL(finalPayload);
+            
+            if(res.status === 'success') {
+                notify();
+            } else {
+                throw new Error(res.message || 'Update failed');
+            }
+        } catch (err) {
+            setError(err.message || 'Failed to update settings');
+            toast.error(err.message || 'Failed to update settings');
+        } finally {
+            setLoading(false);
+        }
     };
 
 
@@ -178,8 +198,9 @@ const GeneralSettings = () => {
                                         <label htmlFor="" className="w-1/3">Address <span className='text-red-400'>*</span></label>
                                         <input
                                             type="text"
-                                            className="text-xs w-full border border-gray-300 py-1"
-                                            defaultValue={settingDetails?.address ? settingDetails.address : "25 Kings Street, CA"}
+                                            id="small-input"
+                                            className="block p-2 w-full text-gray-900 bg-gray-50 border border-gray-300 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            value={settingDetails?.address || ''}
                                             onChange={(e) => handleChanges('address', e)}
                                         />
                                     </div>
@@ -189,8 +210,9 @@ const GeneralSettings = () => {
                                         <label htmlFor="" className="w-1/3 ">Phone <span className='text-red-400'>*</span></label>
                                         <input
                                             type="text"
-                                            className="text-xs w-full border border-gray-300 px-2 py-1"
-                                            defaultValue={settingDetails?.phone ? settingDetails.phone : "89562423934"}
+                                            id="small-input"
+                                            className="block p-2 w-full text-gray-900 bg-gray-50 border border-gray-300 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            value={settingDetails?.phone || ''}
                                             onChange={(e) => handleChanges('phone', e)}
                                         />
                                     </div>
@@ -232,7 +254,8 @@ const GeneralSettings = () => {
                                         <select
                                             id="small"
                                             className="py-1 text-xs block w-full text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            defaultValue="January"
+                                            defaultValue={settingDetails?.start_month || "January"}
+                                            onChange={(e) => handleChanges('start_month', e)}
                                         >
                                             <option value="January">January</option>
                                             <option value="February">February</option>
@@ -313,8 +336,9 @@ const GeneralSettings = () => {
                                         <label htmlFor="" className="mr-2 w-1/3">Currency Format <span className='text-red-400'>*</span></label>
                                         <select
                                             id="small"
-                                            className=" py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            defaultValue="30,3330"
+                                            className="py-1 block w-full text-xs text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            value={settingDetails?.currency_format || "30,3330"}
+                                            onChange={(e) => handleChanges('currency_format', e)}
                                         >
                                             <option value="30,3330">30,3330</option>
                                             <option value="12,34859">12,34859</option>
@@ -333,13 +357,50 @@ const GeneralSettings = () => {
                                         <label htmlFor="" className="w-full">Base Url  <span className='text-red-400'>*</span></label>
                                         <input
                                             type="text"
-                                            className=" text-xs w-full border border-gray-300 px-2 py-1"
-                                            defaultValue={"https://demo.smart-school.in/"}
+                                            className="text-xs w-full border border-gray-300 px-2 py-1"
+                                            value={settingDetails?.base_url || "https://demo.smart-school.in/"}
+                                            onChange={(e) => handleChanges('base_url', e)}
                                         />
                                     </div>
                                     <div className="flex items-center w-full">
                                         <label htmlFor="" className="w-full">File Upload Path <span className='text-red-400'>*</span></label>
-                                        <input type="text" className=" text-xs w-full border border-gray-300 py-1" defaultValue={"/var/www/demo.smart-school.in2b53Vh4Dy7G/public_html/"} />
+                                        <input 
+                                            type="text" 
+                                            className="text-xs w-full border border-gray-300 py-1" 
+                                            value={settingDetails?.file_upload_path || "/var/www/demo.smart-school.in2b53Vh4Dy7G/public_html/"} 
+                                            onChange={(e) => handleChanges('file_upload_path', e)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='pb-6 border-b border-slate-200/60 dark:border-darkmode-400'>
+                                <div className="flex flex-col sm:flex-row items-center p-1 pt-2">
+                                    <h2 className="font-normal text-base mr-auto">Position Left</h2>
+                                </div>
+                                <div className="flex space-x-4 pt-2">
+                                    <div className="flex items-center gap-2">
+                                        <input 
+                                            id="default-radio-1" 
+                                            type="radio" 
+                                            value="Yes" 
+                                            name="position-left" 
+                                            checked={settingDetails?.position_left === 'Yes'}
+                                            onChange={(e) => handleChanges('position_left', e)}
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        />
+                                        <label htmlFor="default-radio-1" className="text-sm text-gray-700 dark:text-gray-300">Yes</label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input 
+                                            id="default-radio-2" 
+                                            type="radio" 
+                                            value="No" 
+                                            name="position-left" 
+                                            checked={settingDetails?.position_left === 'No'}
+                                            onChange={(e) => handleChanges('position_left', e)}
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        />
+                                        <label htmlFor="default-radio-2" className="text-sm text-gray-700 dark:text-gray-300">No</label>
                                     </div>
                                 </div>
                             </div>
@@ -385,6 +446,14 @@ const GeneralSettings = () => {
                 return <div>Please select an option from the menu.</div>;
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-full">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="mt-6 h-fit lg:flex sm:flex-row px-5 md:block intro-y ">
