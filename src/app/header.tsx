@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Bell,
   Search,
@@ -12,13 +12,43 @@ import {
   HelpCircle,
   ToggleRight,
   CircleUserRound,
+  LogOut,
 } from "lucide-react";
+import axios from "axios";
 
 const Header: React.FC = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Clear all auth-related data from localStorage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+      sessionStorage.clear(); // Clear any session data
+      
+      // Use router for programmatic navigation
+      window.location.href = '/login';
+    }
+  };
 
   // Dynamic breadcrumbs based on pathname
   const generateBreadcrumbs = () => {
@@ -157,71 +187,54 @@ const Header: React.FC = () => {
           )}
         </div>
         {/* END: Notifications */}
+        
 
         {/* BEGIN: Account Menu */}
-        <div className="intro-x dropdown w-8 h-8">
-          <div
-            className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110 flex items-center justify-center bg-primary"
-            role="button"
-            aria-expanded={isAccountOpen}
+        <div className="intro-x flex items-center gap-2">
+          {/* Profile Icon */}
+          <button
+            className="w-8 h-8 rounded-full overflow-hidden shadow-lg flex items-center justify-center bg-primary cursor-pointer"
             onClick={() => setIsAccountOpen(!isAccountOpen)}
+            aria-expanded={isAccountOpen}
+            title="User Profile"
           >
-            <CircleUserRound className="w-8 h-8 text-white" />
-            {/* <img alt="DLT - Admin Panel" src="/profile-5.jpg" />  Adjust path */}
-          </div>
+            <CircleUserRound className="w-6 h-6 text-white" />
+          </button>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="w-8 h-8 rounded-full overflow-hidden shadow-lg flex items-center justify-center bg-red-500 hover:bg-red-600 cursor-pointer transition-colors"
+            title="Logout from application"
+          >
+            <LogOut className="w-5 h-5 text-white" />
+          </button>
+
+          {/* Profile Dropdown */}
           {isAccountOpen && (
-            <div className="dropdown-menu w-56">
-              <ul className="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
-                <li className="p-2">
-                  <div className="font-medium">Christian Bale</div>
-                  <div className="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                    Backend Engineer
-                  </div>
-                </li>
-                <li>
-                  <hr className="dropdown-divider border-white/[0.08]" />
-                </li>
-                <li>
+            <div className="dropdown-menu absolute right-0 mt-2 w-56 top-[60px]">
+              <div className="bg-white rounded-lg shadow-lg border border-gray-200">
+                <div className="p-3 border-b border-gray-200">
+                  <div className="font-medium text-gray-800">User Profile</div>
+                  <div className="text-xs text-gray-500">Manage your account</div>
+                </div>
+                <div className="p-2">
                   <Link
                     href="/profile"
-                    className="dropdown-item hover:bg-white/5"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
                   >
-                    <User className="w-4 h-4 mr-2" /> Profile
+                    <User className="w-4 h-4 inline mr-2" />
+                    View Profile
                   </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/add-account"
-                    className="dropdown-item hover:bg-white/5"
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded-md"
                   >
-                    <Edit className="w-4 h-4 mr-2" /> Add Account
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/reset-password"
-                    className="dropdown-item hover:bg-white/5"
-                  >
-                    <Lock className="w-4 h-4 mr-2" /> Reset Password
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/help" className="dropdown-item hover:bg-white/5">
-                    <HelpCircle className="w-4 h-4 mr-2" /> Help
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider border-white/[0.08]" />
-                </li>
-                <li>
-                  <Link
-                    href="/logout"
-                    className="dropdown-item hover:bg-white/5"
-                  >
-                    <ToggleRight className="w-4 h-4 mr-2" /> Logout
-                  </Link>
-                </li>
-              </ul>
+                    <LogOut className="w-4 h-4 inline mr-2" />
+                    Logout
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>

@@ -14,6 +14,7 @@ function TimeInput({ id, label }) {
       setTime(`${hours}:${minutes}`);
     }
   };
+  
   // Function to handle changes in the time input
   const handleChange = (event) => {
     setTime(event.target.value);
@@ -31,7 +32,6 @@ function TimeInput({ id, label }) {
         onChange={handleChange} // Handle changes made by the user
         placeholder="Enter time"
         className="mt-1 block w-70 h-7 py-1 border border-gray-300 shadow-sm focus:outline-none focus:ring-0 focus:ring-gray-500 focus:border-gray-500 text-xs"
-        required
       />
     </div>
   );
@@ -71,7 +71,6 @@ const AttendanceTable = () => {
                   min="09:00"
                   max="18:00"
                   defaultValue="00:00"
-                  required
                 />
                 <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <svg
@@ -128,7 +127,6 @@ const AttendanceTable2 = () => {
                   min="09:00"
                   max="18:00"
                   defaultValue="00:00"
-                  required
                 />
                 <span className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <svg

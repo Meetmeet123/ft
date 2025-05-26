@@ -1,7 +1,26 @@
-
+"use client"
 import React from 'react';
 import { Eye, Image, EyeOff } from "lucide-react";
+import { getGeneralSettingDetails } from '../../GeneralSettingData';
+import { useState, useEffect } from 'react';
+
 const Signature = () => {
+
+  const [settingDetails, setSettingDetails] = useState();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await getGeneralSettingDetails();
+        setSettingDetails(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
   return (
     <div className='w-100% h-full'>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-2 bg-white shadow-sm p-2">
@@ -17,7 +36,7 @@ const Signature = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src="https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png" alt="" />
+            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src={settingDetails?.clerk_sign || "https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png"} alt="" />
             <div className='justify-center'>
               <button type="submit" className="btn btn-primary mt-4 bg-blue-500 text-xs text-white p-1 px-2 rounded flex justify-end focus:ring-0 focus:outline-none">
                 <Image />  Edit Sign
@@ -42,7 +61,7 @@ const Signature = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src="https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png" alt="" />
+            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src={settingDetails?.examiner_sign || "https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png"} alt="" />
             <div className='justify-center'>
               <button type="submit" className="btn btn-primary mt-4 bg-blue-500 text-xs text-white p-1 px-2 rounded flex justify-end focus:ring-0 focus:outline-none">
                 <Image />  Edit Sign
@@ -67,7 +86,7 @@ const Signature = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src="https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png" alt="" />
+            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src={settingDetails?.principal_sign || "https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png"} alt="" />
             <div className='justify-center'>
               <button type="submit" className="btn btn-primary mt-4 bg-blue-500 text-xs text-white p-1 px-2 rounded flex justify-end focus:ring-0 focus:outline-none">
                 <Image />  Edit Sign
@@ -92,7 +111,7 @@ const Signature = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src="https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png" alt="" />
+            <img className=" m-3 w-45 border  border-solid rounded-md p-1 " src={settingDetails?.class_teacher || "https://dltmerg64.dolittletech.co.in/uploads/school_content/logo/images.png"} alt="" />
             <div className='justify-center'>
               <button type="submit" className="btn btn-primary mt-4 bg-blue-500 text-xs text-white p-1 px-2 rounded flex justify-end focus:ring-0 focus:outline-none">
                 <Image />  Edit Sign
