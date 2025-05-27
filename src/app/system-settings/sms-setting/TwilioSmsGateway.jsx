@@ -3,11 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import image from './assets/twilio.png';
 
-function TwilioForm() {
+function TwilioForm({twilio}) {
   const [formData, setFormData] = useState({
-    accountId: '',
-    authToken: '',
-    phoneNumber: '',
+    accountId: twilio.api_id,
+    authToken: twilio.authkey,
+    username: twilio.username,
+    phoneNumber: twilio.contact,
     status: 'Select',
   });
 
@@ -21,8 +22,6 @@ function TwilioForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting form data:', formData);
-    // API call would go here
   };
 
   return (
@@ -34,11 +33,15 @@ function TwilioForm() {
             {[
               {
                 id: 'accountId',
-                label: 'Twilio Account SID',
+                label: 'Account SID',
               },
               {
                 id: 'authToken',
                 label: 'Authentication Token',
+              },
+              {
+                id: 'username',
+                label: 'User Name',
               },
               {
                 id: 'phoneNumber',
@@ -101,20 +104,20 @@ function TwilioForm() {
 
         {/* Logo & Link */}
         <div className="w-full lg:w-1/3 flex flex-col items-center justify-center text-center">
-          <Image
-            src={image}
+          {twilio?.url && <Image
+            src={twilio.url}
             alt="Twilio Logo"
             width={160}
             height={80}
             className="mb-4"
-          />
+          />}
           <Link
             href="https://www.twilio.com"
             className="text-blue-500 text-sm hover:underline break-words"
             target="_blank"
             rel="noopener noreferrer"
           >
-            https://www.twilio.com
+            {DataTransfer.uri}
           </Link>
         </div>
       </div>

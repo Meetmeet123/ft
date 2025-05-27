@@ -1,42 +1,42 @@
 "use client";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import Paypal from "./Paypal";
-import Stripe from "./Stripe";
-import PayU from "./PayU";
-import CCAvenueConfigForm from "./CCAvenue";
-import InstamojoConfigForm from "./InstaMojo";
-import PayStack from "./PayStack";
-import RazorpayGatewayForm from "./RazorPay";
-import Paytm from "./Paytm";
-import MidtransGatewayForm from "./MidTrans";
-import PesaPal from "./PesaPal";
 import PaymentGateway from "./PaymentGateway";
-import FlutterwaveConfigForm from "./FlutterWave";
-import IPayConfigForm from "./IPay";
-import JazzCashConfigForm from "./JazzCash";
-import BillplzConfigForm from "./Billza";
-import SSLCommerzConfigForm from "./SSLCommerze";
-import WalkingmConfigForm from "./Walkingm";
-import MollieConfigForm from "./Mollie";
-import CashfreeConfigForm from "./Cashfree";
-import PayFast from "./PayFast";
-import ToyyibPay from "./ToyyibPay";
-import TwoCheckoutForm from "./TwoCheckout";
-import Skrill from "./Skrill";
-import Payhere from "./PayHere";
-import OnePay from "./OnePay";
+import PaymentMethods from "./PaymentMethod";
+import { getPaymentDetails, AddPaymentDetails } from "./PaymentDetails";
+import { ChevronsLeft, X } from "lucide-react";
 
-export default function PaymentMethods() {
-  const [selectedMethod, setSelectedMethod] = useState("Paypal");
-  const [processingFeesType, setProcessingFeesType] = useState("None");
-  const [paypalUsername, setPaypalUsername] = useState("");
-  const [paypalPassword, setPaypalPassword] = useState("");
-  const [paypalSignature, setPaypalSignature] = useState("");
-  const [percentageFixAmount, setPercentageFixAmount] = useState("");
+export default function PaymentPage() {
+  const [selectedMethod, setSelectedMethod] = useState("");
   const [selectedGateway, setSelectedGateway] = useState(null);
   const [showGateway, setShowGateway] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [paymentData, setPaymentData] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [addNewPayment, setAddNewPayment] = useState(false);
+  const [newPaymentDetails, setNewPaymentDetails] = useState({
+    payment_type: "",
+    active_status: false,
+  })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getPaymentDetails();
+        const safeData = Array.isArray(data?.data?.data) ? data.data.data : [];
+        console.log(safeData)
+        setPaymentData(safeData);
+        setSelectedMethod(safeData[0]?.payment_type || "");
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setPaymentData([]); // Ensure it's an array on error
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,31 +58,69 @@ export default function PaymentMethods() {
     { name: "CCAvenue", active: false },
   ];
 
-  const paymentMethods = [
-    "Paypal", "Stripe", "PayU", "CCAvenue", "InstaMojo", "Paystack",
-    "Razorpay", "Paytm", "Midtrans", "Pesapal", "Flutter Wave",
-    "iPay Africa", "JazzCash", "Billplz", "SSLCommerz", "Walkingm",
-    "Mollie", "Cashfree", "Payfast", "ToyyibPay", "Twocheckout",
-    "Skrill", "Payhere", "Onepay"
-  ];
+  // Add this just before the return in your component
+  const paymentMethods = Array.isArray(paymentData) ? paymentData.map((pay) => pay.payment_type) : [];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    alert("Payment method settings saved");
+    try{
+      const res = await AddPaymentDetails(newPaymentDetails);
+      console.log(res)
+    }catch(err){
+      console.log(err);
+    }
   };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Head>
+      <Head className="flex justify-between" >
         <title>Payment Methods</title>
       </Head>
 
       <main className="flex flex-col lg:flex-row gap-6 py-6">
         {/* Main Section */}
         <div className="w-full lg:w-[calc(100%-270px)]">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
-            Payment Methods
-          </h1>
+          <div className="flex justify-between items-center" >
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800 mb-4">
+              Payment Methods
+            </h1>
+            <button className="btn btn-primary" onClick={() => setAddNewPayment(!addNewPayment)} >+Add</button>
+          </div>
+
+          {addNewPayment && <div className="fixed left-1/3 w-full flex-row justify-center items-center bg-white p-6 rounded-2xl shadow-lg mb-6 z-50 w-full max-w-md space-y-4">
+            <div className="flex justify-between items-center" >
+              <h2>Add new Payment</h2>
+              <button onClick={() => setAddNewPayment(false)} ><X/></button>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Payment Type</label>
+              <input
+                type="text"
+                value={newPaymentDetails.payment_type}
+                onChange={(e) => setNewPaymentDetails({ ...newPaymentDetails, payment_type: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="flex gap-3 items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={newPaymentDetails.active_status}
+                onChange={(e) => setNewPaymentDetails({ ...newPaymentDetails, active_status: e.target.checked })}
+                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label className="text-sm font-medium text-gray-700">Active Status</label>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button 
+              className="btn btn-primary px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150"
+              onClick={handleSubmit}
+              >
+                Save
+              </button>
+            </div>
+          </div>}
 
           {/* Payment Method Tabs */}
           <div>
@@ -100,14 +138,18 @@ export default function PaymentMethods() {
                 min-w-full
               "
             >
-              {paymentMethods.map((method) => (
+              {paymentMethods.map((method, index) => (
                 <button
                   key={method}
-                  onClick={() => setSelectedMethod(method)}
+                  onClick={() => {
+                    setSelectedMethod(method);
+                    setSelectedIndex(index);
+                  }}
                   className={`relative px-3 py-2 text-sm rounded-md font-medium transition
                     ${selectedMethod === method
                       ? "text-blue-600 bg-yellow-100"
-                      : "text-gray-600 hover:bg-gray-100"}`}
+                      : "text-gray-600 hover:bg-gray-100"
+                    }`}
                 >
                   {method}
                   {selectedMethod === method && (
@@ -120,50 +162,19 @@ export default function PaymentMethods() {
 
           {/* Payment Form */}
           <div className="mt-6">
-            {selectedMethod === "Paypal" && (
-              <Paypal
-                selectedMethod={selectedMethod}
-                paypalUsername={paypalUsername}
-                setPaypalUsername={setPaypalUsername}
-                paypalPassword={paypalPassword}
-                setPaypalPassword={setPaypalPassword}
-                paypalSignature={paypalSignature}
-                setPaypalSignature={setPaypalSignature}
-                processingFeesType={processingFeesType}
-                setProcessingFeesType={setProcessingFeesType}
-                percentageFixAmount={percentageFixAmount}
-                setPercentageFixAmount={setPercentageFixAmount}
-                handleSubmit={handleSubmit}
-              />
+            {loading ? (
+              <p>Loading payment methods...</p>
+            ) : paymentData.length > 0 && selectedIndex >= 0 && selectedIndex < paymentData.length ? (
+              <PaymentMethods data={paymentData[selectedIndex]} />
+            ) : (
+              <p>No payment method data available.</p>
             )}
-            {selectedMethod === "Stripe" && <Stripe />}
-            {selectedMethod === "PayU" && <PayU />}
-            {selectedMethod === "CCAvenue" && <CCAvenueConfigForm />}
-            {selectedMethod === "InstaMojo" && <InstamojoConfigForm />}
-            {selectedMethod === "Paystack" && <PayStack />}
-            {selectedMethod === "Razorpay" && <RazorpayGatewayForm />}
-            {selectedMethod === "Paytm" && <Paytm />}
-            {selectedMethod === "Midtrans" && <MidtransGatewayForm />}
-            {selectedMethod === "Pesapal" && <PesaPal />}
-            {selectedMethod === "Flutter Wave" && <FlutterwaveConfigForm />}
-            {selectedMethod === "iPay Africa" && <IPayConfigForm />}
-            {selectedMethod === "JazzCash" && <JazzCashConfigForm />}
-            {selectedMethod === "Billplz" && <BillplzConfigForm />}
-            {selectedMethod === "SSLCommerz" && <SSLCommerzConfigForm />}
-            {selectedMethod === "Walkingm" && <WalkingmConfigForm />}
-            {selectedMethod === "Mollie" && <MollieConfigForm />}
-            {selectedMethod === "Cashfree" && <CashfreeConfigForm />}
-            {selectedMethod === "Payfast" && <PayFast />}
-            {selectedMethod === "ToyyibPay" && <ToyyibPay />}
-            {selectedMethod === "Twocheckout" && <TwoCheckoutForm />}
-            {selectedMethod === "Skrill" && <Skrill />}
-            {selectedMethod === "Payhere" && <Payhere />}
-            {selectedMethod === "Onepay" && <OnePay />}
           </div>
+
         </div>
 
         {/* Sidebar */}
-        <div className="lg:w-64 w-full">
+        <div className="lg:w-64 w-full ">
           {isSmallScreen ? (
             <>
               <button
@@ -177,7 +188,7 @@ export default function PaymentMethods() {
                   <PaymentGateway
                     selectedGateway={selectedGateway}
                     setSelectedGateway={setSelectedGateway}
-                    paymentGateways={paymentGateways}
+                    paymentGateways={paymentMethods}
                     paymentGateways2={paymentGateways2}
                   />
                 </div>
@@ -188,7 +199,7 @@ export default function PaymentMethods() {
               <PaymentGateway
                 selectedGateway={selectedGateway}
                 setSelectedGateway={setSelectedGateway}
-                paymentGateways={paymentGateways}
+                paymentGateways={paymentMethods}
                 paymentGateways2={paymentGateways2}
               />
             </div>

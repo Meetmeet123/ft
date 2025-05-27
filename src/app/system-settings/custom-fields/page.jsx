@@ -1,6 +1,7 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Minus, GripVertical, Pencil, X } from 'lucide-react';
+import { getCustomDetails } from './CustomFieldDetails';
 
 export default function CustomFieldManagement() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -14,6 +15,18 @@ export default function CustomFieldManagement() {
 
   const [expanded, setExpanded] = useState({ student: false, staff: false });
   const [customFields, setCustomFields] = useState({ student: [], staff: [] });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await getCustomDetails();
+        setCustomFields(data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   const handleSave = () => {
     if (!fieldBelongs || !fieldType || !fieldName) return;
@@ -49,6 +62,7 @@ export default function CustomFieldManagement() {
   };
 
   return (
+    customFields ? 
     <div className="flex flex-col md:flex-row gap-4 p-4 md:p-6 bg-gray-100 min-h-screen">
       {/* Left Panel - Add Custom Field */}
       <div className="w-full md:w-1/2 bg-white p-4 md:p-6 rounded shadow-sm">
@@ -196,6 +210,9 @@ export default function CustomFieldManagement() {
           ))}
         </div>
       </div>
+    </div> : 
+    <div className="flex items-center justify-center h-40 bg-gray-100 rounded-md shadow">
+      <h3 className="text-lg font-semibold text-gray-600">No Data found</h3>
     </div>
   );
 }

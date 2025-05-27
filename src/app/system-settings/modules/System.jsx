@@ -1,69 +1,111 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Printer, FileText, Database, Download, Search } from 'lucide-react';
-import systemData from './SystemData';
+import studentData from './StudentData';
+import { getModuleData } from './ParentData';
+import * as XLSX from 'xlsx'
 
 function System() {
-  const [system, setSystem] = useState(systemData);
+  const [students, setStudents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredSystem, setFilteredSystem] = useState(systemData);
+  const [filteredStudents, setFilteredStudents] = useState(studentData);
 
   useEffect(() => {
-    const filtered = system.filter((item) =>
-      item.Name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = students.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setFilteredSystem(filtered);
-  }, [searchQuery, system]);
+    setFilteredStudents(filtered);
+  }, [searchQuery, students]);
 
   const toggleAction = (name) => {
-    const updated = system.map((item) =>
+    const updated = students.map((item) =>
       item.Name === name ? { ...item, Action: !item.Action } : item
     );
-    setSystem(updated);
+    setStudents(updated);
   };
 
   const handleCopyClick = () => {
-    const text = JSON.stringify(filteredSystem, null, 2);
+    const text = JSON.stringify(filteredStudents, null, 2);
     navigator.clipboard.writeText(text).then(() => {
       alert('Data copied to clipboard!');
     });
   };
 
   const handleDownloadClick = () => {
-    const csv = [
-      ['Module Name', 'Action'],
-      ...filteredSystem.map((s) => [s.Name, s.Action ? 'Active' : 'Inactive']),
-    ]
-      .map((row) => row.map((value) => `"${value}"`).join(','))
-      .join('\n');
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'system_modules.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Step 1: Convert data to worksheet
+      const worksheet = XLSX.utils.json_to_sheet(students);
+    
+      // Step 2: Create a new workbook and append the worksheet
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Incomes');
+    
+      // Step 3: Trigger download
+      XLSX.writeFile(workbook, 'System.xlsx');
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getModuleData();
+        setStudents(data.data.permissionList)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchData();
+  }, [])
+
   const handlePrintClick = () => {
-    const content = document.getElementById('print-section').innerHTML;
-    const printWindow = window.open('', '', 'width=800,height=600');
+    if (!students || students.length === 0) return;
+  
+    const headers = Object.keys(students[0]);
+    let table = '<table border="1" style="border-collapse: collapse; width: 100%"><thead><tr>';
+  
+    // Headers
+    headers.forEach(header => {
+      table += `<th style="padding: 8px; text-align: left;">${header}</th>`;
+    });
+    table += '</tr></thead><tbody>';
+  
+    // Rows
+    students.forEach(row => {
+      table += '<tr>';
+      headers.forEach(header => {
+        table += `<td style="padding: 8px;">${row[header] ?? ''}</td>`;
+      });
+      table += '</tr>';
+    });
+  
+    table += '</tbody></table>';
+  
+    const printWindow = window.open('', '_blank');
     printWindow.document.write(`
       <html>
         <head>
-          <title>Print</title>
-          <style>
-            table { width: 100%; border-collapse: collapse; }
-            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-            th { background-color: #f9f9f9; }
-          </style>
+          <title>System</title>
         </head>
-        <body>${content}</body>
+        <body>
+          <h2>System</h2>
+          ${table}
+          <script>
+            window.onload = function () {
+              window.print();
+              window.onafterprint = function () {
+                window.close();
+              };
+            };
+          </script>
+        </body>
       </html>
     `);
     printWindow.document.close();
-    printWindow.print();
+
+  };
+
+   const toggleSwitch = (name, key) => {
+    const updated = students.map((item) =>
+      item.name === name ? { ...item, [key]: item[key] === 1 ? 0 : 1 } : item
+    );
+    setStudents(updated);
   };
 
   return (
@@ -83,7 +125,7 @@ function System() {
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
-          <button onClick={handleCopyClick} className="text-gray-500" title="Copy to clipboard">
+          <button onClick={handleDownloadClick} className="text-gray-500" title="Copy to clipboard">
             <Database size={18} />
           </button>
           <button onClick={handleDownloadClick} className="text-gray-500" title="Download CSV">
@@ -98,11 +140,12 @@ function System() {
         </div>
       </div>
 
-      <div id="print-section">
+      <div id="print-section" className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              {['Module Name', 'Action'].map((title, idx) => (
+              {/* ["ID", "Name", "Short Code", "Active", "System"] */}
+              {["ID", "Name", "Short Code", "Active", "System"].map((title, idx) => (
                 <th
                   key={idx}
                   className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -116,32 +159,54 @@ function System() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredSystem.map((item) => (
-              <tr key={item.Name}>
-                <td className="px-4 py-3 text-sm text-blue-600 w-full">{item.Name}</td>
-                <td className="px-4 py-3 text-right">
-                  <button
-                    type="button"
-                    className="focus:outline-none"
-                    onClick={() => toggleAction(item.Name)}
-                  >
-                    <div className="relative w-12 h-6">
-                      <div
-                        className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                          item.Action ? 'bg-green-500' : 'bg-gray-200'
-                        }`}
-                      />
-                      <div
-                        className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ${
-                          item.Action ? 'left-7' : 'left-1'
-                        }`}
-                      />
-                    </div>
-                  </button>
-                </td>
+            {students.map((item) => (
+              <tr key={item.name}>
+                <td className="px-4 py-3 text-sm text-blue-600 w-full">{item.id}</td>
+                  <td className="px-4 py-3 text-sm text-blue-600 w-full">{item.name}</td>
+                  <td className="px-4 py-3 text-sm text-blue-600 w-full">{item.short_code}</td>
+                  <td className="px-4 py-3 text-sm text-blue-600 w-full">
+                    <button
+                      type="button"
+                      className="focus:outline-none"
+                     onClick={() => toggleSwitch(item.name, 'system')}
+                    >
+                      <div className="relative w-12 h-6">
+                        <div
+                          className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+                            item.system === 1 ? 'bg-green-500' : 'bg-gray-200'
+                          }`}
+                        />
+                        <div
+                          className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ${
+                            item.system === 1 ? 'left-7' : 'left-1'
+                          }`}
+                        />
+                      </div>
+                    </button>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-blue-600 w-full">
+                    <button
+                      type="button"
+                      className="focus:outline-none"
+                      onClick={() => toggleSwitch(item.name, 'student')}
+                    >
+                      <div className="relative w-12 h-6">
+                        <div
+                          className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+                            item.student === 1 ? 'bg-green-500' : 'bg-gray-200'
+                          }`}
+                        />
+                        <div
+                          className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300 ${
+                            item.student === 1 ? 'left-7' : 'left-1'
+                          }`}
+                        />
+                      </div>
+                    </button>
+                  </td>
               </tr>
             ))}
-            {filteredSystem.length === 0 && (
+            {filteredStudents.length === 0 && (
               <tr>
                 <td
                   colSpan={2}
@@ -153,6 +218,9 @@ function System() {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end p-4">
+        <button className='btn btn-primary' >Save</button>
       </div>
     </div>
   );

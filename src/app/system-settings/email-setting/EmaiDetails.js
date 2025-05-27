@@ -1,12 +1,11 @@
-
 import axios from "axios";
 
-const api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"modules";
+const api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"email-config";
 const token = localStorage.getItem("authToken");
 
-export const getModuleData = async() => {
-  try{
-    const res = axios.get(api_url,
+export const getEmailSettingData = async() => {
+  try {
+    const res = await axios.get(api_url,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -16,7 +15,7 @@ export const getModuleData = async() => {
       }
     );
     return res;
-  }catch(err){
-    return err
+  } catch (error) {
+    return error;
   }
 }

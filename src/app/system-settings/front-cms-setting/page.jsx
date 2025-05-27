@@ -1,8 +1,9 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import ThemeSelector from "./ThemeSelector";
+import { getFrontCMSSettingDetails, postFrontCMS } from "./FrontCMSDetails";
 
-const FileUpload = ({ label, onFileSelect }) => {
+const FileUpload = ({ label, onFileSelect, logoUrl }) => {
   const handleDrop = useCallback(
     (e) => {
       e.preventDefault();
@@ -36,8 +37,9 @@ const FileUpload = ({ label, onFileSelect }) => {
           className="hidden"
           onChange={handleFileChange}
         />
-        <label htmlFor={label} className="block">
-          <p className="text-sm text-gray-500">Drag & drop or click to upload</p>
+        <img src={logoUrl} />
+        <label htmlFor={label} className="block w-full h-full cursor-pointer border p-10 rounded-lg">
+          <p className="text-sm text-gray-500">Select image to upload</p>
         </label>
       </div>
     </div>
@@ -45,31 +47,53 @@ const FileUpload = ({ label, onFileSelect }) => {
 };
 
 const SimpleFrontCMSSettings = () => {
-  const [settings, setSettings] = useState({
-    frontCMS: true,
-    sidebar: false,
-    languageRTL: false,
-    sidebarOptions: {
-      news: true,
-      complain: true,
-    },
-    language: "English",
-    logoUrl: "",
-    faviconUrl: "",
-    footerText: "© Mount Carmel School 2023 All rights reserved",
-    cookieConsent: "",
-    googleAnalyticsCode: `<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', 'GA_TRACKING_ID');\n</script>`,
-    socialLinks: {
-      whatsapp: "https://www.whatsapp.com/a",
-      facebook: "https://www.facebook.com/a",
-      twitter: "https://twitter.com/a",
-      youtube: "https://www.youtube.com/a",
-      googlePlus: "https://plus.google.com/a",
-      linkedin: "https://www.linkedin.com/a",
-      instagram: "https://www.instagram.com/a",
-      pinterest: "https://in.pinterest.com/a",
-    },
-  });
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+  const fetchSettings = async () => {
+    try {
+      const response = await getFrontCMSSettingDetails();
+      const settingsData = response?.data?.[0] || {};
+      console.log(response.data)
+      const defaultSettings = {
+        id:settingsData.id,
+        theme:settingsData.theme,
+        frontCMS: settingsData?.is_active_front_cms === 1,
+        sidebar: settingsData?.is_active_sidebar === 1,
+        languageRTL: settingsData?.is_active_language_rtl === 1,
+        sidebarOptions: {
+          news: true,
+          complain: true,
+        },
+        language: "English",
+        logo: settingsData?.logo,
+        faviconUrl: settingsData.fav_icon,
+        footerText: settingsData?.footer_text,
+        cookieConsent: settingsData?.cookie_consent,
+        googleAnalyticsCode:
+          settingsData.google_analytics,
+        socialLinks: {
+          whatsapp: settingsData.whatsapp_url,
+          facebook: settingsData.fb_url,
+          twitter: settingsData.twitter_url,
+          youtube: settingsData.youtube_url,
+          googlePlus: settingsData.google_plus,
+          linkedin: settingsData.linkedin_url,
+          instagram: settingsData.instagram_url,
+          pinterest: settingsData.pinterest_url,
+        },
+      };
+      // console.log(defaultSettings)
+      setSettings(defaultSettings);
+    } catch (err) {
+      console.error("Error fetching settings:", err);
+    }
+  };
+
+  fetchSettings();
+}, []);
+
+  if (!settings) return <div className="p-4">Loading...</div>;
 
   const toggleField = (field) =>
     setSettings((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -97,6 +121,17 @@ const SimpleFrontCMSSettings = () => {
     setSettings((prev) => ({ ...prev, [field]: url }));
   };
 
+  const handleThemeChange = (newTheme) => {
+    const temp = {...settings, theme : newTheme}
+    setSettings(temp);
+  }
+
+  const handleSave = async() => {
+    const data = {id: settings.id, theme: settings.theme, is_active_front_cms: settings.frontCMS ? 1 : 0}
+    const res = await postFrontCMS(data)
+    console.log(res)
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       <h2 className="text-xl font-bold mb-6">Front CMS Settings</h2>
@@ -119,14 +154,12 @@ const SimpleFrontCMSSettings = () => {
                 />
                 <div onClick={() => toggleField(field)} className="cursor-pointer">
                   <div
-                    className={`w-11 h-6 rounded-full transition-colors duration-300 ${
-                      settings[field] ? "bg-green-500" : "bg-gray-300"
-                    }`}
+                    className={`w-11 h-6 rounded-full transition-colors duration-300 ${settings[field] ? "bg-green-500" : "bg-gray-300"
+                      }`}
                   ></div>
                   <div
-                    className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
-                      settings[field] ? "left-5" : "left-0.5"
-                    }`}
+                    className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${settings[field] ? "left-5" : "left-0.5"
+                      }`}
                   ></div>
                 </div>
               </div>
@@ -176,13 +209,15 @@ const SimpleFrontCMSSettings = () => {
           <FileUpload
             label="Logo (369px X 76px)"
             onFileSelect={(file) => handleFileSelect("logoUrl", file)}
+            logoUrl={settings.logo}
           />
           <FileUpload
             label="Favicon (32px X 32px)"
             onFileSelect={(file) => handleFileSelect("faviconUrl", file)}
+            logoUrl={settings.fav_icon}
           />
 
-          {/* Text Inputs */}
+          {/* Footer Text */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">
               Footer Text
@@ -195,7 +230,7 @@ const SimpleFrontCMSSettings = () => {
             />
           </div>
 
-          {/* Textareas */}
+          {/* Cookie Consent */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">
               Cookie Consent
@@ -207,6 +242,7 @@ const SimpleFrontCMSSettings = () => {
             />
           </div>
 
+          {/* Google Analytics Code */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-700">
               Google Analytics Code
@@ -221,8 +257,8 @@ const SimpleFrontCMSSettings = () => {
 
         {/* Right Section */}
         <div className="space-y-4 w-full lg:w-1/2">
-          {Object.entries(settings.socialLinks).map(([platform, url]) => (
-            <div key={platform}>
+          {Object.entries(settings.socialLinks).map(([platform, url], index) => (
+            <div key={index}>
               <label className="block mb-1 text-sm font-medium text-gray-700 capitalize">
                 {platform} URL
               </label>
@@ -238,7 +274,16 @@ const SimpleFrontCMSSettings = () => {
       </div>
 
       <div className="mt-10">
-        <ThemeSelector />
+        <ThemeSelector handleThemeChange={handleThemeChange} currentTheme={settings.theme} />
+      </div>
+
+      <div className="mt-6 flex justify-center sm:justify-end">
+        <button
+          onClick={handleSave}
+          className="btn btn-primary px-6 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition-all"
+        >
+          Save
+        </button>
       </div>
     </div>
   );

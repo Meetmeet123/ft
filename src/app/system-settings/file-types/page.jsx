@@ -1,14 +1,15 @@
 // pages/file-settings.js
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { getFileTypeData } from './FileTypeData';
 
 export default function FileSettings() {
   const [fileExtensions, setFileExtensions] = useState(
-    'pdf, zip, jpg, jpeg, png, txt, 7z, gif, csv, docx, mp3, mp4, accdb, odt, ods, ppt, pptx, xlsx, wmv, jfif, apk, ppt, bmp, jpe, mdb, rar, xls, svg, php, html'
+    ''
   );
   const [fileMimeTypes, setFileMimeTypes] = useState(
-    'application/pdf, image/zip, image/jpg, image/png, image/jpeg, text/plain, application/x-zip-compressed, application/zip, image/gif, text/csv, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, application/msaccess, application/vnd.oasis.opendocument.text, application/vnd.oasis.opendocument.spreadsheet, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, video/x-ms-wmv, video/mp4, image/jpeg, application/vnd.android.package-archive, application/x-msdownload, application/vnd.ms-powerpoint, image/bmp, image/jpeg, application/msaccess, application/vnd.ms-excel, image/svg+xml, image/php'
+    ''
   );
   const [fileUploadSize, setFileUploadSize] = useState('100048576');
 
@@ -19,6 +20,22 @@ export default function FileSettings() {
     'image/jpeg, image/png, image/jpeg, image/jpeg, image/bmp, image/gif, image/x-ms-bmp, image/svg+xml'
   );
   const [imageUploadSize, setImageUploadSize] = useState('10048576');
+
+  useEffect(()=>{
+    const fetchData = async() => {
+      try{
+        const data = await getFileTypeData();
+        setFileExtensions(data.data.file_extension);
+        setFileMimeTypes(data.data.file_mime);
+        setFileUploadSize(data.data.file_size);
+        setImageExtensions(data.data.image_extension);
+        setImageUploadSize(data.data.image_size);
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchData();
+  },[])
 
   return (
     <div className="min-h-screen bg-white py-6 px-4 sm:px-6 lg:px-8">
