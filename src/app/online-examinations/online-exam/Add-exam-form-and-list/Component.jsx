@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
-import { Table } from "antd";
+import { useRef, useState, useEffect } from "react";
+import { Table, message } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -11,71 +11,61 @@ import {
   PrinterOutlined,
   FilePdfOutlined,
 } from "@ant-design/icons";
-
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const initialExams = [
-  {
-    id: 1,
-    name: "Science Quiz",
-    description: "A general science quiz for students.",
-    quiz: true,
-    questions: 7,
-    attempt: 10,
-    from: "03/25/2025 12:30 PM",
-    to: "03/31/2025 05:00 PM",
-    duration: "01:30:00",
-    published: true,
-    resultPublished: false,
-    completed: false,
-  },
-  {
-    id: 2,
-    name: "Math Final Exam",
-    description: "Comprehensive final exam covering all topics.",
-    quiz: false,
-    questions: 10,
-    attempt: 1,
-    from: "02/10/2025 10:00 AM",
-    to: "02/10/2025 12:00 PM",
-    duration: "02:00:00",
-    published: true,
-    resultPublished: true,
-    completed: true,
-  },
-];
+const API_URL = "http://127.0.0.1:8000/api/online-exams";
 
 export default function OnlineExamList() {
   const [activeTab, setActiveTab] = useState("upcoming");
-  const [exams, setExams] = useState(initialExams);
+  const [exams, setExams] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editExam, setEditExam] = useState(null);
   const [examData, setExamData] = useState({});
   const [selectedExams, setSelectedExams] = useState([]);
   const [showAddExam, setShowAddExam] = useState(false);
   const [newExam, setNewExam] = useState({
-    name: "",
+    exam: "",
     description: "",
-    quiz: false,
-    questions: 0,
+    is_quiz: false,
     attempt: 0,
-    from: "",
-    to: "",
+    exam_from: "",
+    exam_to: "",
     duration: "",
-    published: false,
-    resultPublished: false,
+    is_active: false,
+    publish_result: false,
   });
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
+  const fetchExams = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error("Failed to fetch exams");
+      }
+      const data = await response.json();
+      setExams(data.questionList || []);
+    } catch (error) {
+      message.error("Error fetching exams: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCopy = () => {
     const tableText = exams
       .map(
         (s) =>
-          `${s.name}, ${s.quiz},${s.questions},${s.attempt} ,${s.from},${s.to},${s.duration},${s.published},${s.resultPublished},${s.description}`
+          `${s.exam}, ${s.is_quiz},${s.attempt},${s.exam_from},${s.exam_to},${s.duration},${s.is_active},${s.publish_result},${s.description}`
       )
       .join("\n");
     navigator.clipboard.writeText(tableText);
-    alert("Table copied to clipboard!");
+    message.success("Table copied to clipboard!");
   };
 
   const handleExportCSV = () => {
@@ -84,19 +74,18 @@ export default function OnlineExamList() {
       [
         "Exam",
         "Quiz",
-        "Questions",
         "Attempt",
         "Exam From",
         "Exam to",
         "Duration",
         "Exam Published",
         "Result Published",
-        "description",
+        "Description",
       ]
         .concat(
           exams.map(
             (s) =>
-              `${s.name}, ${s.quiz},${s.questions},${s.attempt} ,${s.from},${s.to},${s.duration},${s.published},${s.resultPublished}`
+              `${s.exam}, ${s.is_quiz},${s.attempt},${s.exam_from},${s.exam_to},${s.duration},${s.is_active},${s.publish_result},${s.description}`
           )
         )
         .join("\n");
@@ -118,33 +107,31 @@ export default function OnlineExamList() {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
-    doc.text("Subject List", 20, 10);
+    doc.text("Exam List", 20, 10);
 
     autoTable(doc, {
       head: [
         [
           "Exam",
           "Quiz",
-          "Questions",
           "Attempt",
           "Exam From",
           "Exam to",
           "Duration",
           "Exam Published",
           "Result Published",
-          "description",
+          "Description",
         ],
       ],
       body: exams.map((s) => [
-        s.name,
-        s.quiz,
-        s.questions,
+        s.exam,
+        s.is_quiz ? "Yes" : "No",
         s.attempt,
-        s.from,
-        s.to,
+        s.exam_from,
+        s.exam_to,
         s.duration,
-        s.published,
-        s.resultPublished,
+        s.is_active ? "Yes" : "No",
+        s.publish_result ? "Yes" : "No",
         s.description,
       ]),
     });
@@ -155,11 +142,10 @@ export default function OnlineExamList() {
   const tableRef = useRef(null);
 
   const handlePrint = () => {
-    // Create a full table for printing (without pagination)
     const tableHTML = `
     <html>
       <head>
-        <title>Print exams</title>
+        <title>Print Exams</title>
         <style>
           body { font-family: Arial, sans-serif; padding: 20px; margin: 20px; }
           h2 { text-align: center; margin-bottom: 20px; }
@@ -179,13 +165,17 @@ export default function OnlineExamList() {
         </style>
       </head>
       <body>
-        <h2>Subject List</h2>
+        <h2>Exam List</h2>
         <table>
           <thead>
             <tr>
               <th>Exam</th>
               <th>Quiz</th>
-              <th>Questions</th><th>Attempt</th><th>Exam From</th><th>Exam to</th><th>Duration</th><th>Exam published</th>
+              <th>Attempt</th>
+              <th>Exam From</th>
+              <th>Exam to</th>
+              <th>Duration</th>
+              <th>Exam published</th>
               <th>Result published</th>
               <th>Description</th>
             </tr>
@@ -193,18 +183,17 @@ export default function OnlineExamList() {
           <tbody>
             ${exams
               .map(
-                (subject) => `
+                (exam) => `
                 <tr>
-                  <td>${subject.name}</td>
-                  <td>${subject.quiz}</td>
-                  <td>${subject.questions}</td>
-                  <td>${subject.attempt}</td>
-                  <td>${subject.from}</td>
-                  <td>${subject.to}</td>
-                  <td>${subject.duration}</td>
-                  <td>${subject.published}</td>
-                  <td>${subject.resultPublished}</td>
-                  <td>${subject.description}</td>
+                  <td>${exam.exam}</td>
+                  <td>${exam.is_quiz ? "Yes" : "No"}</td>
+                  <td>${exam.attempt}</td>
+                  <td>${exam.exam_from}</td>
+                  <td>${exam.exam_to}</td>
+                  <td>${exam.duration}</td>
+                  <td>${exam.is_active ? "Yes" : "No"}</td>
+                  <td>${exam.publish_result ? "Yes" : "No"}</td>
+                  <td>${exam.description}</td>
                 </tr>
               `
               )
@@ -225,44 +214,114 @@ export default function OnlineExamList() {
     };
   };
 
-  const handleAddExam = () => {
-    setExams([...exams, { id: exams.length + 1, ...newExam }]);
-    setShowAddExam(false);
-    setNewExam({
-      name: "",
-      description: "",
-      quiz: false,
-      questions: 0,
-      attempt: 0,
-      from: "",
-      to: "",
-      duration: "",
-      published: false,
-      resultPublished: false,
-    });
+  const handleAddExam = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newExam),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to add exam");
+      }
+
+      // Refresh the exam list
+      await fetchExams();
+      
+      setShowAddExam(false);
+      setNewExam({
+        exam: "",
+        description: "",
+        is_quiz: false,
+        attempt: 0,
+        exam_from: "",
+        exam_to: "",
+        duration: "",
+        is_active: false,
+        publish_result: false,
+      });
+      message.success("Exam added successfully!");
+    } catch (error) {
+      message.error("Error adding exam: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDelete = (id) => {
-    setExams(exams.filter((exam) => exam.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete exam");
+      }
+
+      setExams(exams.filter((exam) => exam.id !== id));
+      message.success("Exam deleted successfully!");
+    } catch (error) {
+      message.error("Error deleting exam: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleEdit = (exam) => {
     setEditExam(exam);
-    setExamData(exam);
+    setExamData({
+      exam: exam.exam,
+      description: exam.description,
+      is_quiz: exam.is_quiz,
+      attempt: exam.attempt,
+      exam_from: exam.exam_from,
+      exam_to: exam.exam_to,
+      duration: exam.duration,
+      is_active: exam.is_active,
+      publish_result: exam.publish_result,
+    });
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setExamData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setExamData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleSave = () => {
-    setExams(
-      exams.map((exam) =>
-        exam.id === editExam.id ? { ...exam, ...examData } : exam
-      )
-    );
-    setEditExam(null);
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_URL}/${editExam.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(examData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update exam");
+      }
+
+      // Refresh the exam list
+      await fetchExams();
+      
+      setEditExam(null);
+      message.success("Exam updated successfully!");
+    } catch (error) {
+      message.error("Error updating exam: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSelect = (id) => {
@@ -271,14 +330,38 @@ export default function OnlineExamList() {
     );
   };
 
-  const handleDeleteSelected = () => {
-    setExams(exams.filter((exam) => !selectedExams.includes(exam.id)));
-    setSelectedExams([]);
+  const handleDeleteSelected = async () => {
+    try {
+      setLoading(true);
+      await Promise.all(
+        selectedExams.map((id) =>
+          fetch(`${API_URL}/${id}`, {
+            method: "DELETE",
+          })
+        )
+      );
+      
+      // Refresh the exam list
+      await fetchExams();
+      
+      setSelectedExams([]);
+      message.success("Selected exams deleted successfully!");
+    } catch (error) {
+      message.error("Error deleting exams: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const filteredExams = exams.filter((exam) =>
-    activeTab === "upcoming" ? !exam.completed : exam.completed
-  );
+  const filteredExams = exams.filter((exam) => {
+    const now = new Date();
+    const examFrom = new Date(exam.exam_from);
+    const examTo = new Date(exam.exam_to);
+    
+    return activeTab === "upcoming" 
+      ? examFrom > now  // Upcoming exams are those where exam_from is in future
+      : examTo <= now;  // Completed exams are those where exam_to has passed
+  });
 
   const columns = [
     activeTab === "completed"
@@ -296,48 +379,37 @@ export default function OnlineExamList() {
           ),
         }
       : {},
-    { title: "Exam", dataIndex: "name", key: "name" },
+    { title: "Exam", dataIndex: "exam", key: "exam" },
     { title: "Description", dataIndex: "description", key: "description" },
     {
       title: "Quiz",
-      dataIndex: "quiz",
-      key: "quiz",
-      render: (_, record) => (
-        <input
-          type="checkbox"
-          style={{ color: "#164f63" }}
-          checked={record.quiz}
-          disabled
-        />
+      dataIndex: "is_quiz",
+      key: "is_quiz",
+      render: (is_quiz) => (
+        <input type="checkbox" style={{ color: "#164f63" }} checked={is_quiz} disabled />
       ),
     },
-    { title: "Questions", dataIndex: "questions", key: "questions" },
     { title: "Attempt", dataIndex: "attempt", key: "attempt" },
-    { title: "Exam From", dataIndex: "from", key: "from" },
-    { title: "Exam To", dataIndex: "to", key: "to" },
+    { title: "Exam From", dataIndex: "exam_from", key: "exam_from" },
+    { title: "Exam To", dataIndex: "exam_to", key: "exam_to" },
     { title: "Duration", dataIndex: "duration", key: "duration" },
     {
       title: "Exam Published",
-      dataIndex: "published",
-      key: "published",
-      render: (_, record) => (
-        <input
-          style={{ color: "#164f63" }}
-          type="checkbox"
-          checked={record.published}
-          disabled
-        />
+      dataIndex: "is_active",
+      key: "is_active",
+      render: (is_active) => (
+        <input type="checkbox" style={{ color: "#164f63" }} checked={is_active} disabled />
       ),
     },
     {
       title: "Result Published",
-      dataIndex: "resultPublished",
-      key: "resultPublished",
-      render: (_, record) => (
+      dataIndex: "publish_result",
+      key: "publish_result",
+      render: (publish_result) => (
         <input
           type="checkbox"
           style={{ color: "#164f63" }}
-          checked={record.resultPublished}
+          checked={publish_result}
           disabled
         />
       ),
@@ -416,24 +488,116 @@ export default function OnlineExamList() {
       {editExam && (
         <div className="mt-4 p-4 border rounded">
           <h4>Edit Exam</h4>
-          {Object.keys(editExam).map((key) => (
-            <div key={key} className="mb-2">
-              <label className="block text-sm font-medium">{key}</label>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium">Exam Name</label>
               <input
                 type="text"
-                name={key}
-                value={examData[key] || ""}
+                name="exam"
+                value={examData.exam || ""}
                 onChange={handleChange}
                 className="border p-2 w-full"
               />
             </div>
-          ))}
+            <div>
+              <label className="block text-sm font-medium">Description</label>
+              <input
+                type="text"
+                name="description"
+                value={examData.description || ""}
+                onChange={handleChange}
+                className="border p-2 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Attempt</label>
+              <input
+                type="number"
+                name="attempt"
+                value={examData.attempt || 0}
+                onChange={handleChange}
+                className="border p-2 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Quiz</label>
+              <input
+                type="checkbox"
+                name="is_quiz"
+                checked={examData.is_quiz || false}
+                onChange={handleChange}
+                className="border p-2"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Exam From</label>
+              <input
+                type="datetime-local"
+                name="exam_from"
+                value={examData.exam_from || ""}
+                onChange={handleChange}
+                className="border p-2 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Exam To</label>
+              <input
+                type="datetime-local"
+                name="exam_to"
+                value={examData.exam_to || ""}
+                onChange={handleChange}
+                className="border p-2 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Duration</label>
+              <input
+                type="time"
+                step="1"
+                name="duration"
+                value={examData.duration || ""}
+                onChange={handleChange}
+                className="border p-2 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Published</label>
+              <input
+                type="checkbox"
+                name="is_active"
+                checked={examData.is_active || false}
+                onChange={handleChange}
+                className="border p-2"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">
+                Publish Result
+              </label>
+              <input
+                type="checkbox"
+                name="publish_result"
+                checked={examData.publish_result || false}
+                onChange={handleChange}
+                className="border p-2"
+              />
+            </div>
+          </div>
           <button
             style={{ backgroundColor: "#164f63" }}
-            className=" text-white p-2 mt-2"
+            className="text-white p-2 mt-2"
             onClick={handleSave}
+            disabled={loading}
           >
-            Save
+            {loading ? "Saving..." : "Save"}
+          </button>
+          <button
+            style={{ backgroundColor: "gray" }}
+            className="text-white p-2 mt-2 ml-2"
+            onClick={() => setEditExam(null)}
+            disabled={loading}
+          >
+            Cancel
           </button>
         </div>
       )}
@@ -448,8 +612,9 @@ export default function OnlineExamList() {
             borderRadius: "4px",
           }}
           onClick={handleDeleteSelected}
+          disabled={loading}
         >
-          Delete Selected Exams
+          {loading ? "Deleting..." : "Delete Selected Exams"}
         </button>
       )}
 
@@ -457,77 +622,129 @@ export default function OnlineExamList() {
         <div className="mt-4 p-4 border rounded">
           <h4 className="text-lg font-semibold">Add New Exam</h4>
           <div className="grid grid-cols-2 gap-4 mt-2">
-            <input
-              type="text"
-              placeholder="Exam Name"
-              className="border p-2 w-full"
-              value={newExam.name}
-              onChange={(e) => setNewExam({ ...newExam, name: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Questions"
-              className="border p-2 w-full"
-              value={newExam.questions}
-              onChange={(e) =>
-                setNewExam({ ...newExam, questions: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="description"
-              className="border p-2 w-full"
-              value={newExam.description}
-              onChange={(e) =>
-                setNewExam({ ...newExam, description: e.target.value })
-              }
-            />
-            <input
-              type="number"
-              placeholder="Attempt"
-              className="border p-2 w-full"
-              value={newExam.attempt}
-              onChange={(e) =>
-                setNewExam({ ...newExam, attempt: e.target.value })
-              }
-            />
-            <input
-              type="datetime-local"
-              className="border p-2 w-full"
-              placeholder="From"
-              value={newExam.from}
-              onChange={(e) => setNewExam({ ...newExam, from: e.target.value })}
-            />
-            <input
-              type="datetime-local"
-              className="border p-2 w-full"
-              placeholder="To"
-              value={newExam.to}
-              onChange={(e) => setNewExam({ ...newExam, to: e.target.value })}
-            />
-            <input
-              type="time"
-              step="1"
-              className="border p-2 w-full"
-              placeholder="Duration"
-              value={newExam.duration}
-              onChange={(e) =>
-                setNewExam({ ...newExam, duration: e.target.value })
-              }
-            />
+            <div>
+              <label className="block text-sm font-medium">Exam Name</label>
+              <input
+                type="text"
+                placeholder="Exam Name"
+                className="border p-2 w-full"
+                value={newExam.exam}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, exam: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Description</label>
+              <input
+                type="text"
+                placeholder="Description"
+                className="border p-2 w-full"
+                value={newExam.description}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, description: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Attempt</label>
+              <input
+                type="number"
+                placeholder="Attempt"
+                className="border p-2 w-full"
+                value={newExam.attempt}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, attempt: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Quiz</label>
+              <input
+                type="checkbox"
+                checked={newExam.is_quiz}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, is_quiz: e.target.checked })
+                }
+                className="border p-2"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Exam From</label>
+              <input
+                type="datetime-local"
+                className="border p-2 w-full"
+                placeholder="From"
+                value={newExam.exam_from}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, exam_from: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Exam To</label>
+              <input
+                type="datetime-local"
+                className="border p-2 w-full"
+                placeholder="To"
+                value={newExam.exam_to}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, exam_to: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Duration</label>
+              <input
+                type="time"
+                step="1"
+                className="border p-2 w-full"
+                placeholder="Duration"
+                value={newExam.duration}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, duration: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Published</label>
+              <input
+                type="checkbox"
+                checked={newExam.is_active}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, is_active: e.target.checked })
+                }
+                className="border p-2"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">
+                Publish Result
+              </label>
+              <input
+                type="checkbox"
+                checked={newExam.publish_result}
+                onChange={(e) =>
+                  setNewExam({ ...newExam, publish_result: e.target.checked })
+                }
+                className="border p-2"
+              />
+            </div>
           </div>
           <div className="mt-4 flex gap-2">
             <button
               onClick={handleAddExam}
               style={{ backgroundColor: "#164f63" }}
-              className=" text-white p-2 rounded"
+              className="text-white p-2 rounded"
+              disabled={loading}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </button>
             <button
               onClick={() => setShowAddExam(false)}
               style={{ backgroundColor: "var(--color-gray-300)" }}
               className="p-2 rounded"
+              disabled={loading}
             >
               Cancel
             </button>
@@ -540,6 +757,7 @@ export default function OnlineExamList() {
           style={{ fontSize: "24px" }}
           className="text-gray-600 hover:text-gray-800"
           onClick={handleCopy}
+          disabled={loading}
         >
           <CopyOutlined />
         </button>
@@ -547,6 +765,7 @@ export default function OnlineExamList() {
           style={{ fontSize: "24px" }}
           className="text-green-600 hover:text-green-800"
           onClick={handleExportExcel}
+          disabled={loading}
         >
           <FileExcelOutlined />
         </button>
@@ -554,6 +773,7 @@ export default function OnlineExamList() {
           style={{ fontSize: "24px" }}
           className="text-gray-600 hover:text-gray-800"
           onClick={handleExportCSV}
+          disabled={loading}
         >
           <FileTextOutlined />
         </button>
@@ -561,6 +781,7 @@ export default function OnlineExamList() {
           style={{ fontSize: "24px" }}
           className="text-red-600 hover:text-red-800"
           onClick={handleExportPDF}
+          disabled={loading}
         >
           <FilePdfOutlined />
         </button>
@@ -568,6 +789,7 @@ export default function OnlineExamList() {
           style={{ fontSize: "24px" }}
           className="text-gray-600 hover:text-gray-800"
           onClick={handlePrint}
+          disabled={loading}
         >
           <PrinterOutlined />
         </button>
@@ -579,6 +801,7 @@ export default function OnlineExamList() {
           columns={columns}
           rowKey="id"
           className="mt-4"
+          loading={loading}
         />
       </div>
     </div>

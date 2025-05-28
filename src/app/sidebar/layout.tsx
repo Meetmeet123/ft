@@ -262,7 +262,7 @@ const Sidebar: React.FC = () => {
         },
         {
           title: "Setup Front Office",
-          path: "/front-office/setup-front-office",
+          path: "/front-office/setup-front-office/ComplainType",
           icon: "settings",
         },
       ],
