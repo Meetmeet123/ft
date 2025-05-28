@@ -20,16 +20,11 @@ const themes = [
   { id: "material_pink", label: "material_pink" },
 ];
 
-export default function ThemeSelector() {
+export default function ThemeSelector({handleThemeChange, currentTheme}) {
   const [selectedTheme, setSelectedTheme] = useState("material_pink");
 
-  const handleThemeChange = (themeId) => {
+  const handleTheme = (themeId) => {
     setSelectedTheme(themeId);
-  };
-
-  const handleSave = () => {
-    console.log("Theme saved:", selectedTheme);
-    // Add API call or logic to persist theme here
   };
 
   return (
@@ -40,7 +35,10 @@ export default function ThemeSelector() {
         {themes.map((theme, index) => (
           <div
             key={theme.id}
-            onClick={() => handleThemeChange(theme.id)}
+            onClick={() => {
+              handleTheme(theme.id)
+              handleThemeChange(theme.id)
+            }}
             className={`border rounded shadow hover:shadow-lg cursor-pointer transition-all overflow-hidden ${
               selectedTheme === theme.id ? "ring-4 ring-green-500" : ""
             }`}
@@ -53,7 +51,7 @@ export default function ThemeSelector() {
             />
             <div
               className={`text-center py-2 text-sm font-medium capitalize ${
-                selectedTheme === theme.id
+                currentTheme === theme.id
                   ? "bg-green-500 text-white"
                   : "bg-gray-700 text-white"
               }`}
@@ -62,15 +60,6 @@ export default function ThemeSelector() {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 flex justify-center sm:justify-end">
-        <button
-          onClick={handleSave}
-          className="btn btn-primary px-6 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 transition-all"
-        >
-          Save
-        </button>
       </div>
     </div>
   );

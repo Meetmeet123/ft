@@ -180,7 +180,7 @@ export default function FeeManagement() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'PaymentRequests.xls'; // .xls works fine with this method
+    a.download = 'Fees Due.xls'; // .xls works fine with this method
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -227,10 +227,10 @@ export default function FeeManagement() {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Print Payment Requests</title>
+          <title>Fees Due</title>
         </head>
         <body>
-          <h2>Payment Requests</h2>
+          <h2>Fees Due</h2>
           ${table}
           <script>
             window.onload = function () {

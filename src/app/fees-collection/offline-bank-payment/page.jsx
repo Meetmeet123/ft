@@ -125,7 +125,7 @@ export default function OfflineBankPayments() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'PaymentRequests.xls'; // .xls works fine with this method
+    a.download = 'Offline Bank Payment.xls'; // .xls works fine with this method
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -158,7 +158,7 @@ export default function OfflineBankPayments() {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Print Payment Requests</title>
+          <title>Offline Bank Payment</title>
         </head>
         <body>
           <h2>Payment Requests</h2>

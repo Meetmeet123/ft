@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getGeneralSettingDetails } from '../../GeneralSettingData';
 
 const Feespage = () => {
   // Set the default checked state for all checkboxes
@@ -21,6 +22,21 @@ const Feespage = () => {
     newButtonStates[index] = value;
     setButtonStates(newButtonStates);
   };
+
+  const [settingDetails, setSettingDetails] = useState();
+  
+    useEffect(() => {
+      const fetchSettings = async () => {
+        try {
+          const data = await getGeneralSettingDetails();
+          setSettingDetails(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+  
+      fetchSettings();
+    }, []);
 
   return (
     <div className="bg-white p-3 mb-3">
@@ -386,7 +402,7 @@ const Feespage = () => {
           <div className="lg:flex md:block pt-4">
             <label htmlFor="" className='w-1/3 mt-4' >Carry Forward Fees Due Days <span className='text-red-500'>*</span></label>
             <div className='md:mt-4'>
-              <input type="number" id="number-input" aria-describedby="helper-text-explanation" className=' w-120 h-6  text-xs' defaultValue={"60"} />
+              <input type="number" id="number-input" aria-describedby="helper-text-explanation" className=' w-120 h-6  text-xs' defaultValue={settingDetails?.fee_due_days || "60"} />
             </div>
           </div>
 

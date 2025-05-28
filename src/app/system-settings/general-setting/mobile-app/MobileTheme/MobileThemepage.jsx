@@ -1,6 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getGeneralSettingDetails } from '../../GeneralSettingData';
 
 const MobileThemepage = () => {
+
+    const [settingDetails, setSettingDetails] = useState();
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+        try {
+            const data = await getGeneralSettingDetails();
+            setSettingDetails(data);
+        } catch (err) {
+            console.log(err);
+        }
+        };
+
+        fetchSettings();
+    }, []);
+
     // State to manage modal visibility
     const [open, setOpen] = useState(false);
     const toggleModal = () => {
@@ -58,15 +75,15 @@ const MobileThemepage = () => {
                         </div>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App API URL</label>
-                            <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={"https://demo.smart-school.in/api/"} />
+                            <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={settingDetails?.mobile_api_url || "https://demo.smart-school.in/api/"} />
                         </div>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App Primary Color Code</label>
-                            <input type="text" className='py-1 w-120 h-6 text-xs' defaultValue={"#424242"} />
+                            <input type="text" className='py-1 w-120 h-6 text-xs' defaultValue={settingDetails?.app_primary_color_code || "#424242"} />
                         </div>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 justify-between items-center pt-4">
                             <label htmlFor="">User Mobile App Secondary Color Code</label>
-                            <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={"#E7F1EE"} />
+                            <input type="text" className='py-1 w-120 h-6  text-xs' defaultValue={settingDetails?.app_secondary_color_code || "#E7F1EE"} />
                         </div>
                     </div>
                 </form>

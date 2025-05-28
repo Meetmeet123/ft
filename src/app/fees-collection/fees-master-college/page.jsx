@@ -1,10 +1,12 @@
 'use client'
 import { useState } from 'react'
+import { Download, Printer } from 'lucide-react'
 
 const students = [
-  { name: 'Ashwani Kumar', admissionNo: '120020' },
-  { name:'Nathan Smith', admissionNo: '120124' },
-  { name:'Xavier', admissionNo:'124502' }
+  { name: 'Ashwani Kumar', admissionNo: '120020',isAssigned: true },
+  { name:'Nathan Smith', admissionNo: '120124',isAssigned:false },
+  { name:'Xavier', admissionNo:'124502', isAssigned:false },
+  { name:'Hazel',admissionNo:'120209', isAssigned:false }
 ]
 
 const feeData = [
@@ -42,8 +44,96 @@ const feeData = [
   }
 ]
 
+const handleExportExcel = () => {
+    if (feeData.length === 0) return;
+  
+    const headers = Object.keys(feeData[0]);
+    let table = '<table><tr>';
+  
+    // Add table headers
+    headers.forEach(header => {
+      table += `<th>${header}</th>`;
+    });
+    table += '</tr>';
+  
+    // Add table rows
+    feeData.forEach(row => {
+      table += '<tr>';
+      headers.forEach(header => {
+        table += `<td>${row[header] ?? ''}</td>`;
+      });
+      table += '</tr>';
+    });
+  
+    table += '</table>';
+  
+    const blob = new Blob([`
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+            xmlns:x="urn:schemas-microsoft-com:office:excel" 
+            xmlns="http://www.w3.org/TR/REC-html40">
+      <head><meta charset="UTF-8"></head>
+      <body>${table}</body></html>
+    `], {
+      type: 'application/vnd.ms-excel'
+    });
+  
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Fees Master College.xls'; // .xls works fine with this method
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };  
+
+  const handlePrint = () => {
+    if (!feeData || feeData.length === 0) return;
+  
+    const headers = Object.keys(feeData[0]);
+    let table = '<table border="1" style="border-collapse: collapse; width: 100%"><thead><tr>';
+  
+    // Headers
+    headers.forEach(header => {
+      table += `<th style="padding: 8px; text-align: left;">${header}</th>`;
+    });
+    table += '</tr></thead><tbody>';
+  
+    // Rows
+    feeData.forEach(row => {
+      table += '<tr>';
+      headers.forEach(header => {
+        table += `<td style="padding: 8px;">${row[header] ?? ''}</td>`;
+      });
+      table += '</tr>';
+    });
+  
+    table += '</tbody></table>';
+  
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Fees Master College</title>
+        </head>
+        <body>
+          <h2>Fees Master College</h2>
+          ${table}
+          <script>
+            window.onload = function () {
+              window.print();
+              window.onafterprint = function () {
+                window.close();
+              };
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
 export default function QuickFeesMaster() {
-  const [selectedStudent, setSelectedStudent] = useState('120020');
+  const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedClass,setSelectedClass]=useState("");
   const [selectedSection,setSelectedSection]=useState("");
   
@@ -58,6 +148,7 @@ export default function QuickFeesMaster() {
           <select 
           onChange={(e)=>setSelectedClass(e.target.value)}
           className="w-full border rounded px-3 py-2">
+            <option value="" >Select</option>
             <option value="Class1" >Class 1</option>
             <option value="Class2" >Class 2</option>
             <option value="Class3" >Class 3</option>
@@ -84,6 +175,7 @@ export default function QuickFeesMaster() {
             value={selectedStudent}
             onChange={(e) => setSelectedStudent(e.target.value)}
           >
+            <option value="" >Select</option>
             {students.map((s) => (
               <option key={s.admissionNo} value={s.admissionNo}>
                 {s.name} ({s.admissionNo})
@@ -93,7 +185,10 @@ export default function QuickFeesMaster() {
         </div>
       </div>
 
-      {(selectedClass!=="" && selectedSection!=="" && selectedStudent!=="") && <div> 
+      {
+      (selectedClass!=="" && selectedSection!=="" && selectedStudent!=="") && 
+      (selectedStudent==='120020' ? 
+      <div> 
         {/* Alert */}
         <div className="bg-blue-100 text-blue-800 px-4 py-3 rounded mb-4 border border-blue-300">
             Note: Fee Already Assigned
@@ -101,12 +196,16 @@ export default function QuickFeesMaster() {
 
         {/* Table */}
         <div className="flex w-full justify-end items-center mt-4">
-            <div className="flex gap-2">
-            <button className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
-                📄
+            <div className="flex justify-end gap-2">
+            <button
+            onClick={handleExportExcel}
+             className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
+                <Download className='h-5 w-5' />
             </button>
-            <button className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
-                🖨️
+            <button 
+            onClick={handlePrint}
+            className="px-3 py-1 border rounded text-sm hover:bg-gray-100">
+                <Printer className='w-5 h-5' />
             </button>
             </div>
             <button className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
@@ -139,7 +238,58 @@ export default function QuickFeesMaster() {
             </tbody>
             </table>
         </div>
-      </div>}
+        <div className='w-full flex justify-end mt-5 ' >
+              <button className='btn btn-primary' >Unassign Fees</button>
+            </div>
+      </div> : 
+      <div className="mt-7 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
+      <div className="w-full">
+        <label className="block mb-1">Total Fees <span className="text-red-600">*</span></label>
+        <input type="text" className="w-full border rounded px-3 py-2" />
+      </div>
+    
+      <div className="w-full">
+        <label className="block mb-1">1st Installment</label>
+        <input type="text" className="w-full border rounded px-3 py-2" />
+      </div>
+    
+      <div className="w-full">
+        <label className="block mb-1">Balance Fees <span className="text-red-600">*</span></label>
+        <input type="text" className="w-full border rounded px-3 py-2" />
+      </div>
+    
+      <div className="w-full">
+        <label className="block mb-1">No. Of Installment <span className="text-red-600">*</span></label>
+        <input type="text" className="w-full border rounded px-3 py-2" />
+      </div>
+    
+      <div className="w-full">
+        <label className="block mb-1">Monthly Day for Due Date</label>
+        <select className="w-full border rounded px-3 py-2">
+          <option>None</option>
+          {Array.from({ length: 31 }, (_, i) => i + 1).map((number) => (
+            <option key={number} value={number}>
+              {number}
+            </option>
+          ))}
+        </select>
+      </div>
+    
+      <div className="w-full">
+        <label className="block mb-1">Fine Type</label>
+        <select className="w-full border rounded px-3 py-2">
+          <option>None</option>
+          <option>Fix Amount</option>
+          <option>Percent</option>
+        </select>
+      </div>
+    
+      <div className="w-1/2 flex mt-5 justify-end">
+        <button className="btn btn-primary w-full">Assign Fees</button>
+      </div>
+    </div>)
+    
+       }
     </div>
   )
 }

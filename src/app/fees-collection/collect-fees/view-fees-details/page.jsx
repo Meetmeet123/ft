@@ -352,7 +352,7 @@ export default function StudentFees() {
               $ Collect Fees
             </button>
             <button 
-            onClick={exportExcel}
+            onClick={handlePrintSelected}
             className="btn btn-primary bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
               $ Collect & Print
             </button>

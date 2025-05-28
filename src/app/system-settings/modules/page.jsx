@@ -4,42 +4,9 @@ import { ChevronDown, Printer, FileText, Database, Download, Search } from 'luci
 import System from './System';
 import Student from './Student';
 import Parents from './Parents';
-import systemData from './SystemData';
-import studentData from './StudentData';
-import parentData from './ParentData';
 
 export default function Modules() {
   const [activeTab, setActiveTab] = useState('System');
-
-  const getActiveData = () => {
-    if (activeTab === 'System') return systemData;
-    if (activeTab === 'Student') return studentData;
-    if (activeTab === 'Parent') return parentData;
-    return [];
-  };
-
-  const handlePrintClick = () => {
-    window.print();
-  };
-
-  const handleCopyClick = () => {
-    const data = getActiveData();
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2))
-      .then(() => alert("Copied to clipboard!"))
-      .catch((err) => alert("Failed to copy!"));
-  };
-
-  const handleDownloadClick = () => {
-    const data = getActiveData();
-    const csvContent = convertToCSV(data);
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", `${activeTab}_data.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   const convertToCSV = (data) => {
     if (!data || data.length === 0) return '';

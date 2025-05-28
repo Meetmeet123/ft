@@ -379,7 +379,7 @@ export default function FeesMaster() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {displayFees.map((fee) => (
+              {displayFees.map((fee,index) => (
                 <tr key={fee.id} className="hover:bg-gray-50">
                   <td className="py-2 px-3 text-sm text-gray-700">{fee.feesGroup}</td>
                   <td className="py-2 px-3 text-sm text-gray-700">{fee.feesCode}</td>
@@ -393,7 +393,11 @@ export default function FeesMaster() {
                       <PencilIcon className="w-5 h-5" />
                     </button>
                     <button className="text-red-500 hover:text-red-700 focus:outline-none">
-                      <XIcon className="w-5 h-5" />
+                      <XIcon
+                      onClick={()=>{
+                        setDispayFees(displayFees.filter((_,i)=>i!==index))
+                      }}
+                      className="w-5 h-5" />
                     </button>
                   </td>
                   <td className="py-2 px-3 text-sm text-gray-700" >

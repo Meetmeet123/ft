@@ -1,8 +1,24 @@
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getGeneralSettingDetails } from '../../GeneralSettingData';
 
 const IdAutoGeneration = () => {
+
+    const [settingDetails, setSettingDetails] = useState();
+
+    useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const data = await getGeneralSettingDetails();
+        setSettingDetails(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+
     // Initialize the buttonStates array to [false, false] to make both radio buttons disabled by default
     const [buttonStates, setButtonStates] = useState([false, false]);
 
@@ -122,12 +138,12 @@ const IdAutoGeneration = () => {
 
                         <div className="lg:flex md:block justify-between items-center pt-4">
                             <label htmlFor="" className='w-1/3 mt-4'>Staff ID Prefix <span className='text-red-500'>*</span></label>
-                            <input type="text" className='py-1 w-full mt-4 h-6 text-xs' />
+                            <input type="text" className='py-1 w-full mt-4 h-6 text-xs' defaultValue={settingDetails?.staffid_auto_insert} />
                         </div>
 
                         <div className="lg:flex md:block justify-between items-center pt-3">
                             <label htmlFor="" className='w-1/3 mt-4' >Staff No. Digit <span className='text-red-500'>*</span></label>
-                            <select className='w-full mt-4 py-1 h-6 text-xs'>
+                            <select className='w-full mt-4 py-1 h-6 text-xs' value={settingDetails?.staffid_no_digit} >
                                 <option value="select">Select</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -146,7 +162,7 @@ const IdAutoGeneration = () => {
                         </div>
                         <div className="lg:flex md:block justify-between items-center pt-4">
                             <label htmlFor="" className='w-1/3 mt-4'>Staff ID Start From <span className='text-red-500'>*</span></label>
-                            <input type="text" className='py-1 w-full mt-4 h-6 text-xs' />
+                            <input type="text" className='py-1 w-full mt-4 h-6 text-xs' defaultValue={settingDetails?.staffid_start_from} />
                         </div>
                     </div>
                     {/* Save Button */}
