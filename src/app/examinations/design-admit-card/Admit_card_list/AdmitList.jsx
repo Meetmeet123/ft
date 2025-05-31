@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Table, Pagination } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 

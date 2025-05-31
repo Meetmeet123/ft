@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaSearch, FaUserFriends } from 'react-icons/fa';
 
 export default function LiveClassReport() {

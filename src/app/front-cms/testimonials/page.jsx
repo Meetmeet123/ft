@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FiEdit2, FiX } from 'react-icons/fi';
 
 export default function TeacherManagement() {

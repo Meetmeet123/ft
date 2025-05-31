@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import classGeneral from './Class1General';
 import studentData from './student';
 

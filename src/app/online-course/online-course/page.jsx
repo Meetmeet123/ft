@@ -2,7 +2,7 @@
 
 
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaEdit, FaTrash, FaEye, FaPlay, FaLink, FaChevronDown, FaChevronUp, FaPlus, FaTable, FaList } from 'react-icons/fa';
 
 export default function CourseManagement() {

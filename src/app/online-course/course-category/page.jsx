@@ -1,6 +1,6 @@
 "use client";
 // pages/categories.js
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const CategoriesPage = () => {
   // Dummy data

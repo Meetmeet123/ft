@@ -2,7 +2,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { IoSearch } from "react-icons/io5";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
 const DailyAssignment = () => {
     const [errors, setErrors] = useState({

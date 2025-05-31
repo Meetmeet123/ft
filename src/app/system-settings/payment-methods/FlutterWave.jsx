@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import Image from "next/image";
 import flutterwaveLogo from "./assets/flutterwave.png"; // Adjust the path as necessary
 

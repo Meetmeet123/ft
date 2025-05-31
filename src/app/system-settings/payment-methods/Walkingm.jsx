@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import walkingmLogo from './assets/walkingm.png'; // Adjust the path as necessary
 

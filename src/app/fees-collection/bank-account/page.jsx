@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Download, Database, Printer, Copy, Grid, Edit } from "lucide-react";
 
 function BankAccount() {

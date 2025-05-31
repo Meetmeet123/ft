@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 
 function Setting() {
   const [autoAttendance, setAutoAttendance] = useState("disabled");

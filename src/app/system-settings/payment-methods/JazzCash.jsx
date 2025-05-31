@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import Image from "next/image";
 import jazzCashLogo from "./assets/jazzcash.jpg"; // Adjust the path as necessary
 

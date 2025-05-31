@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import EditSubjectGroupForm from "../Subject-group-form/edit-form/Edit"; // Import the form component

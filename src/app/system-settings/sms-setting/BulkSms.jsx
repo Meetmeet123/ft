@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import image from './assets/bulk_sms.png';
 import Image from 'next/image';
 

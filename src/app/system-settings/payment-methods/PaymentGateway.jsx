@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { X } from "lucide-react";
 
 export default function PaymentGateway({

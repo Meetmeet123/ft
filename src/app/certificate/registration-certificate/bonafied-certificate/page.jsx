@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react'
 
 const bonafideData = {
   schoolLogo: '/logo.png', // Place your logo in the public folder

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import Image from "next/image";
 import paytmLogo from "./assets/paytm.jpg"; // Adjust the path as necessary
 

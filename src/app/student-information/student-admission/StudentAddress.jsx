@@ -1,6 +1,6 @@
 // components/StudentAddressForm.js
 "use client"
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 
 export default function StudentAddressForm() {

@@ -1,6 +1,6 @@
 // pages/student/[id].js
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Edit, Trash2, Plus, UploadCloud } from 'lucide-react';
 
 function PopUpEdit({ onClose }) {

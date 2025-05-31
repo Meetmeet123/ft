@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { PlusOutlined, CloseOutlined } from "@ant-design/icons";
 
 export default function SelectCriteria() {

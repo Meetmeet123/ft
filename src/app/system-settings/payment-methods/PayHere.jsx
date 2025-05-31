@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from 'react';
 import payhereLogo from "./assets/payhere.png"; // Adjust the path as necessary
 
 export default function PayHereGatewayForm() {

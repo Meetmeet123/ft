@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import sslCommerzLogo from './assets/sslcommerz.png'; // Adjust the path as necessary
 

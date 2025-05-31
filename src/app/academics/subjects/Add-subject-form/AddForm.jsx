@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 
 const AddSubjectForm = () => {
   const [subjectName, setSubjectName] = useState("");

@@ -1,6 +1,6 @@
 // pages/student/[id]/behaviour.js
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   MessageSquare,
   X,

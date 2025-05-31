@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from 'react';
 
 const EditSubjectGroupForm = ({ subjectGroup }) => {
   const [name, setName] = useState(subjectGroup?.name || "");

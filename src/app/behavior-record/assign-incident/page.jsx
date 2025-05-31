@@ -9,7 +9,7 @@ import { LuColumns2 } from 'react-icons/lu';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { IoSearch } from "react-icons/io5";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaSearch, FaPlus, FaEye, FaTrash } from 'react-icons/fa';
 
 export default function IncidentManagement() {

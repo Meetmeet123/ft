@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from 'react';
 import StudentAdmissionForm from "./StudentAdmision";
 import FeesDetails from "./FeesDetails";
 import FeesDiscountDetails from "./FeesDiscount";

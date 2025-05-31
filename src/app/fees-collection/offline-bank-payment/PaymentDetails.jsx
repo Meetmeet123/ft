@@ -1,6 +1,6 @@
 // PaymentDetails.jsx
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function PaymentDetailsModal({ payment, onClose }) {
   const [status, setStatus] = useState('Approve');

@@ -1,7 +1,7 @@
  
 
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaDownload, FaTrash, FaSearch, FaChevronDown } from 'react-icons/fa';
 
 export default function ContentTypes() {

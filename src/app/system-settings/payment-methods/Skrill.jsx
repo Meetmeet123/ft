@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from 'react';
 import skrillLogo from "./assets/skrill.jpg"; // Adjust the path as necessary
 
 export default function SkrillGatewayForm() {

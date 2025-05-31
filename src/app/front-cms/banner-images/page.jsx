@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function ImageGallery() {
   // Dummy image data with some empty URLs to show placeholders

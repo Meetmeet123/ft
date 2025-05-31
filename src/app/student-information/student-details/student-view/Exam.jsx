@@ -1,5 +1,5 @@
 // ExamResults.jsx
-import React from 'react';
+import React, { useState } from 'react'
 
 const ExamResults = () => {
   return (

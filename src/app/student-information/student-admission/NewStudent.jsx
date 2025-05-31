@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, UploadIcon } from 'lucide-react';
 
 const StudentImport = (props) => {

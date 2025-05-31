@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from 'react';
 import examDetails from "./ExamDetails";
 import students from "./studentDetails";
 import { Search, Printer, FileText, Download } from 'lucide-react';

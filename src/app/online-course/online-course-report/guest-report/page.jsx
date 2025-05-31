@@ -1,6 +1,6 @@
 "use client";
 // pages/guest-report.js
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";

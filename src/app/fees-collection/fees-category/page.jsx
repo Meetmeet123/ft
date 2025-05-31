@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Pencil, X } from "lucide-react";
 
 const FeeCategoryManager = () => {

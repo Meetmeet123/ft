@@ -1,6 +1,6 @@
 "use client";
 // pages/settings.js
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 
 export default function SettingsPage() {

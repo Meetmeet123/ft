@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, ChevronLeft, ChevronRight, Tag, FileText, Grid, Calendar, MessageSquare, Edit, Monitor, Trash2, ChevronDown, Database, Download, Copy, Printer, View } from 'lucide-react';
 import ViewStudent from './student-details/view-student/page';
 import AddExam from './student-details/add-exam-subject/page';

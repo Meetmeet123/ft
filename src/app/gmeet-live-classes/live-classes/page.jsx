@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaPlay, FaTrash, FaEdit, FaSearch } from 'react-icons/fa';
 
 export default function LiveClasses() {

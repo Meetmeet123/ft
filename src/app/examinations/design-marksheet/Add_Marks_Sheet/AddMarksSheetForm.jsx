@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import { UploadOutlined } from "@ant-design/icons";
 
 export default function AddMarksheet() {

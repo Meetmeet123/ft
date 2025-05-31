@@ -1,8 +1,8 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react'
 import { Eye, Image, EyeOff } from "lucide-react";
 import { getGeneralSettingDetails } from '../../GeneralSettingData';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const Signature = () => {
 

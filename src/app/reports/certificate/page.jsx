@@ -1,6 +1,6 @@
 "use client";
 // pages/certificate-list.js
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function CertificateList() {
   // Sample JSON data
