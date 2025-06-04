@@ -12,6 +12,7 @@ const AddDepartment = () => {
 
   return (
     <div className="bg-white shadow-md h-fit rounded-lg flex-1">
+      <ToastContainer/>
       <div className=" p-6">
         <h3 className="text-lg font-semibold mb-4">Add Department</h3>
         <form id="form1" onSubmit={handleSubmit}>

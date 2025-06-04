@@ -25,19 +25,19 @@ const PostalDispatchForm: React.FC<PostalDispatchFormProps> = ({
   });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (dispatchToEdit) {
-      setFormData({
-        to_title: dispatchToEdit.to_title || "",
-        reference_no: dispatchToEdit.reference_no || "",
-        address: dispatchToEdit.address || "",
-        note: dispatchToEdit.note || "",
-        from_title: dispatchToEdit.from_title || "",
-        date: dispatchToEdit.date || new Date().toISOString().split('T')[0],
-        document: null,
-      });
-    }
-  }, [dispatchToEdit]);
+  // useEffect(() => {
+  //   if (dispatchToEdit) {
+  //     setFormData({
+  //       to_title: dispatchToEdit.to_title || "",
+  //       reference_no: dispatchToEdit.reference_no || "",
+  //       address: dispatchToEdit.address || "",
+  //       note: dispatchToEdit.note || "",
+  //       from_title: dispatchToEdit.from_title || "",
+  //       date: dispatchToEdit.date || new Date().toISOString().split('T')[0],
+  //       document: null,
+  //     });
+  //   }
+  // }, [dispatchToEdit]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -67,40 +67,40 @@ const PostalDispatchForm: React.FC<PostalDispatchFormProps> = ({
       formDataToSend.append('image', formData.document);
     }
 
-    try {
-      if (dispatchToEdit?.id) {
-        // Update existing dispatch
-        await fetch(`${API_URL}/${dispatchToEdit.id}`, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Dispatch updated successfully");
-      } else {
-        // Create new dispatch
-        await fetch(API_URL, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Dispatch created successfully");
-      }
+    // try {
+    //   if (dispatchToEdit?.id) {
+    //     // Update existing dispatch
+    //     await fetch(`${API_URL}/${dispatchToEdit.id}`, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Dispatch updated successfully");
+    //   } else {
+    //     // Create new dispatch
+    //     await fetch(API_URL, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Dispatch created successfully");
+    //   }
 
-      setFormData({
-        to_title: "",
-        reference_no: "",
-        address: "",
-        note: "",
-        from_title: "",
-        date: new Date().toISOString().split('T')[0],
-        document: null,
-      });
+    //   setFormData({
+    //     to_title: "",
+    //     reference_no: "",
+    //     address: "",
+    //     note: "",
+    //     from_title: "",
+    //     date: new Date().toISOString().split('T')[0],
+    //     document: null,
+    //   });
       
-      if (onSuccess) onSuccess();
-    } catch (error) {
-      console.error(error);
-      message.error("Operation failed");
-    } finally {
-      setLoading(false);
-    }
+    //   if (onSuccess) onSuccess();
+    // } catch (error) {
+    //   console.error(error);
+    //   message.error("Operation failed");
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

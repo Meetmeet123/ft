@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 import { Edit, X, Database, Download, Copy, Printer } from 'lucide-react';
-import EditGrade from './edit-grade/page';
-import AddGrade from './add-grade/page';
+import EditGrade from './grade-details/EditGrade';
+import AddGrade from './grade-details/AddGrade';
 import * as XLSX from 'xlsx'
 
 function ExamGrade() {

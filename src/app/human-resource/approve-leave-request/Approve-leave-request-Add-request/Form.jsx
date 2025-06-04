@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { AddNewLeaveRequest } from "../LeaveRequestDetails";
+import { toast, ToastContainer } from "react-toastify";
 
 const ApproveLeaveRequestAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,16 +36,41 @@ const ApproveLeaveRequestAdd = () => {
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData({ ...formData, [name]: type === "file" ? files[0] : value });
+    console.log({ ...formData, [name]: type === "file" ? files[0] : value })
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Form submitted: ", formData);
+    // console.log(formData);
+    const payloadData = {
+      role: parseInt(formData.role),
+      empname: parseInt(formData.name),
+      applieddate: formData.applyDate,
+      leave_from_date: formData.leaveFromDate,
+      leave_to_date: formData.leaveToDate,
+      leave_type: parseInt(formData.leaveType),
+      reason: formData.reason,
+      remark: formData.note,
+      addstatus: formData.status,
+    }
+    console.log(payloadData)
+    try{
+      const res = await AddNewLeaveRequest(payloadData)
+      toast.success("Record Added")
+      window.location.reload();
+      console.log(res)
+    }catch(err){
+      if(err.response.status === 422){
+        toast.error("Record cannot be Added")
+      }
+      console.log(err)
+    }
   };
 
   return (
     <div>
       {/* Header Section */}
+      <ToastContainer/>
       <div className="flex justify-between items-center border-b bg-white shadow-md rounded-lg p-4 mt-5">
         <h3 className="text-lg font-semibold">Approve Leave Request</h3>
         <button
@@ -57,10 +84,10 @@ const ApproveLeaveRequestAdd = () => {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 z-60 flex justify-center items-center">
           <div className="bg-white p-4 rounded-lg shadow-lg w-1/3 max-h-[90vh] overflow-y-auto">
             <h4 className="text-lg font-bold mb-4">Add Details</h4>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} action="/human-resource/approve-leave-request">
               {/* Role */}
               <label className="block text-sm font-medium">Role *</label>
               <select
@@ -68,24 +95,29 @@ const ApproveLeaveRequestAdd = () => {
                 value={formData.role}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               >
-                <option value="">Select</option>
+                <option value="0">Select</option>
                 {roles.map((role, idx) => (
-                  <option key={idx} value={role}>
+                  <option key={idx} value={idx+1}>
                     {role}
                   </option>
                 ))}
               </select>
 
               {/* Name */}
-              <label className="block text-sm font-medium">Name *</label>
+              <label className="block text-sm font-medium">Name *(ID)</label>
               <select
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               >
                 <option value="">Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
               </select>
 
               {/* Apply Date */}
@@ -96,6 +128,7 @@ const ApproveLeaveRequestAdd = () => {
                 value={formData.applyDate}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               />
 
               {/* Leave Type */}
@@ -105,10 +138,11 @@ const ApproveLeaveRequestAdd = () => {
                 value={formData.leaveType}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               >
                 <option value="">Select</option>
                 {leaveTypes.map((type, idx) => (
-                  <option key={idx} value={type}>
+                  <option key={idx} value={idx+1}>
                     {type}
                   </option>
                 ))}
@@ -124,6 +158,7 @@ const ApproveLeaveRequestAdd = () => {
                 value={formData.leaveFromDate}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               />
 
               <label className="block text-sm font-medium">
@@ -135,6 +170,7 @@ const ApproveLeaveRequestAdd = () => {
                 value={formData.leaveToDate}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
+                required
               />
 
               {/* Reason & Note */}
@@ -145,19 +181,21 @@ const ApproveLeaveRequestAdd = () => {
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
                 rows="2"
+                required
               ></textarea>
 
-              <label className="block text-sm font-medium">Note</label>
+              <label className="block text-sm font-medium">Remarks *</label>
               <textarea
                 name="note"
                 value={formData.note}
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
                 rows="2"
+                required
               ></textarea>
 
               {/* File Upload */}
-              <label className="block text-sm font-medium">
+              {/* <label className="block text-sm font-medium">
                 Attach Document
               </label>
               <input
@@ -165,7 +203,7 @@ const ApproveLeaveRequestAdd = () => {
                 name="file"
                 onChange={handleChange}
                 className="w-full p-2 border rounded mb-2 text-sm"
-              />
+              /> */}
 
               {/* Status */}
               <label className="block text-sm font-medium">Status</label>
@@ -177,6 +215,7 @@ const ApproveLeaveRequestAdd = () => {
                     value="pending"
                     checked={formData.status === "pending"}
                     onChange={handleChange}
+                    required
                   />{" "}
                   Pending
                 </label>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import {
   EditOutlined,
@@ -13,29 +13,45 @@ import {
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { getDeprtmentDetails, updateDepartment, deleteDepartment } from "../departmentDetails";
+import { toast, ToastContainer } from "react-toastify";
 
 const DepartmentList = () => {
-  const [departments, setDepartments] = useState([
-    { id: 1, name: "Academic" },
-    { id: 2, name: "Library" },
-    { id: 3, name: "Sports" },
-    { id: 4, name: "Science" },
-    { id: 5, name: "Commerce" },
-    { id: 6, name: "Arts" },
-    { id: 7, name: "Exam" },
-    { id: 8, name: "Admin" },
-    { id: 9, name: "Finance" },
-    { id: 10, name: "Maths" },
-  ]);
+  const [departments, setDepartments] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDepartment, setCurrentDepartment] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = (id) => {
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await getDeprtmentDetails();
+        if (response && response.data) {
+          console.log(response.data);
+          setDepartments(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+    fetchDepartments();
+  }, []);
+
+  const handleDelete = async(id) => {
     if (window.confirm("Delete Confirm?")) {
-      setDepartments(departments.filter((department) => department.id !== id));
+      try{
+        const res = await deleteDepartment(id);
+        console.log(res);
+        toast.success("Record Deleted")
+      }catch(err){
+        console.log(err)
+        toast.error("Record cannot be deleted")
+      }finally{
+        setDepartments(departments.filter((department) => department.id !== id));
+      }
     }
   };
 
@@ -49,35 +65,37 @@ const DepartmentList = () => {
     setCurrentDepartment(null);
   };
 
-  const handleUpdateDepartment = (updatedData) => {
-    setDepartments(
-      departments.map((department) =>
-        department.id === updatedData.id ? updatedData : department
-      )
-    );
-    handleModalClose();
-  };
-
   const handleSearch = (e) => {
     setSearchText(e.target.value);
     setCurrentPage(1); // Reset to first page on search
   };
 
-  const filteredDepartments = departments.filter((department) =>
-    department.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // Fixed: Use consistent property names and add null safety
+  const filteredDepartments = departments.filter((department) => {
+    const deptName = department.department_name || department.name || "";
+    return deptName.toLowerCase().includes(searchText.toLowerCase());
+  });
 
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
-      align: "center", // Center align the header
+      dataIndex: "department_name",
+      key: "department_name",
+      align: "center",
+      // Fixed: Handle both possible property names
+      render: (text, record) => record.department_name || record.name || "N/A",
+    },
+    {
+      title: "Active",
+      dataIndex: "Active",
+      key: "is_active",
+      align: "center",
+      render: (text, record) => record.is_active || 'N/A'
     },
     {
       title: "Action",
       key: "action",
-      align: "center", // Center align the header
+      align: "center",
       render: (text, record) => (
         <div className="flex justify-center space-x-2">
           <button
@@ -102,8 +120,9 @@ const DepartmentList = () => {
   ];
 
   const handleCopy = () => {
+    // Fixed: Use consistent property names
     const text = filteredDepartments
-      .map((row) => `${row.id}, ${row.name}`)
+      .map((row) => `${row.id}, ${row.department_name || row.name || ""}`)
       .join("\n");
     navigator.clipboard.writeText(text);
     alert("Table data copied to clipboard!");
@@ -113,8 +132,9 @@ const DepartmentList = () => {
     const printWindow = window.open("", "", "width=900,height=650");
     if (printWindow) {
       const headers = `<th>ID</th><th>Name</th>`;
+      // Fixed: Use consistent property names
       const rows = filteredDepartments
-        .map((row) => `<tr><td>${row.id}</td><td>${row.name}</td></tr>`)
+        .map((row) => `<tr><td>${row.id}</td><td>${row.department_name || row.name || ""}</td></tr>`)
         .join("");
 
       printWindow.document.write(`
@@ -155,7 +175,13 @@ const DepartmentList = () => {
   };
 
   const handleExportExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(departments);
+    // Fixed: Create properly formatted data for export
+    const exportData = departments.map(dept => ({
+      ID: dept.id,
+      Name: dept.department_name || dept.name || "",
+      Status: dept.is_active || "N/A"
+    }));
+    const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Departments");
     XLSX.writeFile(wb, "Departments.xlsx");
@@ -163,8 +189,13 @@ const DepartmentList = () => {
 
   const handleExportCSV = () => {
     const csvContent = [
-      ["ID", "Name"].join(","),
-      ...departments.map((row) => [row.id, row.name].join(",")),
+      ["ID", "Name", "Status"].join(","),
+      // Fixed: Use consistent property names
+      ...departments.map((row) => [
+        row.id,
+        `"${row.department_name || row.name || ""}"`,
+        row.is_active || "N/A"
+      ].join(",")),
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -179,24 +210,62 @@ const DepartmentList = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     autoTable(doc, {
-      head: [["ID", "Name"]],
-      body: filteredDepartments.map((row) => [row.id, row.name]),
+      head: [["ID", "Name", "Status"]],
+      // Fixed: Use consistent property names
+      body: filteredDepartments.map((row) => [
+        row.id,
+        row.department_name || row.name || "",
+        row.is_active || "N/A"
+      ]),
     });
     doc.save("Departments.pdf");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+
     const formData = new FormData(event.target);
-    const updatedData = {
-      id: currentDepartment.id,
-      name: formData.get("name"),
+    const updatedName = formData.get("name");
+    const updatedStatus = formData.get("status") ? 'yes' : 'no';
+
+    const updatedDepartmentData = {
+      ...currentDepartment,
+      department_name: updatedName,
+      name: updatedName,
+      is_active: updatedStatus,
     };
-    handleUpdateDepartment(updatedData);
+
+    const payloadData = {
+      departmenttypeid: currentDepartment.id,
+      type: updatedName,
+      status: updatedStatus,
+    };
+
+    try {
+      const response = await updateDepartment(payloadData);
+      console.log("Update response:", response);
+
+      if (response) {
+        setDepartments(prevDepartments =>
+          prevDepartments.map(department =>
+            department.id === currentDepartment.id ? updatedDepartmentData : department
+          )
+        );
+        toast.success("Department updated successfully!");
+        handleModalClose();
+      }
+    } catch (error) {
+      console.error("Error updating department:", error);
+      toast.error("Failed to update department. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 flex-1/2">
+      <ToastContainer/>
       <h3 className="text-lg font-semibold mb-4">Department Lists</h3>
       <div className="flex justify-between items-center">
         <input
@@ -262,33 +331,53 @@ const DepartmentList = () => {
 
       {/* Modal for Editing Department */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-0 bg-black/95">
-          <div className="bg-white p-6 rounded shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg max-w-md w-full mx-4">
             <h2 className="text-lg font-semibold mb-4">Edit Department</h2>
-            <form onSubmit={handleSubmit}>
-              <label className="block mb-2">
-                Name:
+            <form onSubmit={handleSubmit} className="space-y-6 p-4">
+              {/* Name Field */}
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  Name:
+                </label>
                 <input
                   type="text"
                   name="name"
-                  defaultValue={currentDepartment.name}
+                  id="name"
+                  defaultValue={currentDepartment?.department_name || currentDepartment?.name || ""}
                   required
-                  className="border border-gray-300 rounded-md p-2 w-full"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                 />
-              </label>
-              <div className="flex justify-end">
+              </div>
+
+              {/* Status Field */}
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="status"
+                  id="status"
+                  defaultChecked={currentDepartment?.is_active === 'yes'}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="status" className="text-sm text-gray-700">
+                  Active
+                </label>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end space-x-2 gap-3 pt-4">
                 <button
                   type="submit"
-                  style={{ backgroundColor: "#164f63" }}
-                  className="text-white rounded-md px-4 py-2 mr-2"
+                  disabled={loading}
+                  className="btn btn-primary text-white px-4 py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Save
+                  {loading ? "Saving..." : "Save"}
                 </button>
                 <button
                   type="button"
                   onClick={handleModalClose}
-                  style={{ backgroundColor: "red" }}
-                  className="rounded-md px-4 py-2 text-white"
+                  disabled={loading}
+                  className="btn btn-danger text-white px-4 py-2 rounded-md hover:bg-red-700 transition disabled:opacity-50"
                 >
                   Close
                 </button>

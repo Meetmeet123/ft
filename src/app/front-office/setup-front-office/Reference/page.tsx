@@ -20,18 +20,18 @@ const SetupFrontOffice = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [editData, setEditData] = useState<Reference | null>(null);
 
-  useEffect(() => {
-    const path = pathname.toLowerCase();
-    if (path.includes("purpose")) {
-      setActiveLink("purpose");
-    } else if (path.includes("complain-type")) {
-      setActiveLink("complain-type");
-    } else if (path.includes("reference")) {
-      setActiveLink("reference");
-    } else if (path.includes("source")) {
-      setActiveLink("source");
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   const path = pathname.toLowerCase();
+  //   if (path.includes("purpose")) {
+  //     setActiveLink("purpose");
+  //   } else if (path.includes("complain-type")) {
+  //     setActiveLink("complain-type");
+  //   } else if (path.includes("reference")) {
+  //     setActiveLink("reference");
+  //   } else if (path.includes("source")) {
+  //     setActiveLink("source");
+  //   }
+  // }, [pathname]);
 
   const ReferenceContent = () => {
     const handleRefresh = () => {
@@ -49,7 +49,7 @@ const SetupFrontOffice = () => {
             </div>
             <div className="p-5">
               <ReferenceFrom 
-                editData={editData} 
+                editData={editData ?? undefined} 
                 refreshList={handleRefresh} 
               />
             </div>

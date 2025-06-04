@@ -35,7 +35,7 @@ export default function RootLayout({
       
       // Handle public routes that don't require authentication
       const publicRoutes = ['/login', '/register', '/forgot-password'];
-      const isPublicRoute = publicRoutes.includes(pathname);
+      const isPublicRoute = pathname &&  publicRoutes.includes(pathname);
 
       if (!token && !isPublicRoute) {
         // Not logged in and trying to access protected route

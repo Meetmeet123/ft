@@ -32,35 +32,35 @@ const PostalDispatchList: React.FC<{
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
-  useEffect(() => {
-    const fetchDispatches = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setDispatches(data);
-      } catch (error) {
-        console.error(error);
-        message.error("Failed to fetch dispatches");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchDispatches = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       const data = await response.json();
+  //       setDispatches(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //       message.error("Failed to fetch dispatches");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchDispatches();
-  }, [refreshKey]);
+  //   fetchDispatches();
+  // }, [refreshKey]);
 
   const handleDelete = async (id: number) => {
-    try {
-      await fetch(`${API_URL}/${id}`, {
-        method: 'DELETE',
-      });
-      message.success("Dispatch deleted successfully");
-      setDispatches(dispatches.filter(item => item.id !== id));
-    } catch (error) {
-      console.error(error);
-      message.error("Delete failed");
-    }
+    // try {
+    //   await fetch(`${API_URL}/${id}`, {
+    //     method: 'DELETE',
+    //   });
+    //   message.success("Dispatch deleted successfully");
+    //   setDispatches(dispatches.filter(item => item.id !== id));
+    // } catch (error) {
+    //   console.error(error);
+    //   message.error("Delete failed");
+    // }
   };
 
   const filteredDispatches = dispatches.filter((dispatch) =>

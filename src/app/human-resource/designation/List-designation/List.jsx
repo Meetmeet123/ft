@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import {
   EditOutlined,
@@ -14,31 +14,41 @@ import {
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { getDesignationDetails, deleteDesignation } from "../DesignationDetails";
+import { toast, ToastContainer } from "react-toastify";
 
-const DesignationList = () => {
-  const [designations, setDesignations] = useState([
-    { id: 1, name: "Faculty" },
-    { id: 2, name: "Accountant" },
-    { id: 3, name: "Admin" },
-    { id: 4, name: "Receptionist" },
-    { id: 5, name: "Principal" },
-    { id: 6, name: "Director" },
-    { id: 7, name: "Librarian" },
-    { id: 8, name: "Technical Head" },
-    { id: 9, name: "Vice Principal" },
-  ]);
+const DesignationList = ({addData}) => {
+  const [designations, setDesignations] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDesignation, setCurrentDesignation] = useState(null);
   const [newName, setNewName] = useState("");
 
-  const handleDelete = (id) => {
-    if (window.confirm("Delete Confirm?")) {
-      setDesignations(
-        designations.filter((designation) => designation.id !== id)
-      );
-      alert("Designation deleted successfully!"); // Simple alert for feedback
-    }
+  useEffect(() => {
+    const fetchDesignationData = async () => {
+      try {
+        const res = await getDesignationDetails();
+        console.log(res.data.data);
+        setDesignations(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchDesignationData();
+  }, [addData]);
+
+  const handleDelete = async (id) => {
+    try{
+        const res = await deleteDesignation(id)
+        toast.success("Record Deleted")
+        console.log(res);
+        setDesignations(
+          designations.filter((designation) => designation.id !== id)
+        );
+      }catch(err){
+        toast.error("Record cannot be deleted")
+        console.log(err)
+      }
   };
 
   const handleEdit = (id) => {
@@ -47,7 +57,7 @@ const DesignationList = () => {
     );
     if (designationToEdit) {
       setCurrentDesignation(designationToEdit);
-      setNewName(designationToEdit.name);
+      setNewName(designationToEdit.designation); // Changed from 'name' to 'designation'
       setIsModalOpen(true);
     }
   };
@@ -62,20 +72,34 @@ const DesignationList = () => {
     setDesignations(
       designations.map((designation) =>
         designation.id === currentDesignation.id
-          ? { ...designation, name: newName }
+          ? { ...designation, designation: newName } // Changed from 'name' to 'designation'
           : designation
       )
     );
     handleModalClose();
-    alert("Designation updated successfully!"); // Simple alert for feedback
   };
 
   const columns = [
     {
       title: "Designation",
-      dataIndex: "name",
-      key: "name",
-      align: "center", // Center align the content
+      dataIndex: "designation", // Changed from 'name' to 'designation'
+      key: "designation", // Changed from 'name' to 'designation'
+      align: "start", // Center align the content
+    },
+    {
+      title: "Status",
+      dataIndex: "is_active",
+      key: "is_active",
+      align: "start",
+      render: (text) => (
+        <span className={`px-2 py-1 rounded-full text-xs ${
+          text === 'yes' 
+            ? 'bg-green-100 text-green-800' 
+            : 'bg-red-100 text-red-800'
+        }`}>
+          {text === 'yes' ? 'Active' : 'Inactive'}
+        </span>
+      ),
     },
     {
       title: "Action",
@@ -99,7 +123,9 @@ const DesignationList = () => {
   ];
 
   const handleCopy = () => {
-    const text = designations.map((row) => `${row.id}, ${row.name}`).join("\n");
+    const text = designations
+      .map((row) => `${row.id}, ${row.designation}, ${row.is_active}`) // Updated to include all fields
+      .join("\n");
     navigator.clipboard.writeText(text);
     alert("Table data copied to clipboard!");
   };
@@ -107,9 +133,11 @@ const DesignationList = () => {
   const handlePrint = () => {
     const printWindow = window.open("", "", "width=900,height=650");
     if (printWindow) {
-      const headers = `<th>ID</th><th>Name</th>`;
+      const headers = `<th>ID</th><th>Designation</th><th>Status</th>`; // Updated headers
       const rows = designations
-        .map((row) => `<tr><td>${row.id}</td><td>${row.name}</td></tr>`)
+        .map((row) => 
+          `<tr><td>${row.id}</td><td>${row.designation}</td><td>${row.is_active === 'yes' ? 'Active' : 'Inactive'}</td></tr>` // Updated row data
+        )
         .join("");
 
       printWindow.document.write(`
@@ -150,7 +178,14 @@ const DesignationList = () => {
   };
 
   const handleExportExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(designations);
+    // Transform data for export to have cleaner column names
+    const exportData = designations.map(item => ({
+      ID: item.id,
+      Designation: item.designation,
+      Status: item.is_active === 'yes' ? 'Active' : 'Inactive'
+    }));
+    
+    const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Designations");
     XLSX.writeFile(wb, "Designations.xlsx");
@@ -158,8 +193,10 @@ const DesignationList = () => {
 
   const handleExportCSV = () => {
     const csvContent = [
-      ["ID", "Name"].join(","),
-      ...designations.map((row) => [row.id, row.name].join(",")),
+      ["ID", "Designation", "Status"].join(","), // Updated headers
+      ...designations.map((row) => 
+        [row.id, row.designation, row.is_active === 'yes' ? 'Active' : 'Inactive'].join(",") // Updated data
+      ),
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -174,8 +211,12 @@ const DesignationList = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     autoTable(doc, {
-      head: [["ID", "Name"]],
-      body: designations.map((row) => [row.id, row.name]),
+      head: [["ID", "Designation", "Status"]], // Updated headers
+      body: designations.map((row) => [
+        row.id, 
+        row.designation, 
+        row.is_active === 'yes' ? 'Active' : 'Inactive' // Updated data
+      ]),
     });
     doc.save("Designations.pdf");
   };

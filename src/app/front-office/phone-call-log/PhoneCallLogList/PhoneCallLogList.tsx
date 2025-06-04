@@ -29,43 +29,43 @@ const PhoneCallLogList = ({ setEditData, refreshTrigger }: { setEditData: (data:
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
-  useEffect(() => {
-    const fetchPhoneCallLogs = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setPhoneCallLogs(data);
-      } catch (error) {
-        message.error('Failed to fetch phone call logs');
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchPhoneCallLogs = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       const data = await response.json();
+  //       setPhoneCallLogs(data);
+  //     } catch (error) {
+  //       message.error('Failed to fetch phone call logs');
+  //       console.error('Error:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchPhoneCallLogs();
-  }, [refreshTrigger]);
+  //   fetchPhoneCallLogs();
+  // }, [refreshTrigger]);
 
   const handleDelete = async (id: number) => {
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'DELETE',
-      });
+    // try {
+    //   const response = await fetch(`${API_URL}/${id}`, {
+    //     method: 'DELETE',
+    //   });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('Network response was not ok');
+    //   }
 
-      message.success('Record deleted successfully');
-      setPhoneCallLogs(phoneCallLogs.filter(log => log.id !== id));
-    } catch (error) {
-      message.error('Failed to delete record');
-      console.error('Error:', error);
-    }
+    //   message.success('Record deleted successfully');
+    //   setPhoneCallLogs(phoneCallLogs.filter(log => log.id !== id));
+    // } catch (error) {
+    //   message.error('Failed to delete record');
+    //   console.error('Error:', error);
+    // }
   };
 
   const filteredLogs = phoneCallLogs.filter((log) =>

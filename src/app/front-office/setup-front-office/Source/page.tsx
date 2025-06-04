@@ -18,25 +18,25 @@ const SetupFrontOffice = () => {
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState("source");
   const [refreshKey, setRefreshKey] = useState(0);
-  const [editData, setEditData] = useState<Source | null>(null);
+  const [editData, setEditData] = useState<Source | undefined>(undefined);
 
-  useEffect(() => {
-    const path = pathname.toLowerCase();
-    if (path.includes("purpose")) {
-      setActiveLink("purpose");
-    } else if (path.includes("complain-type")) {
-      setActiveLink("complain-type");
-    } else if (path.includes("reference")) {
-      setActiveLink("reference");
-    } else if (path.includes("source")) {
-      setActiveLink("source");
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   const path = pathname.toLowerCase();
+  //   if (path.includes("purpose")) {
+  //     setActiveLink("purpose");
+  //   } else if (path.includes("complain-type")) {
+  //     setActiveLink("complain-type");
+  //   } else if (path.includes("reference")) {
+  //     setActiveLink("reference");
+  //   } else if (path.includes("source")) {
+  //     setActiveLink("source");
+  //   }
+  // }, [pathname]);
 
   const SourceContent = () => {
     const handleRefresh = () => {
       setRefreshKey(prev => prev + 1);
-      setEditData(null);
+      setEditData(undefined);
     };
 
     return (

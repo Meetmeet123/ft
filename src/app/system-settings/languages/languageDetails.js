@@ -1,42 +1,59 @@
-export const language = [
-  { "id": 1, "name": "Afrikaans", "flag": "🇿🇦", "shortCode": "af", "countryCode": "af", "status": false, "active": true, "isRtl": false, "action": false },
-  { "id": 2, "name": "Albanian", "flag": "🇦🇱", "shortCode": "sq", "countryCode": "al", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 3, "name": "Amharic", "flag": "🇪🇹", "shortCode": "am", "countryCode": "am", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 4, "name": "Arabic", "flag": "🇸🇦", "shortCode": "ar", "countryCode": "sa", "status": false, "active": false, "isRtl": true, "action": false },
-  { "id": 5, "name": "Azerbaijan", "flag": "🇦🇿", "shortCode": "az", "countryCode": "az", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 6, "name": "Basque", "flag": "🇪🇸", "shortCode": "eu", "countryCode": "es", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 7, "name": "Bengali", "flag": "🇧🇩", "shortCode": "bn", "countryCode": "in", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 8, "name": "Bosnian", "flag": "🇧🇦", "shortCode": "bs", "countryCode": "bs", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 9, "name": "Catalan", "flag": "🇨🇦", "shortCode": "ca", "countryCode": "ca", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 10, "name": "Cebuano", "flag": "🇵🇭", "shortCode": "ceb", "countryCode": "ph", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 11, "name": "Chinese", "flag": "🇨🇳", "shortCode": "zh", "countryCode": "cn", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 12, "name": "Croatia", "flag": "🇭🇷", "shortCode": "hr", "countryCode": "hr", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 13, "name": "Czech", "flag": "🇨🇿", "shortCode": "cs", "countryCode": "cz", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 14, "name": "Danish", "flag": "🇩🇰", "shortCode": "da", "countryCode": "dk", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 15, "name": "Dutch", "flag": "🇳🇱", "shortCode": "nl", "countryCode": "nl", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 16, "name": "English", "flag": "🇺🇸", "shortCode": "en", "countryCode": "us", "status": true, "active": true, "isRtl": false, "action": false },
-  { "id": 17, "name": "Esperanto", "flag": "🇧🇷", "shortCode": "eo", "countryCode": "br", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 18, "name": "Estonian", "flag": "🇪🇪", "shortCode": "et", "countryCode": "et", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 19, "name": "Finnish", "flag": "🇫🇮", "shortCode": "fi", "countryCode": "fi", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 20, "name": "French", "flag": "🇫🇷", "shortCode": "fr", "countryCode": "fr", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 21, "name": "Galician", "flag": "🇬🇸", "shortCode": "gl", "countryCode": "gl", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 22, "name": "Georgian", "flag": "🇬🇪", "shortCode": "ka", "countryCode": "ge", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 23, "name": "German", "flag": "🇩🇪", "shortCode": "de", "countryCode": "de", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 24, "name": "Greek", "flag": "🇬🇷", "shortCode": "el", "countryCode": "gr", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 25, "name": "Gujarati", "flag": "🇮🇳", "shortCode": "gu", "countryCode": "in", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 26, "name": "Haitian", "flag": "🇭🇹", "shortCode": "ht", "countryCode": "ht", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 27, "name": "Hebrew", "flag": "🇮🇱", "shortCode": "he", "countryCode": "il", "status": false, "active": false, "isRtl": true, "action": false },
-  { "id": 28, "name": "Hindi", "flag": "🇮🇳", "shortCode": "hi", "countryCode": "in", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 29, "name": "Hungarian", "flag": "🇭🇺", "shortCode": "hu", "countryCode": "hu", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 30, "name": "Icelandic", "flag": "🇮🇸", "shortCode": "is", "countryCode": "is", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 31, "name": "Indonesian", "flag": "🇮🇩", "shortCode": "id", "countryCode": "id", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 32, "name": "Irish", "flag": "🇮🇪", "shortCode": "ga", "countryCode": "ga", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 33, "name": "Italian", "flag": "🇮🇹", "shortCode": "it", "countryCode": "it", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 34, "name": "Japanese", "flag": "🇯🇵", "shortCode": "ja", "countryCode": "jp", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 35, "name": "Javanese", "flag": "🇮🇩", "shortCode": "jv", "countryCode": "id", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 36, "name": "Kannada", "flag": "🇮🇳", "shortCode": "kn", "countryCode": "kn", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 37, "name": "Korean", "flag": "🇰🇷", "shortCode": "ko", "countryCode": "kr", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 38, "name": "Kurdish", "flag": "🇮🇶", "shortCode": "ku", "countryCode": "iq", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 39, "name": "Lao", "flag": "🇱🇦", "shortCode": "lo", "countryCode": "la", "status": false, "active": false, "isRtl": false, "action": false },
-  { "id": 40, "name": "Latin", "flag": "🇮🇹", "shortCode": "la", "countryCode": "it", "status": false, "active": false, "isRtl": false, "action": false }
-]
+
+import axios from "axios";
+
+const api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"languages/rows";
+const delete_api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"languages/";
+const add_api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"languages";
+
+const token = localStorage.getItem("authToken");
+
+export const getLanguage = async() => {
+   try {
+    const res = await axios.get(api_url,
+      {
+          headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }
+    );
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const deleteLanguages = async(id) => {
+  try{
+    const res = await axios.delete(delete_api_url+id,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      }
+    )
+    return res;
+  }catch(err){
+    return err
+  }
+}
+
+export const addNewData = async(data) => {
+  try{
+    console.log(data)
+    const res = await axios.post(add_api_url,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      }
+    )
+    return res
+  }catch(err){
+    return err
+  }
+}
