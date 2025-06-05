@@ -22,21 +22,17 @@ export const getHeaderFooterDetails = async () => {
 export const postData = async(formData) => {
   try {
     console.log('Sending admin logo data:', formData);
-    
     const res = await axios.post(
-      api_url + "print-header-footer",
+      api_url,
       formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          // Don't set Content-Type for FormData - let axios handle it automatically
-          Accept: "application/json"
         }
       }
     );
     return res.data;
   } catch(err) {
-    console.error("Admin logo update failed:", err);
     throw err; // Re-throw to handle in component
   }
 }

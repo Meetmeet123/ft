@@ -78,44 +78,44 @@ const ComplainForm: React.FC<ComplainFormProps> = ({
       formDataToSend.append('image', formData.image);
     }
 
-    try {
-      if (complainToEdit?.id) {
-        // Update existing complaint
-        await fetch(`${API_URL}/${complainToEdit.id}`, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Complaint updated successfully");
-      } else {
-        // Create new complaint
-        await fetch(API_URL, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Complaint created successfully");
-      }
+    // try {
+    //   if (complainToEdit?.id) {
+    //     // Update existing complaint
+    //     await fetch(`${API_URL}/${complainToEdit.id}`, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Complaint updated successfully");
+    //   } else {
+    //     // Create new complaint
+    //     await fetch(API_URL, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Complaint created successfully");
+    //   }
 
-      setFormData({
-        complaint_type: "",
-        source: "",
-        name: "",
-        contact: "",
-        email: "",
-        date: new Date().toISOString().split('T')[0],
-        description: "",
-        action_taken: "",
-        assigned: "",
-        note: "",
-        image: null,
-      });
+    //   setFormData({
+    //     complaint_type: "",
+    //     source: "",
+    //     name: "",
+    //     contact: "",
+    //     email: "",
+    //     date: new Date().toISOString().split('T')[0],
+    //     description: "",
+    //     action_taken: "",
+    //     assigned: "",
+    //     note: "",
+    //     image: null,
+    //   });
       
-      if (onSuccess) onSuccess();
-    } catch (error) {
-      console.error(error);
-      message.error("Operation failed");
-    } finally {
-      setLoading(false);
-    }
+    //   if (onSuccess) onSuccess();
+    // } catch (error) {
+    //   console.error(error);
+    //   message.error("Operation failed");
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

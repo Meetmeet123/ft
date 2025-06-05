@@ -10,6 +10,8 @@ const GeneralSettings = () => {
 
     // Set the active link based on the current pathname
     useEffect(() => {
+        if(!pathname) return;
+
         const path = pathname.toLowerCase();
         if (path.includes("student-gurdian-panel")) {
             setActiveLink("student-gurdian-panel");

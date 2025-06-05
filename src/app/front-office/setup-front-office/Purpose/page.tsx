@@ -20,18 +20,18 @@ const SetupFrontOffice = () => {
   const [editData, setEditData] = useState<Purpose | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
-  useEffect(() => {
-    const path = pathname.toLowerCase();
-    if (path.includes("purpose")) {
-      setActiveLink("purpose");
-    } else if (path.includes("complain-type")) {
-      setActiveLink("complain-type");
-    } else if (path.includes("reference")) {
-      setActiveLink("reference");
-    } else if (path.includes("source")) {
-      setActiveLink("source");
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   const path = pathname.toLowerCase();
+  //   if (path.includes("purpose")) {
+  //     setActiveLink("purpose");
+  //   } else if (path.includes("complain-type")) {
+  //     setActiveLink("complain-type");
+  //   } else if (path.includes("reference")) {
+  //     setActiveLink("reference");
+  //   } else if (path.includes("source")) {
+  //     setActiveLink("source");
+  //   }
+  // }, [pathname]);
 
   const handleEdit = (data: Purpose) => {
     setEditData(data);
@@ -52,9 +52,9 @@ const SetupFrontOffice = () => {
           </div>
           <div className="p-5">
             <PurposeForm 
-              editData={editData} 
+              editData={editData ?? undefined} 
               refreshList={handleRefresh}
-              setEditData={setEditData}
+              // setEditData={setEditData}
             />
           </div>
         </div>

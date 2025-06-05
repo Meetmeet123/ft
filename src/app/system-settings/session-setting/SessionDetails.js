@@ -34,7 +34,7 @@ export const updateSessionDetails = async (sessionData) => {
       }
     );
 
-    return res.data;
+    return res;
   } catch (err) {
     console.error("Session update failed:", {
       message: err.message,
@@ -52,7 +52,7 @@ export const deleteSessionDetails = async (id) => {
         Authorization: `Bearer ${token}`
       }
     })
-    return res.data;
+    return res;
   }catch(err){
     return err
   }

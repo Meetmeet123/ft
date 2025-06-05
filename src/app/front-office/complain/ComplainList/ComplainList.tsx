@@ -30,35 +30,35 @@ const ComplainList: React.FC<{
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
-  useEffect(() => {
-    const fetchComplaints = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setComplaints(data);
-      } catch (error) {
-        console.error(error);
-        message.error("Failed to fetch complaints");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchComplaints = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       const data = await response.json();
+  //       setComplaints(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //       message.error("Failed to fetch complaints");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchComplaints();
-  }, [refreshKey]);
+  //   fetchComplaints();
+  // }, [refreshKey]);
 
   const handleDelete = async (id: number) => {
-    try {
-      await fetch(`${API_URL}/${id}`, {
-        method: 'DELETE',
-      });
-      message.success("Complaint deleted successfully");
-      setComplaints(complaints.filter(item => item.id !== id));
-    } catch (error) {
-      console.error(error);
-      message.error("Delete failed");
-    }
+    // try {
+    //   await fetch(`${API_URL}/${id}`, {
+    //     method: 'DELETE',
+    //   });
+    //   message.success("Complaint deleted successfully");
+    //   setComplaints(complaints.filter(item => item.id !== id));
+    // } catch (error) {
+    //   console.error(error);
+    //   message.error("Delete failed");
+    // }
   };
 
   const filteredComplaints = complaints.filter((complaint) =>

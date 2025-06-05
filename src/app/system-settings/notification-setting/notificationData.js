@@ -2,10 +2,18 @@
 import axios from "axios";
 
 const api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL + "notification-settings";
-const token = localStorage.getItem("authToken")
+
+// Helper to safely get the token from localStorage
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken");
+  }
+  return null;
+};
 
 export const getNotificationDetails = async () => {
   try {
+    const token = getToken();
     const res = await axios.get(api_url, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -20,6 +28,7 @@ export const getNotificationDetails = async () => {
 export const updateNotificationDetails = async (item) => {
   console.log(item)
   try {
+    const token = getToken();
     const res = await axios.put(api_url, {
       "id": item.id,
       "type": item.type,
@@ -28,7 +37,7 @@ export const updateNotificationDetails = async (item) => {
       "is_notification": item.is_notification === 1 ? true : false,
       "display_notification": item.display_notification,
       "display_whatsapp": item.display_whatsapp === 1 ? true : false,
-      "subject": item.subject,
+      "subject": item.subject || "",
       "template_id": item.template_id || "",
       "template": item.template || "",
       "variables": item.variables || "",

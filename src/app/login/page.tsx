@@ -40,33 +40,33 @@ export default function Log() {
       setError("Please enter both email and password");
       return;
     }
-    
+
     setError("");
     setLoading(true);
-    
+
     try {
       const data = await loginNow(email, password);
       if (data && data.token) {
         // Store auth token
         localStorage.setItem('authToken', data.token);
-        
+
         // Store user info if available
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
         }
-        
+
         // Force a reload of the app to ensure all auth-dependent components update
         window.location.href = '/admin/dashboard';
         // Store user info if available
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
         }
-        
+
         // Force route change to dashboard
         router.push('/admin/dashboard');
         return;
       }
-      
+
       setError('Invalid credentials or missing token');
     } catch (err: any) {
       let errorMsg = 'An error occurred during login';
@@ -93,18 +93,18 @@ export default function Log() {
       <div className="container sm:px-6">
         <div className="block xl:grid grid-cols-2 gap-4 items-center">
           {/* Login Info */}
-          <div className="hidden xl:flex flex-col justify-center">
+          <div className="hidden xl:flex flex-col justify-center w-3/4">
             <Link href="/" className="-intro-x flex items-center pt-5">
-              <Image alt="Admin Panel" width={24} height={24} src="/dist/images/logo.svg" />
+              {/* <Image alt="Admin Panel" width={24} height={24} src="/dist/images/logo.svg" /> */}
               <span className="text-white text-lg ml-3"> DLT </span>
             </Link>
             <div className="my-10">
-              <Image alt="Admin Panel" width={200} height={200} src="/dist/images/illustration.svg" />
+              <Image alt="DLT School Panel" width={200} height={200} src="/dist/images/illustration.svg" />
               <div className="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-                A few more clicks to <br /> sign in to your account.
+                Just a few steps away <br /> from accessing your dashboard.
               </div>
               <div className="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
-                Manage all your e-commerce accounts in one place
+                Manage students, staff, academics, and everything in one place with DLT School Panel.
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function Log() {
                   <Link href="/forgot-password">Forgot Password?</Link>
                 </div>
                 <div className="intro-x mt-5 text-center">
-                  <button 
+                  <button
                     type="submit"
                     className="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top relative"
                     disabled={loading}

@@ -1,13 +1,13 @@
 "use client"
 import { useState } from 'react';
 import { Search, ChevronLeft, ChevronRight, Tag, FileText, Grid, Calendar, MessageSquare, Edit, Monitor, Trash2, ChevronDown, Database, Download, Copy, Printer, View } from 'lucide-react';
-import ViewStudent from './student-details/view-student/page';
-import AddExam from './student-details/add-exam-subject/page';
-import ExamSubject from './student-details/exam-subject/page';
-import ExamAttendance from './student-details/exam-attendance/page';
-import TeacherRemarks from './student-details/teacher-remarks/page';
-import EditExam from './student-details/edit-exam/page';
-import GenerateRank from './student-details/generate-rank/page';
+import ViewStudent from './student-details/ViewStudent';
+import AddExam from './student-details/AddExamSubject';
+import ExamSubject from './student-details/EnterExamSubject';
+import ExamAttendance from './student-details/ExamAttendance';
+import TeacherRemarks from './student-details/TeacherRemarks';
+import EditExam from './student-details/EditExam';
+import GenerateRank from './student-details/GenerateRank';
 import * as XLSX from 'xlsx';
 
 export default function ExamList() {
@@ -354,7 +354,7 @@ export default function ExamList() {
       </div>
       {showViewStudent && <ViewStudent onClose={()=>setShowViewStudent(false)} />}
       {showAddExam && <AddExam onClose={()=>setShowAddExam(false)} />}
-      { showExam && <ExamSubject onClose={()=>setShowExam(false)} />}
+      {showExam && <ExamSubject onClose={()=>setShowExam(false)} />}
       {showExamAttendance && <ExamAttendance onClose={()=>setShowExamAttendance(false)}/>}
       {showTeacherRemarks &&  <TeacherRemarks onClose={()=>setShowTeacherRemarks(false)} />}
       {showEditExam && <EditExam onClose={()=>setShowEditExam(false)} />}

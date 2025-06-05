@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Table } from "antd";
 import {
   SearchOutlined,
@@ -11,75 +11,181 @@ import {
   CopyOutlined,
   FileExcelOutlined,
 } from "@ant-design/icons";
+import { Inspect, X } from "lucide-react";
 
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { getLeaveRequestData, deleteLeaveRequest, updateStatus, getRecordById, getLeaveCount } from "../LeaveRequestDetails";
+import { toast, ToastContainer } from "react-toastify";
 
 const LeaveManagementTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [leaveData, setLeaveData] = useState([
-    {
-      id: "140",
-      staff: "Jason Sharlton (90006)",
-      role: "Manager",
-      leaveType: "Casual Leave",
-      leaveFrom: "03/25/2025",
-      leaveTo: "03/28/2025",
-      days: 4,
-      applyDate: "03/25/2025",
-      reason: "Family Emergency",
-      note: "Urgent leave required",
-      document: "",
-      status: "Pending",
-      submittedBy: "Jason Sharlton (90006)",
-      staffId: "90006",
-    },
-    {
-      id: "139",
-      staff: "William Abbot (9003)",
-      role: "Senior Engineer",
-      leaveType: "Casual Leave",
-      leaveFrom: "03/21/2025",
-      leaveTo: "03/22/2025",
-      days: 2,
-      applyDate: "03/20/2025",
-      reason: "Personal",
-      note: "",
-      document: "",
-      status: "Approved",
-      submittedBy: "William Abbot (9003)",
-      staffId: "9003",
-    },
-    {
-      id: "138",
-      staff: "Joe Black (9000)",
-      role: "Junior Developer",
-      leaveType: "Medical Leave",
-      leaveFrom: "03/10/2025",
-      leaveTo: "03/15/2025",
-      days: 6,
-      applyDate: "03/10/2025",
-      reason: "Medical Treatment",
-      note: "Doctor recommendation attached",
-      document: "",
-      status: "Approved",
-      submittedBy: "Joe Black (9000)",
-      staffId: "9000",
-    },
-  ]);
-
+  const [leaveData, setLeaveData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedLeave, setSelectedLeave] = useState(null);
+  const [displayGetLeave, setDisplayGetLeave] = useState(false);
+  const [generalLeaveDetails, setGeneralLeaveDetails] = useState([]);
 
-  const handleDelete = (id) => {
-    setLeaveData(leaveData.filter((item) => item.id !== id));
+  // Helper function to format date
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    });
   };
 
-  const handleView = (record) => {
-    setSelectedLeave(record);
+  // Helper function to get role name (you might need to adjust this based on your role mapping)
+  const getRoleName = (staffId, staffRoles) => {
+    const staffRole = staffRoles?.find(role => role.staff_id === staffId);
+    // You might need to map role_id to actual role names
+    // For now, returning a default based on role_id
+    const roleMap = {
+      1: "Admin",
+      7: "Manager"
+    };
+    return roleMap[staffRole?.role_id] || "Employee";
+  };
+
+  useEffect(() => {
+    const fetchLeaveRequestData = async () => {
+      try {
+        setLoading(true);
+        const res = await getLeaveRequestData();
+        console.log(res.data.data);
+
+        if (res.data.status === "success" && res.data.data.leave_requests) {
+          const formattedData = res.data.data.leave_requests.map((request) => ({
+            id: request.id.toString(),
+            staff: `${request.staff.name} ${request.staff.surname || ''} (${request.staff.employee_id})`.trim(),
+            role: getRoleName(request.staff_id, res.data.data.staff_roles),
+            leaveType: request.leave_type.type,
+            leaveFrom: formatDate(request.leave_from),
+            leaveTo: formatDate(request.leave_to),
+            days: request.leave_days,
+            applyDate: formatDate(request.date),
+            reason: request.employee_remark || "",
+            note: request.admin_remark || "",
+            document: request.document_file || "",
+            status: request.status.charAt(0).toUpperCase() + request.status.slice(1),
+            submittedBy: `${request.staff.name} ${request.staff.surname || ''} (${request.staff.employee_id})`.trim(),
+            staffId: request.staff.employee_id,
+            halfLeaveStatus: request.half_leave_status,
+            appliedBy: request.applied_by,
+            // Keep original data for reference
+            originalData: request
+          }));
+
+          setLeaveData(formattedData);
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaveRequestData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const newData = leaveData.filter((item) => item.id === id)[0]
+    const payloadData = {
+      lid: parseInt(newData.id),
+      id: newData.originalData.staff_id
+    }
+    try {
+        const res = await deleteLeaveRequest(payloadData)
+        toast.success("Record Deleted")
+        setLeaveData(leaveData.filter((item) => item.id !== id));
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+        toast.error("Record Cannot be Deleted")
+      }
+  };
+
+  const handleUpdateStatus = async () => {
+    // console.log(selectedLeave);
+    const payloadData = {
+      leave_request_id: parseInt(selectedLeave.id),
+      status: selectedLeave.status.toLowerCase(),
+      detailremark: selectedLeave.note
+    };
+
+    console.log(payloadData)
+    try {
+      const res = await updateStatus(payloadData);
+      console.log(res);
+      toast.success("Record Updated successfully")
+      const getRes = await getLeaveRequestData();
+      if (getRes.data.status === "success" && getRes.data.data.leave_requests) {
+        const formattedData = getRes.data.data.leave_requests.map((request) => ({
+          id: request.id.toString(),
+          staff: `${request.staff.name} ${request.staff.surname || ''} (${request.staff.employee_id})`.trim(),
+          role: getRoleName(request.staff_id, getRes.data.data.staff_roles),
+          leaveType: request.leave_type.type,
+          leaveFrom: formatDate(request.leave_from),
+          leaveTo: formatDate(request.leave_to),
+          days: request.leave_days,
+          applyDate: formatDate(request.date),
+          reason: request.employee_remark || "",
+          note: request.admin_remark || "",
+          document: request.document_file || "",
+          status: request.status.charAt(0).toUpperCase() + request.status.slice(1),
+          submittedBy: `${request.staff.name} ${request.staff.surname || ''} (${request.staff.employee_id})`.trim(),
+          staffId: request.staff.employee_id,
+          halfLeaveStatus: request.half_leave_status,
+          appliedBy: request.applied_by,
+          // Keep original data for reference
+          originalData: request
+        }));
+
+        setLeaveData(formattedData);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Record cannot be upldated")
+    } finally {
+      setIsModalVisible(false)
+    }
+  };
+
+  const handleView = async (record) => {
+    console.log(record.id)
+    try {
+      const res = await getRecordById(record.id);
+      console.log(res.data);
+      console.log(record);
+      setSelectedLeave(record);
+    } catch (err) {
+      console.log(err)
+    }
     setIsModalVisible(true);
   };
+
+  const handleGetLeaveCount = async (record) => {
+    const payloadData = {
+      lid: record.originalData.leave_type_id,
+      id: record.originalData.staff_id
+    }
+    console.log(payloadData);
+    try {
+      const res = await getLeaveCount(payloadData)
+      console.log(res)
+      if (res.status === 200) {
+        setDisplayGetLeave(true);
+        setGeneralLeaveDetails(res.data.options)
+        console.log(res.data.options)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -102,12 +208,29 @@ const LeaveManagementTable = () => {
     { title: "Leave To", dataIndex: "leaveTo", key: "leaveTo" },
     { title: "Days", dataIndex: "days", key: "days" },
     { title: "Apply Date", dataIndex: "applyDate", key: "applyDate" },
-    { title: "Status", dataIndex: "status", key: "status" },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <span className={`px-2 py-1 rounded-full text-xs font-medium ${status === 'Approved' ? 'bg-green-100 text-green-800' :
+          status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+            'bg-red-100 text-red-800'
+          }`}>
+          {status}
+        </span>
+      )
+    },
     {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <button
+            className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+            title="View"
+            onClick={() => handleGetLeaveCount(record)}
+          ><Inspect size={18} /></button>
           <button
             className="p-2 bg-gray-200 rounded hover:bg-gray-300"
             title="View"
@@ -138,16 +261,18 @@ const LeaveManagementTable = () => {
   };
 
   const handleExportExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(leaveData);
+    const exportData = leaveData.map(({ originalData, ...rest }) => rest);
+    const ws = XLSX.utils.json_to_sheet(exportData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Leave Data");
     XLSX.writeFile(wb, "LeaveData.xlsx");
   };
 
   const handleExportCSV = () => {
+    const exportData = leaveData.map(({ originalData, ...rest }) => rest);
     const csvContent = [
-      Object.keys(leaveData[0]).join(","),
-      ...leaveData.map((row) => Object.values(row).join(",")),
+      Object.keys(exportData[0]).join(","),
+      ...exportData.map((row) => Object.values(row).join(",")),
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -277,8 +402,19 @@ const LeaveManagementTable = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="p-4 border-b mt-5 bg-white shadow-md rounded-lg">
+        <div className="flex justify-center items-center h-64">
+          <div className="text-lg">Loading leave data...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 border-b mt-5 bg-white shadow-md rounded-lg">
+      <ToastContainer/>
       <div className=" p-4 ">
         <div className="p-4 flex flex-col md:flex-row justify-between items-center border-b">
           <div className="relative">
@@ -330,22 +466,21 @@ const LeaveManagementTable = () => {
           </div>
         </div>
         <div ref={tableRef}>
-          {" "}
           <Table
             columns={columns}
             dataSource={filteredData}
             rowKey="id"
             pagination={{ pageSize: 5 }}
+            loading={loading}
           />
         </div>
       </div>
 
       {isModalVisible && selectedLeave && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-md w-1/2 relative">
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-opacity-50">
+          <div className="bg-white max-h-[80vh] overflow-y-auto p-6 rounded shadow-md w-full max-w-3/4">
             <h2 className="text-lg font-semibold mb-4">Leave Details</h2>
-
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               <label>
                 Name:{" "}
                 <input
@@ -359,7 +494,7 @@ const LeaveManagementTable = () => {
               <label>
                 Staff ID:{" "}
                 <input
-                  type="number"
+                  type="text"
                   name="staffId"
                   value={selectedLeave.staffId}
                   readOnly
@@ -398,7 +533,7 @@ const LeaveManagementTable = () => {
               <label>
                 Apply Date:{" "}
                 <input
-                  type="date"
+                  type="text"
                   name="applyDate"
                   value={selectedLeave.applyDate}
                   readOnly
@@ -407,31 +542,40 @@ const LeaveManagementTable = () => {
               </label>
               <label>
                 Status:
-                <div>
-                  <input
-                    type="radio"
-                    name="status"
-                    value="Pending"
-                    checked={selectedLeave.status === "Pending"}
-                    onChange={handleChange}
-                  />{" "}
-                  Pending
-                  <input
-                    type="radio"
-                    name="status"
-                    value="Approved"
-                    checked={selectedLeave.status === "Approved"}
-                    onChange={handleChange}
-                  />{" "}
-                  Approved
-                  <input
-                    type="radio"
-                    name="status"
-                    value="Disapproved"
-                    checked={selectedLeave.status === "Disapproved"}
-                    onChange={handleChange}
-                  />{" "}
-                  Disapproved
+                <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1" >
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="Pending"
+                      checked={selectedLeave.status === "Pending"}
+                      onChange={handleChange}
+                      className="ml-3"
+                    />{" "}
+                    Pending
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="Approved"
+                      checked={selectedLeave.status === "Approved"}
+                      onChange={handleChange}
+                      className="ml-3"
+                    />{" "}
+                    Approved
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="status"
+                      value="Disapproved"
+                      checked={selectedLeave.status === "Disapproved"}
+                      onChange={handleChange}
+                      className="ml-3"
+                    />{" "}
+                    Disapproved
+                  </label>
                 </div>
               </label>
               <label>
@@ -466,6 +610,7 @@ const LeaveManagementTable = () => {
               <button
                 style={{ backgroundColor: "#164f63" }}
                 className="px-4 py-2  text-white rounded"
+                onClick={handleUpdateStatus}
               >
                 Save
               </button>
@@ -473,6 +618,35 @@ const LeaveManagementTable = () => {
           </div>
         </div>
       )}
+
+      {displayGetLeave &&
+        generalLeaveDetails.map((leave, index) => (
+          <div
+            key={index}
+            className="fixed top-30 w-3/4 p-4 border border-gray-200 rounded-lg mb-4 shadow bg-gray-50 hover:shadow-md transition"
+          >
+            <div className="flex justify-between" >
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-base font-semibold text-gray-800">
+                  {leave.text.slice(0, leave.text.length - 4)}
+                </h3>
+                <span className={`text-xs px-2 py-0.5 rounded-full ${leave.selected ? 'bg-green-100 text-green-600' : 'bg-gray-200 text-gray-600'}`}>
+                  {leave.selected ? 'Selected' : 'Not Selected'}
+                </span>
+              </div>
+              <div>
+                <X size={18} onClick={() => setDisplayGetLeave(false)} />
+              </div>
+            </div>
+
+            <div className="text-sm text-gray-700 space-y-1">
+              <div><strong>Days:</strong> {leave.text.slice(leave.text.length - 4).replace(/[^\d]/g, "")}</div>
+              <div><strong>Value:</strong> {leave.value}</div>
+              <div className="text-gray-500 italic">Regular leave assigned for eligible employees.</div>
+            </div>
+          </div>
+        ))
+      }
     </div>
   );
 };

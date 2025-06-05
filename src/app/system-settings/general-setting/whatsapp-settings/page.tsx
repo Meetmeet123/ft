@@ -11,6 +11,8 @@ const GeneralSettings = () => {
 
     // Set the active link based on the current pathname
     useEffect(() => {
+        if(!pathname) return;
+        
         const path = pathname.toLowerCase();
         if (path.includes("whatsapp-settings")) {
             setActiveLink("whatsapp-settings");

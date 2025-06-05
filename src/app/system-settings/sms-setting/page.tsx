@@ -1,11 +1,16 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import DisplayComponent from './TwilioSmsGateway';
+import DisplayComponent from './DisplaySms';
 import { getSmsDetails } from './SmsDetails';
 import NewPaymentMethod from './NewPaymentMethod';
+import { toast, ToastContainer } from 'react-toastify';
 
 type SmsTab = {
   name: string;
+  api_id: string;
+  authkey: string;
+  username: string;
+  contact: string;
   // Add other properties expected from each SMS entry
 };
 
@@ -57,6 +62,7 @@ export default function SmsSettingsPage() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
+      <ToastContainer/>
       <div className="bg-white shadow rounded p-4 relative">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold mb-4">SMS Setting</h2>
@@ -102,7 +108,7 @@ export default function SmsSettingsPage() {
 
       {/* Add New Method Modal */}
       {addNewMethod && (
-        <NewPaymentMethod onClose={() => setAddNewMethod(false)} />
+        <NewPaymentMethod onClose={() => setAddNewMethod(false)} toast={toast} />
       )}
     </div>
   );

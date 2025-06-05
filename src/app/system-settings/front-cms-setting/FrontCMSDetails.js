@@ -1,10 +1,18 @@
 import axios from "axios";
 
 const api_url = process.env.NEXT_PUBLIC_SYSTEM_SETTING_URL+"front-cms-settings";
-const token = localStorage.getItem("authToken");
+
+// Helper to safely get the token from localStorage
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken");
+  }
+  return null;
+};
 
 export const getFrontCMSSettingDetails = async () => {
   try {
+    const token = getToken();
     const res = await axios.get(api_url,
       {
           headers: {
@@ -21,6 +29,7 @@ export const getFrontCMSSettingDetails = async () => {
 export const postFrontCMS = async(data) => {
   console.log("Data to be sent:", data);
   try{
+    const token = getToken();
     const res = await axios.post(api_url,
       data,
       {
@@ -33,6 +42,6 @@ export const postFrontCMS = async(data) => {
     )
     return res
   }catch(err){
-    return err
+    throw err
   }
 }

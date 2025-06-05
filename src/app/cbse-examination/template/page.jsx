@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Plus, Search, Menu, Database, Download, Copy, Printer, ClipboardList } from 'lucide-react';
-import ReportCard from './report-card/page';
-import LinkExam from './link-exam/page';
-import GenerateRank from './generate-rank/page';
+import ReportCard from './template-details/ReportCard';
+import LinkExam from './template-details/LinkExam';
+import GenerateRank from './template-details/GenerateRank';
 import * as XLSX from 'xlsx'
 
 export default function TemplateList() {

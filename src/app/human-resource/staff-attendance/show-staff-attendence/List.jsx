@@ -1,70 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
+import { getStaffAttendance } from "../StaffAttendance";
 
 const AttendanceForm = () => {
-  const [attendanceData, setAttendanceData] = useState([
-    {
-      id: 1,
-      staffId: "9001",
-      name: "John Doe",
-      role: "Admin",
-      status: "Present",
-      date: "2025-03-31",
-      source: "Manual",
-      entryTime: "09:00 AM",
-      exitTime: "05:00 PM",
-      note: "",
-    },
-    {
-      id: 2,
-      staffId: "9002",
-      name: "Jane Smith",
-      role: "Teacher",
-      status: "Late",
-      date: "2025-03-31",
-      source: "Manual",
-      entryTime: "09:30 AM",
-      exitTime: "05:00 PM",
-      note: "Traffic delay",
-    },
-    {
-      id: 3,
-      staffId: "9003",
-      name: "William Abbot",
-      role: "Admin",
-      status: "Absent",
-      date: "2025-03-31",
-      source: "Manual",
-      entryTime: "",
-      exitTime: "",
-      note: "Sick leave",
-    },
-    {
-      id: 4,
-      staffId: "9004",
-      name: "Emily Johnson",
-      role: "Staff",
-      status: "Half Day",
-      date: "2025-03-31",
-      source: "Manual",
-      entryTime: "09:00 AM",
-      exitTime: "01:00 PM",
-      note: "Personal work",
-    },
-    {
-      id: 5,
-      staffId: "9005",
-      name: "Michael Brown",
-      role: "Teacher",
-      status: "Holiday",
-      date: "2025-03-31",
-      source: "Manual",
-      entryTime: "",
-      exitTime: "",
-      note: "Public holiday",
-    },
-  ]);
+  const [attendanceData, setAttendanceData] = useState([]);
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const res = await getStaffAttendance();
+        console.log(res.data);
+        
+        // Transform the backend data to match the expected format
+        if (res.data && res.data.classlist) {
+          const transformedData = res.data.classlist.map((staff, index) => ({
+            id: staff.id,
+            staffId: staff.id.toString(), // Using id as staffId
+            name: staff.name,
+            role: staff.name, // Using name as role since that's what the backend provides
+            status: "Present", // Default status
+            date: new Date().toISOString().split('T')[0], // Current date
+            source: "Manual",
+            entryTime: "",
+            exitTime: "",
+            note: "",
+          }));
+          setAttendanceData(transformedData);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAttendanceData();
+  }, []);
 
   const handleAttendanceChange = (id, key, value) => {
     setAttendanceData((prevData) =>
@@ -72,6 +41,18 @@ const AttendanceForm = () => {
         item.id === id ? { ...item, [key]: value } : item
       )
     );
+  };
+
+  const handleSetAllAttendance = (status) => {
+    setAttendanceData((prevData) =>
+      prevData.map((item) => ({ ...item, status }))
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Attendance data to save:", attendanceData);
+    // Add your save logic here
   };
 
   const columns = [
@@ -150,7 +131,7 @@ const AttendanceForm = () => {
   ];
 
   return (
-    <form className="bg-white p-6 mt-5 shadow-md rounded-md">
+    <form className="bg-white p-6 mt-5 shadow-md rounded-md overflow-x-auto" onSubmit={handleSubmit}>
       <h3 className="text-lg font-semibold mb-4">Staff Attendance</h3>
       <div className="mb-4 p-4 bg-gray-100 rounded">
         <label className="font-medium">Set attendance for all Staff as: </label>
@@ -168,28 +149,29 @@ const AttendanceForm = () => {
                 type="radio"
                 name="attendencetype"
                 value={option}
-                onClick={() => console.log(`Setting all to ${option}`)}
+                onChange={() => handleSetAllAttendance(option)}
               />
               {option}
             </label>
           ))}
         </div>
       </div>
-      <div className="flex justify-end mt-4">
-        <button
-          type="submit"
-          style={{ backgroundColor: "#164f63" }}
-          className=" text-white px-4 py-2 rounded hover:bg-teal-700"
-        >
-          Save Attendance
-        </button>
-      </div>
       <Table
         dataSource={attendanceData}
         columns={columns}
         rowKey="id"
         pagination={false}
+        scroll={{ x: 1200 }}
       />
+      <div className="flex justify-end mt-4">
+        <button
+          type="submit"
+          style={{ backgroundColor: "#164f63" }}
+          className="text-white px-4 py-2 rounded hover:bg-teal-700"
+        >
+          Save Attendance
+        </button>
+      </div>
     </form>
   );
 };

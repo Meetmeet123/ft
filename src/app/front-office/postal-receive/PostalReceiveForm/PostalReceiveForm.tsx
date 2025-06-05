@@ -67,40 +67,40 @@ const PostalDispatchForm: React.FC<PostalDispatchFormProps> = ({
       formDataToSend.append('image', formData.document);
     }
 
-    try {
-      if (dispatchToEdit?.id) {
-        // Update existing dispatch
-        await fetch(`${API_URL}/${dispatchToEdit.id}`, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Dispatch updated successfully");
-      } else {
-        // Create new dispatch
-        await fetch(API_URL, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        message.success("Dispatch created successfully");
-      }
+    // try {
+    //   if (dispatchToEdit?.id) {
+    //     // Update existing dispatch
+    //     await fetch(`${API_URL}/${dispatchToEdit.id}`, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Dispatch updated successfully");
+    //   } else {
+    //     // Create new dispatch
+    //     await fetch(API_URL, {
+    //       method: 'POST',
+    //       body: formDataToSend,
+    //     });
+    //     message.success("Dispatch created successfully");
+    //   }
 
-      setFormData({
-        to_title: "",
-        reference_no: "",
-        address: "",
-        note: "",
-        from_title: "",
-        date: new Date().toISOString().split('T')[0],
-        document: null,
-      });
+    //   setFormData({
+    //     to_title: "",
+    //     reference_no: "",
+    //     address: "",
+    //     note: "",
+    //     from_title: "",
+    //     date: new Date().toISOString().split('T')[0],
+    //     document: null,
+    //   });
       
-      if (onSuccess) onSuccess();
-    } catch (error) {
-      console.error(error);
-      message.error("Operation failed");
-    } finally {
-      setLoading(false);
-    }
+    //   if (onSuccess) onSuccess();
+    // } catch (error) {
+    //   console.error(error);
+    //   message.error("Operation failed");
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

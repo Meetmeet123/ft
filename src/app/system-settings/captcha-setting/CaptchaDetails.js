@@ -34,7 +34,7 @@ export const updateCaptcha = async(item) => {
         }
       }
     ); 
-    return res.data;
+    return res;
   } catch (err) {
     console.error(err);
     return err;

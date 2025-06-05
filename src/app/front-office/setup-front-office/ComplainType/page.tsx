@@ -20,18 +20,18 @@ const SetupFrontOffice = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [editData, setEditData] = useState<ComplainType | null>(null);
 
-  useEffect(() => {
-    const path = pathname.toLowerCase();
-    if (path.includes("purpose")) {
-      setActiveLink("purpose");
-    } else if (path.includes("complain-type")) {
-      setActiveLink("complain-type");
-    } else if (path.includes("reference")) {
-      setActiveLink("reference");
-    } else if (path.includes("source")) {
-      setActiveLink("source");
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   const path = pathname.toLowerCase();
+  //   if (path.includes("purpose")) {
+  //     setActiveLink("purpose");
+  //   } else if (path.includes("complain-type")) {
+  //     setActiveLink("complain-type");
+  //   } else if (path.includes("reference")) {
+  //     setActiveLink("reference");
+  //   } else if (path.includes("source")) {
+  //     setActiveLink("source");
+  //   }
+  // }, [pathname]);
 
   const ComplainTypeContent = () => {
     const handleRefresh = () => {
@@ -53,7 +53,7 @@ const SetupFrontOffice = () => {
             </div>
             <div className="p-5">
               <ComplainTypeForm 
-                editData={editData} 
+                editData={editData ?? undefined} 
                 refreshList={handleRefresh} 
               />
             </div>
